@@ -1,33 +1,40 @@
 # Bitcoin
 
-
-
 ## Summary
 
 The largest and first cryptocurrency.  
 
 Bitcoin is simply a trusted public ledger ([what is a public ledger](about/PublicLedger.md)).  
     
-Miners secure the ledger from malicious activity such as double spending (i.e. I use my BTC to buy something from both Bob and Joe, but only one of them can actually get paid.)  They do this with a [Proof of Work algorithm](about/ProofOfWork.md).
-
+Miners secure the ledger from malicious activity such as double spending (e.g. I use my BTC to buy something from both Bob and Joe, but only one of them can actually get paid.)  They do this with a [Proof of Work algorithm](about/ProofOfWork.md).
 
 ### Tech
 
  - [Whitepaper](https://bitcoin.org/en/bitcoin-paper)
+ - POW algorithm: SHA-256 
+ - Block size: 1MB, [Segwit](about/Segwit.md) is optional
+ - Difficulty: target 10 mins per block, recalcs every 2016 blocks
+ - Minting: 12.5 per block to the miner (which cuts in half every 210,000 blocks and reaches 0 in 2140)
+ - Transaction fees: rate defined by supply and demand and goes to the miner.
 
 ### Market
 
- - Buzz! "It's the Money of the Future"
+ - Filled with Crazy Buzz! 
+    - "It's the Money of the Future"
+    - Government currencies are going to collapse
+    - Freedom!
  - Highly volatile
- - Futures
+    - +/- 20% in a day is faily common
+ - Futures ([what are futures?](about/Futures.md))
+    - Launched Dec 2017, Bitcoin is the first and only with futures (others are already in the works) 
 
 ### Pros
 
  - Name Brand
  - Secure
    - Transactions are not reversable
- - Decentralized
-   - 
+ - Decentralized 
+ - Worldwide
 
 ### Cons
 
@@ -39,6 +46,10 @@ Miners secure the ledger from malicious activity such as double spending (i.e. I
    - [Read more on bitcoin.org's Myths FAQ](https://en.bitcoin.it/wiki/Myths#After_21_million_coins_are_mined.2C_no_one_will_generate_new_blocks)
 
  - Illegal in some countries (https://en.wikipedia.org/wiki/Legality_of_bitcoin_by_country_or_territory)
+ - Miner centralization
+ - Driving consensus
+ - Cost for mining
+ - At capacity
 
 ### ??
 
