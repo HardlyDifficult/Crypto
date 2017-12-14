@@ -4,40 +4,48 @@
 
 The largest and first cryptocurrency.  
 
-Bitcoin is simply a trusted public ledger ([what is a public ledger](about/PublicLedger.md)) secured by miners using [Proof of Work algorithm](about/ProofOfWork.md).
+Bitcoin is a trusted [public ledger](about/PublicLedger.md) hosted by [nodes](about/Nodes.md) and secured by [miners](about/Miners.md) using a [Proof of Work algorithm](about/ProofOfWork.md).
 
 ### Tech
 
  - [Whitepaper](https://bitcoin.org/en/bitcoin-paper)
  - POW algorithm: SHA-256 
    - Mined with ASICs.
- - Block size: 1MB, [Segwit](about/Segwit.md) is optional
- - Difficulty: target 10 mins per block
-   - Recalcs every 2016 blocks (every 2 weeks)
  - ~4 TPS 
- - Minting: 12.5 per block to the miner
+   - Block size: 1MB
+     - [Segwit](about/Segwit.md) is optional
+   - Difficulty: target 10 mins per block
+     - Recalcs every 2016 blocks (every 2 weeks)
+ - Minting: 12.5 BTC per block to the miner
    - The amount minted cuts in half every 210,000 blocks and reaches 0 in 2140.
+   - TODO next drop date?
  - Transaction fees
    - Rate defined by supply and demand.
    - 100% to the miner.
+
+### In General 
+
+See [about CryptoCurrency](about/CryptoCurrency.md).  
+
+The comments below are specific to Bitcoin and exclude general pros/cons of crypto.
 
 ### Market
 
  - Filled with Crazy Buzz! 
     - "It's the Money of the Future"
-    - Government currencies are going to collapse
-    - Freedom!
  - Highly volatile
     - +/- 20% in a day is fairly common
  - Futures ([what are futures?](about/Futures.md))
     - Launched Dec 2017, Bitcoin is the first and only with futures (others are already in the works).
 
+## Why Operate a Node?
+
+TODO
+
 ### Use Cases
 
- - Stored value.
-   - "Digital Gold" - Bitcoin has value because people think it's going to grow in value.
- - Bypass government
-   - Country-to-country and transactions for any good or service cannot be stopped by any entity.
+ - Trading Alt Coins
+   - Bitcoin is the currency of choice for trading any other cryptocurrency.
  - Large transactions
    - I say "large" because the fees are too much and the speed is too slow for anything but.
    - Cheaper and faster than many wiring options.
@@ -47,8 +55,6 @@ Bitcoin is simply a trusted public ledger ([what is a public ledger](about/Publi
  - Name Brand of Crypto
  - Secure
    - The arrival of Quantum computers seems to be the only viable attack today.
- - Predictable/predetermined minting rate
-   - Other currencies, such as the USD, have no restrictions on the amount created each year (and often do not even need to disclose the amount added).  This could lead to inflation.
 
 ### Cons
 
@@ -63,13 +69,15 @@ Bitcoin is simply a trusted public ledger ([what is a public ledger](about/Publi
     - There is no official schedule to address this concern.
  - Inability to adapt
    - Bitcoin has no official leaders and no process for adopting new technology or addressing concerns such as scaling.
-   - Historically, Bitcoin has not been able to reach consensus on protocol changes.
-   - The inability to reach consesus was where Bitcoin Cash was born (and why Bitcoin Gold, Bitcoin Platum, etc are coming).  These forks only create confusion in the marketplace.
+   - Historically, Bitcoin has not been able to reach consensus on protocol changes quickly.
+   - The inability to reach consesus was where Bitcoin Cash and Gold wer born (and why Segwit2x happened and Bitcoin Platum, etc are coming).  These forks only create confusion in the marketplace.
  - Illegal in some countries (https://en.wikipedia.org/wiki/Legality_of_bitcoin_by_country_or_territory)
  - High operating costs
    - Today the new coins minted (12.5 BTC) pay miners about $200,000 per block (every 10 mins)
+     - That's almost $30 million per day.
    - Blocks hold about 2k transaction per block: averaging $100 per transaction
- - Very long-term, it's on course to crash to 0 (around 2140, unless a hard fork is used to address this concern). 
+   - The numbers above are without the transaction fees, currently averaging (TODO).
+ - Very long-term, it's on course to crash to 0 (early 2100s, unless a fork is used to address this concern). 
    - Why: Competition amoung miners is what keeps the network secure.  Miners are compensated for this work by minting new coins with each block.  The number of coins minted decreases periodically.
    - [Read more on bitcoin.org's Myths FAQ](https://en.bitcoin.it/wiki/Myths#After_21_million_coins_are_mined.2C_no_one_will_generate_new_blocks)
  - Miner centralization
@@ -77,8 +85,6 @@ Bitcoin is simply a trusted public ledger ([what is a public ledger](about/Publi
 
 ### Other Points
 
- - Enables illegal trading
-   - But, one could argue it does not enable this any more than cash does.  
  - 51% attack is not viable for Bitcoin
    - The amount of resources being spent on Bitcoin is too big for any entity to take on.  That is not true for other cryptocurrencies.
  - Node Sustainability
@@ -89,3 +95,9 @@ Bitcoin is simply a trusted public ledger ([what is a public ledger](about/Publi
 ## Resources 
 
   - https://lopp.net/bitcoin.html
+
+## Failures
+
+ - Mt Gox TODO
+ - $60 million stolen from NiceHash
+   - Funds are currently being watched by the community with hopes of preventing the attackers from being able to cash out.

@@ -8,9 +8,8 @@ Capabilities:
 
  - Send money to x
  - Reserve money
- - Store information
- - Retrieve information
- - Process data stored in the network (e.g. gene mixing for cryptokitties)
+ - Store/Retrieve/Process information
+   - e.g. gene mixing for cryptokitties
  - Burn money
 
 ## Use Cases

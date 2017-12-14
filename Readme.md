@@ -9,12 +9,17 @@ Mainstream:
 
 Alt coins:
 
+ - Dash
+ - [IOTA](IOTA.md)
+ - Steem TODO
+ - [Tether](Tether.md)
+ - [BitConnect](BitConnect.md)
+ - [NEO](NEO.md)
  - [PIVx](PIVx.md)
- - [Spankchain](Spankchain.md)
 
 Upcoming ICOs
 
- - https://www.theabyss.com/
+ - [The Abyss](TheAbyss.md)
 
 General Recommendations
 
@@ -22,9 +27,7 @@ General Recommendations
    - Coinbase is one of the largest exchanges and is based in California.  You can buy there and then transfer to an offline wallet or another exchange (which allows you to trade alt coins).
    - Not all countries are supported though...
  - Do not use Paypal ([Source](https://themerkle.com/paypal-continues-crackdown-on-crypto-sellers-permanently-limits-accounts/)).
- - There are thousands of coins and ICOs.  Many are completely worthless, some are outright scams, and most will crash to 0.
-   - When looking at an ICO or new coin, first question to ask is could this have been achieved without creating a new coin - either reusing an existing currency or following classic business approaches? 
-
+ - There are thousands of coins and ICOs.  Many are completely worthless, some are outright scams, and most will crash to 0.  Be skeptical.
 
 
 I am not a financial adviser.  This wiki includes my thoughts and non-expert opinions.  
