@@ -4,19 +4,19 @@
 
 The largest and first cryptocurrency.  
 
-Bitcoin is a trusted [public ledger](about/PublicLedger.md) hosted by [nodes](about/Nodes.md) and secured by [miners](about/Miners.md) using a [Proof of Work algorithm](about/ProofOfWork.md).
+Bitcoin is a trusted [public ledger](about/PublicLedger.md) hosted by [nodes](about/Nodes.md) and secured by [miners](about/Miners.md) using a [Proof of Work](about/ProofOfWork.md) algorithm.
 
 ### Tech
 
  - [Whitepaper](https://bitcoin.org/en/bitcoin-paper)
- - POW algorithm: SHA-256 
-   - Mined with ASICs.
  - ~4 TPS 
    - Block size: 1MB
      - [Segwit](about/Segwit.md) is optional
    - Difficulty: target 10 mins per block
      - Recalcs every 2016 blocks (every 2 weeks)
  - Minting: 12.5 BTC per block to the miner
+   - POW algorithm: SHA-256 
+     - Mined with ASICs.
    - The amount minted cuts in half every 210,000 blocks and reaches 0 in 2140.
    - TODO next drop date?
  - Transaction fees

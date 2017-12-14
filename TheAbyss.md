@@ -38,7 +38,7 @@ From the whitepaper: a Whale spends $200,000 on Game B, here's where that money 
 
 ## Is The Abyss a Scam?
 
-Maybe.  There seems to be more focus on the multilevel referrals and suggesting everyone involved is going to get rich than details about the tech.  It reads like a pyramid-scheme.
+I don't think so, but there seems to be more focus on the multilevel referrals and suggesting everyone involved is going to get rich than details about the tech.  It reads like a pyramid-scheme.
 
 ## Is This Project a Good Idea?
 
