@@ -22,6 +22,7 @@ Bitcoin is a trusted [public ledger](about/PublicLedger.md) hosted by [nodes](ab
  - Transaction fees
    - Rate defined by supply and demand.
    - 100% to the miner.
+ - Launched January 2009
 
 ### In General 
 

@@ -19,11 +19,14 @@ There primary service is 'Bitcoin Lending':
    - Difficulty: target 2 mins per block
      - Recalcs every block
  - Minting:
-   - POS Minting: Currently 7% returnper month
-      - Reduces every 6 months to a min of 1.4%/mo in Dec 2019
+   - POS Minting: Currently 7% return per month
+      - Reduces every 6 months to a min of 1.4% per month in Dec 2019
    - POW Minting: 10 BCC per block to the miner
      - It appears POW minting recently stopped.  New blocks are 100% POS.
-     - Scrypt
+     - POW algorithm: Scrypt
+        - Mined with ASICs and GPUs
+ - Transaction fees:
+   - 0.25% (subject to change)
  - Launched Dec 2016
 
 
