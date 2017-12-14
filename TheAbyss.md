@@ -38,8 +38,7 @@ From the whitepaper: a Whale spends $200,000 on Game B, here's where that money 
 
 ## Is The Abyss a Scam?
 
-Maybe.  There seems to be more focus on the multilevel referrals and suggesting everyone involved is going to get rich than details about the tech.
-
+Maybe.  There seems to be more focus on the multilevel referrals and suggesting everyone involved is going to get rich than details about the tech.  It reads like a pyramid-scheme.
 
 ## Is This Project a Good Idea?
 
@@ -51,3 +50,12 @@ If Steam wanted to launch the same referral program they could.  Why use blockch
 
 
 https://www.theabyss.com/
+
+
+
+
+
+
+<br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here, do your own research and seek professional advice first.
+
+Have a correction or something to add?  Join us daily at [twitch.tv/HardlyDifficult](http://twitch.tv/HardlyDifficult).

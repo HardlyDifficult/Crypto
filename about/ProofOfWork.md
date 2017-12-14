@@ -42,4 +42,14 @@ The chain with the most work put into it is the only chain accepted by the netwo
 
 #### Quantum computing
 
-Most Proof of Work algorthims (including Bitcoins) would theoretically be broken overnight by quantum computers. Quantum computers could generate signatures so quickly that a 51% attack becomes very feasible.  
+Most Proof of Work algorithms (including Bitcoins) would theoretically be broken overnight by quantum computers. Quantum computers could generate signatures so quickly that a 51% attack becomes very feasible.  
+
+
+
+
+
+
+
+<br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here, do your own research and seek professional advice first.
+
+Have a correction or something to add?  Join us daily at [twitch.tv/HardlyDifficult](http://twitch.tv/HardlyDifficult).

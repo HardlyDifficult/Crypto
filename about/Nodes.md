@@ -15,3 +15,12 @@ A node is a computer which downloads every block and pending transactions to be 
 ## Who Can Operate a Node?
 
 Anyone.  For most coins, just double click the app and then you're a node.
+
+
+
+
+
+
+<br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here, do your own research and seek professional advice first.
+
+Have a correction or something to add?  Join us daily at [twitch.tv/HardlyDifficult](http://twitch.tv/HardlyDifficult).

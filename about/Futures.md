@@ -16,3 +16,12 @@ It brings a lot of 'Industry money' to the table.  However to be clear, this is 
  - Bitcoin futures in additional markets
  - Other currency support coming
     --- TODO Which coins?
+
+
+
+
+
+
+<br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here, do your own research and seek professional advice first.
+
+Have a correction or something to add?  Join us daily at [twitch.tv/HardlyDifficult](http://twitch.tv/HardlyDifficult).

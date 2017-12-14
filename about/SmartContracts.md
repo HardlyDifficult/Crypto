@@ -35,3 +35,13 @@ Capabilities:
  - Limited use cases due to the walled garden.
  - A bad contract could have unforeseen impact on others.
     - e.g. Cryptokitties delays the entire network at launch, causing issues for other uses of Ethereum for weeks.
+
+
+
+
+
+
+
+<br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here, do your own research and seek professional advice first.
+
+Have a correction or something to add?  Join us daily at [twitch.tv/HardlyDifficult](http://twitch.tv/HardlyDifficult).
