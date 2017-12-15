@@ -10,13 +10,13 @@ The Abyss is an upcoming ICO which aims to become the 'in-app purchase' payment 
  - Ethereum [ERC-20 tokens](about/ERC-20.md)
  - 70% rev share with game developers
    - % is after payment processor fees and taxes
- - Multilevel referral program
+ - Multi-level referral program
 
 ## Use Case
 
 The focus of this project is on the referral program.  
 
-From the whitepaper: a Whale spends $200,000 on Game B, here's where that money goes:
+From the whitepaper: a Whale spends $200,000 on Game B. Here's where that money goes:
 
  - Game A gets $4,000 for referring Ron
  - Ron gets $4,000 for referring Hermione
@@ -38,17 +38,17 @@ From the whitepaper: a Whale spends $200,000 on Game B, here's where that money 
 
 ## Is The Abyss a Scam?
 
-I don't think so, but there seems to be more focus on the multilevel referrals and suggesting everyone involved is going to get rich than details about the tech.  
+I don't think so, but there seems to be more focus on the multi-level referrals and suggesting everyone involved is going to get rich than details about the tech.  
 
-It reads like a pyramid-scheme.
+It reads like a pyramid scheme.
 
 ## Is This Project a Good Idea?
 
 No, I don't think so.  
 
-Using Ethereum tokens just complicates things for players.  I believe the dream is the overhead to take tokens out will encourage players to just spend those tokens on another game.
+Using Ethereum tokens just complicates things for players.  I believe the dream is that the overhead to take tokens out will encourage players to just spend those tokens on another game.
 
-If Steam wanted to launch the same referral program they could.  Why use blockchain for this?
+If Steam wanted to launch the same referral program, they could.  Why use blockchain for this?
 
 
 https://www.theabyss.com/
