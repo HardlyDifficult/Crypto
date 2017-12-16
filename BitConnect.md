@@ -52,10 +52,10 @@ Red flags:
  - 
 
 
+# Questions
 
-## Questions
+ - What is the benefit of having a BCC coin?  It seems their primary service, lending, could be offered without that step.
 
- - With their POS, who is actually creating the blocks?  It says it pays the same even if your machine is not online... so it's completely centralized, right?
 
 
 <br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here; do your own research and seek professional advice first.

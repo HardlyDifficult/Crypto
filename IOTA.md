@@ -2,6 +2,10 @@
 
 IOTA is a Proof of Stake.  A simple Proof of Work is required on all transactions to prevent spamming the network.
 
+## Tech
+
+ - [Whitepaper](https://iota.org/IOTA_Whitepaper.pdf)
+
 ## Market
 
  - Fake News about a partnership with Microsoft helped to boost the price.

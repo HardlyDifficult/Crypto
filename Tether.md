@@ -4,6 +4,11 @@
 
 Tether TODO
 
+## Tech
+
+ - [Whitepaper](https://tether.to/wp-content/uploads/2016/06/TetherWhitePaper.pdf)
+ -
+
 ## Pros
 
 - The goal of Tether is to allow for stored value without risking price volatility.
@@ -17,7 +22,7 @@ Tether TODO
 
 ## Is Tether a Scam?
 
-Yes.  I expect there will be a sudden crash to 0.
+Seems like it. I expect there will be a sudden crash to 0.
 
 ## Failures
 
