@@ -16,8 +16,17 @@ A node is a computer which downloads every block and pending transactions to be 
 
 Anyone.  For most coins, just double click the app and then you're a node.
 
+## Why Operate a Node?
 
+Typically there is no reward for operating a node.  Many coins have their default wallet software act as a full node to encourage more node operators.
 
+## Pros
+
+ - Free hosting
+
+ ## Cons
+
+  - If people stop running nodes, the network will fail.
 
 
 

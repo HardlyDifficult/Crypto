@@ -26,7 +26,7 @@ Bitcoin is a trusted [public ledger](about/PublicLedger.md) hosted by [nodes](ab
 
 ### In General 
 
-See [about CryptoCurrency](about/CryptoCurrency.md).  
+See [about CryptoCurrency](about/CryptoCurrency.md) and [about Proof of Work](about/ProofOfWork.md).  
 
 The comments below are specific to Bitcoin and exclude general pros/cons of crypto.
 
@@ -39,9 +39,7 @@ The comments below are specific to Bitcoin and exclude general pros/cons of cryp
  - Futures ([what are futures?](about/Futures.md))
     - Launched Dec 2017, Bitcoin is the first and only with futures (others are already in the works).
 
-## Why Operate a Node?
 
-TODO
 
 ### Use Cases
 
@@ -59,12 +57,6 @@ TODO
 
 ### Cons
 
- - Ridiculous amounts of energy consumed
-   - Estimated to be about 215 kilowatt-hours (KWh) per transaction. For perspective:
-     - My apartment uses 600 KWh per month.
-     - The network is currently totaling as much energy as Denmark consumes. 
-   - The public, with concerns about the environment, should boycott/protest Bitcoin.
-     - This concern is being discussed more and more.
  - At capacity
     - Every block is full.  At the moment, Bitcoin cannot support any more transaction volume than it sees today.
     - There is no official schedule to address this concern.

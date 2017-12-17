@@ -15,6 +15,12 @@ Miners are responsible for protecting against  malicious activity such as double
 
 ### Cons
 
+ - Ridiculous amounts of energy consumed
+   - Estimated to be about 215 kilowatt-hours (KWh) per transaction. For perspective:
+     - My apartment uses 600 KWh per month.
+     - The network is currently totaling as much energy as Denmark consumes. 
+   - The public, with concerns about the environment, should boycott/protest Bitcoin.
+     - This concern is being discussed more and more.
  - Wasteful
     - This method is only effective if the amount of resources spent mining is significantly more than the resources available to an attacker.
  - Centralization

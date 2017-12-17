@@ -9,7 +9,8 @@ Mainstream:
 
 Alt coins:
 
- - Dash
+ - [Monero](Monero.md)
+ - [Dash](Dash.md)
  - [IOTA](IOTA.md)
  - Steem TOD
  - [Tether](Tether.md)
