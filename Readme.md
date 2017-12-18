@@ -10,10 +10,10 @@ Open Platforms:
  - [Cardano](Cardano.md) (TODO)
  - [IOTA](IOTA.md) (TODO)
  - [Dash](Dash.md)
- - [Monero](Monero.md) (TODO)
- - [NEO](NEO.md)
- - [Dogecoin](Dogecoin.md)
- - [PIVx](PIVx.md)
+ - [Monero](Monero.md) (TODO - )
+ - [NEO](NEO.md) (TODO)
+ - [Dogecoin](Dogecoin.md) (TODO - )
+ - [PIVx](PIVx.md) (TODO - )
 
 Private Businesses:
 
