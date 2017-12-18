@@ -14,8 +14,8 @@
  - PIVx 
    - Bought for 0.00028687 BTC/PIVx on 12/12 
    - Sold for 0.00042419 BTC/PIVx on 12/16 
-   - 48% gain or 12% / day
-        - vs Bitcoins 9% in the same timeframe
+   - 48% gain in BTC or 12% / day
+        - plus Bitcoin's 9% in the same timeframe
  - Things and stuff (we'll capture new trades, I'm not going back in time..)
 
 
