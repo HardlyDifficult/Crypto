@@ -1,26 +1,28 @@
 
 Listed approx. in order of market cap, see [CoinMarketCap](https://coinmarketcap.com/) for the latest.
 
-Mainstream:
+Open Platforms:
 
  - [Bitcoin](Bitcoin.md)
  - [Ethereum](Ethereum.md)
+ - [Bitcoin Cash](BitcoinCash.md)
  - [Litecoin](Litecoin.md)
-
-Alt coins:
-
- - [Monero](Monero.md)
+ - [Cardano](Cardano.md) (TODO)
+ - [IOTA](IOTA.md) (TODO)
  - [Dash](Dash.md)
- - [IOTA](IOTA.md)
- - Steem TOD
- - [Tether](Tether.md)
- - [BitConnect](BitConnect.md)
+ - [Monero](Monero.md) (TODO)
  - [NEO](NEO.md)
+ - [Dogecoin](Dogecoin.md)
  - [PIVx](PIVx.md)
 
-Upcoming ICOs
+Private Businesses:
 
- - [The Abyss](TheAbyss.md)
+ - [Ripple](Ripple.md) (TODO)
+ - [BitConnect](BitConnect.md)
+ - [Tether](Tether.md) (TODO)
+ - Steem (TODO)
+ - [The Abyss](TheAbyss.md) (upcomming ICO)
+
 
 General Recommendations
 
@@ -33,6 +35,7 @@ General Recommendations
  - There are thousands of coins and ICOs.  Many are completely worthless, some are outright scams, and most will crash to 0.  Be skeptical.
 
 
+[My Portfolio](HardlyDifficult/Portfolio.md)
 
 <br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here, do your own research and seek professional advice first.
 

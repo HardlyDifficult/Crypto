@@ -1,4 +1,4 @@
-# Bitcoin
+# Bitcoin (BTC)
 
 ## Summary
 
@@ -17,11 +17,12 @@ Bitcoin is a trusted [public ledger](about/PublicLedger.md) hosted by [nodes](ab
  - Minting: 12.5 BTC per block to the miner
    - POW algorithm: SHA-256 
      - Mined with ASICs.
-   - The amount minted cuts in half every 210,000 blocks and reaches 0 in 2140.
-   - TODO next drop date?
- - Transaction fees
-   - Rate defined by supply and demand.
-   - 100% to the miner.
+   - The amount minted cuts in half every 210,000 blocks (4 years) and reaches 0 in 2140.
+   - Next halfing: 2021
+ - Transactions
+   - Confirmation time: TODO
+   - Fees defined by supply and demand.
+     - 100% to the miner.
  - Launched January 2009
 
 ### In General 

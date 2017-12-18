@@ -49,13 +49,12 @@ Either way, people are really profiting from this at the moment.  The key differ
 Red flags:
 
  - Worst case seems to be 0% return for a day. How could a trading bot ***never*** lose?
- - 
-
+   - Counter: They eat the losses by doing a little better than reported other days.
 
 # Questions
 
  - What is the benefit of having a BCC coin?  It seems their primary service, lending, could be offered without that step.
-
+  
 
 
 <br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here; do your own research and seek professional advice first.
