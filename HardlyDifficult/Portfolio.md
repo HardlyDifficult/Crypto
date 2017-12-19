@@ -11,6 +11,9 @@
 
 ## History
 
+ - Beatcoin
+   - A misclick, I promise!
+   - Lost ~$30 on 12/18
  - PIVx 
    - Bought for 0.00028687 BTC/PIVx on 12/12 
    - Sold for 0.00042419 BTC/PIVx on 12/16 

@@ -2,7 +2,7 @@
 
 SegWit is a way of compressing transactions (by removing signatures from the block) so that more may fit into a block, effectively increasing the networks capacity.
 
-Effectively a 4x increase on the blocksize.
+Effectively a 1.8x - 4x increase on the blocksize (different sources make different claims - TODO research).
 
 https://www.investopedia.com/terms/s/segwit-segregated-witness.asp
 

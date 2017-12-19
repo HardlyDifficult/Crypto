@@ -20,7 +20,7 @@ Bitcoin is a trusted [public ledger](about/PublicLedger.md) hosted by [nodes](ab
    - The amount minted cuts in half every 210,000 blocks (4 years) and reaches 0 in 2140.
    - Next halfing: 2021
  - Transactions
-   - Confirmation time: TODO
+   - Confirmation time: 6-blocks (~1 hour plus delays when congested)
    - Fees defined by supply and demand.
      - 100% to the miner.
  - Launched January 2009
