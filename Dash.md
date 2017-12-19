@@ -15,13 +15,13 @@ Features:
    - Transactions are validated by a random selection of Masternodes.   
  - Private Transactions (optional)
     - Fee: .0125 DASH
-    - Masternodes mix transactions with other random people to mask who is paying who.
+    - Masternodes mix transactions with other random people to mask who is paying whom.
 
 Stats:
 
  - ~12 TPS
    - Block size: 1 MB
-   - Difficulty: target 2.5 mins
+   - Difficulty: target 2.5 minutes
      - Recalcs every block
  - Minting: 3.60295191 DASH
     - 45% to Miners, 45% to Masternodes, 10% Tech budget
@@ -51,10 +51,10 @@ The comments below are specific to Dash and exclude general pros/cons of crypto.
 ## Cons
 
  - Private transactions rely on trusting the Masternodes.
-    - Other coins, such as Monero, have trust built into the platform so your information does not have to go through someone elses hands like this.
+    - Other coins, such as Monero, have trust built into the platform so your information does not have to go through someone else's hands like this.
 
 ## Failures
 
  - Instamine
-   - 10-15% of the total coins which will ever be mined, were mined within the first 48 hours.
+   - 10-15% of the total coins which will ever be mined were mined within the first 48 hours.
    - Their [official response](https://dashpay.atlassian.net/wiki/spaces/OC/pages/19759164/Dash+Instamine+Issue+Clarification)

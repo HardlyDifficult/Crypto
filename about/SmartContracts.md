@@ -2,14 +2,14 @@
 
 ## Summary
 
-Smart Contracts are code scripts to be executed on demand.  They are behind a walled garden, unable to access the outside world - smart contracts is a set of rules to act on inputs to the system.
+Smart Contracts are code scripts to be executed on demand.  They are behind a walled garden, unable to access the outside world - smart contracts are a set of rules to act on inputs to the system.
 
 Capabilities:
 
- - Send money to x
+ - Send money to [x]
  - Reserve money
  - Store/Retrieve/Process information
-   - e.g. gene mixing for cryptokitties
+   - e.g., gene mixing for cryptokitties
  - Burn money
 
 ## Use Cases
@@ -21,20 +21,20 @@ Capabilities:
  - Decentralized orgs
     - Coins represent stake, which is used for voting.
  - Games
-    - Coins represent ownership of a collectable.  Coins can then be traded on an open market.  e.g. Cryptokitties
+    - Coins represent ownership of a collectable.  Coins can then be traded on an open market, e.g., Cryptokitties
  - Crowd funding
      - Allow people to commit funds to a project which are returned if the project does not hit their goals.
 
 ## Pros
 
  - Trusted contract which cannot be modified or overruled (in theory).
- - Parties cannot cancel a commitment, contract will be executed regardless.
+ - Parties cannot cancel a commitment; contract will be executed regardless.
 
 ## Cons
 
  - Limited use cases due to the walled garden.
  - A bad contract could have unforeseen impact on others.
-    - e.g. Cryptokitties delays the entire network at launch, causing issues for other uses of Ethereum for weeks.
+    - e.g., Cryptokitties delays the entire network at launch, causing issues for other uses of Ethereum for weeks.
 
 
 
@@ -42,6 +42,6 @@ Capabilities:
 
 
 
-<br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here, do your own research and seek professional advice first.
+<br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here; do your own research and seek professional advice first.
 
 Have a correction or something to add?  Join us daily at [twitch.tv/HardlyDifficult](http://twitch.tv/HardlyDifficult).

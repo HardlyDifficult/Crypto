@@ -11,13 +11,13 @@ Litecoin is a trusted [public ledger](about/PublicLedger.md) hosted by [nodes](a
  - ~56 [TPS](about/TPS.md)
    - Block size: 1MB
      - [Segwit](about/Segwit.md) fully(?) adopted
-   - Difficulty: target 2.5 mins per block
+   - Difficulty: target 2.5 minutes per block
       - Recalcs every 2016 blocks (every 2 weeks)
  - Minting: 25 LTC per block to the miner
     - POW algorithm: Scrypt
        - Mined by ASICs 
     - Halved every 840,000 blocks (4 years)
-      - Next Halfing: Aug 2019
+      - Next Halving: Aug 2019
  - Transactions
    - Confirmation time: TODO
    - Fees defined by supply and demand.
@@ -35,7 +35,7 @@ The comments below are specific to Litecoin and exclude general pros/cons of cry
 
  - Faster and cheaper than Bitcoin.
  - Charlie Lee
-   - The creator of Litecoin still speaks publicly (vs Bitcoin whos identity is secret)
+   - The creator of Litecoin still speaks publicly (vs Bitcoin, whose creator's identity is secret)
  - Often rolls out new tech before Bitcoin.
    - Successfully tested the [Lighting Network](about/LightingNetwork.md)
    - Atomic swap (TODO)
@@ -43,16 +43,16 @@ The comments below are specific to Litecoin and exclude general pros/cons of cry
 ## Cons
 
  - It's ***just*** a slightly better version of Bitcoin.
-   - Other coins are changing the game, this is an incremental improvement.
+   - Other coins are changing the game; this is an incremental improvement.
 
 ## Questions
 
  - Relationship with Bitcoin / Bitcoin Core?
-    - I heard, but unable to confirm, that Bitcoin Core works with Litecoin.
+    - I have heard, but am unable to confirm, that Bitcoin Core works with Litecoin.
    
 
 
 
-<br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here, do your own research and seek professional advice first.
+<br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here; do your own research and seek professional advice first.
 
 Have a correction or something to add?  Join us daily at [twitch.tv/HardlyDifficult](http://twitch.tv/HardlyDifficult).

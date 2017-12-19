@@ -12,15 +12,15 @@ Bitcoin is a trusted [public ledger](about/PublicLedger.md) hosted by [nodes](ab
  - ~4 TPS 
    - Block size: 1MB
      - [Segwit](about/Segwit.md) is optional
-   - Difficulty: target 10 mins per block
+   - Difficulty: target 10 minutes per block
      - Recalcs every 2016 blocks (every 2 weeks)
  - Minting: 12.5 BTC per block to the miner
    - POW algorithm: SHA-256 
      - Mined with ASICs.
    - The amount minted cuts in half every 210,000 blocks (4 years) and reaches 0 in 2140.
-   - Next halfing: 2021
+   - Next halving: 2021
  - Transactions
-   - Confirmation time: 6-blocks (~1 hour plus delays when congested)
+   - Confirmation time: 6-blocks (~1 hour, plus delays when congested)
    - Fees defined by supply and demand.
      - 100% to the miner.
  - Launched January 2009
@@ -38,7 +38,7 @@ The comments below are specific to Bitcoin and exclude general pros/cons of cryp
  - Highly volatile
     - +/- 20% in a day is fairly common
  - Futures ([what are futures?](about/Futures.md))
-    - Launched Dec 2017, Bitcoin is the first and only with futures (others are already in the works).
+    - Launched Dec 2017, Bitcoin is the first and only cryptocurrency with futures (though others are already in the works).
 
 
 
@@ -54,7 +54,7 @@ The comments below are specific to Bitcoin and exclude general pros/cons of cryp
 
  - Name Brand of Crypto
  - Secure
-   - The arrival of Quantum computers seems to be the only viable attack today.
+   - The arrival of quantum computers seems to be the only viable attack today.
 
 ### Cons
 
@@ -64,7 +64,7 @@ The comments below are specific to Bitcoin and exclude general pros/cons of cryp
  - Inability to adapt
    - Bitcoin has no official leaders and no process for adopting new technology or addressing concerns such as scaling.
    - Historically, Bitcoin has not been able to reach consensus on protocol changes quickly.
-   - The inability to reach consesus was where Bitcoin Cash and Gold wer born (and why Segwit2x happened and Bitcoin Platum, etc are coming).  These forks only create confusion in the marketplace.
+   - The inability to reach consesus was where Bitcoin Cash and Gold were born (and why Segwit2x happened and Bitcoin Platum, etc are coming).  These forks only create confusion in the marketplace.
  - Illegal in some countries (https://en.wikipedia.org/wiki/Legality_of_bitcoin_by_country_or_territory)
  - High operating costs
    - Today the new coins minted (12.5 BTC) pay miners about $200,000 per block (every 10 mins)
@@ -99,6 +99,6 @@ The comments below are specific to Bitcoin and exclude general pros/cons of cryp
 
 
 
-<br><br><hr> **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here, do your own research and seek professional advice first.
+<br><br><hr> **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here; do your own research and seek professional advice first.
 
 Have a correction or something to add?  Join us daily at [twitch.tv/HardlyDifficult](http://twitch.tv/HardlyDifficult).

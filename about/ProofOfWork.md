@@ -2,16 +2,16 @@
 
 ## Summary
 
-Proof of work is a race to the bottom security model.  It's about wasting so much resources that it would be stupid for a criminal to try and waste more than the community collectively already is.
+Proof of work is a race-to-the-bottom security model.  It's about wasting so many resources that it would be stupid for a criminal to try and waste more than the community collectively already is.
 
 ### Why Use Proof of Work?
 
-Miners are responsible for protecting against  malicious activity such as double spending (e.g. I use my BTC to buy something from both Bob and Joe, but only one of them can actually get paid.) They construct a block of valid transactions and then use Proof of Work to assert that it is a good block to add to the chain.
+Miners are responsible for protecting against malicious activity such as double spending (e.g., I use my BTC to buy something from both Bob and Joe, but only one of them can actually get paid). They construct a block of valid transactions and then use Proof of Work to assert that it is a good block to add to the chain.
 
 ### Pros
 
  - Security with math
-    - It's impossible to cut corners, generating blocks using this method is expensive to do.
+    - It's impossible to cut corners; generating blocks using this method is expensive.
 
 ### Cons
 
@@ -24,7 +24,7 @@ Miners are responsible for protecting against  malicious activity such as double
  - Wasteful
     - This method is only effective if the amount of resources spent mining is significantly more than the resources available to an attacker.
  - Centralization
-    - The large hardware investment, the noise and heat, and energy costs overtime drive centralization because it becomes harder and harder for a hobbiest to stand a chance.
+    - The large hardware investment, the noise and heat, and energy costs over time drive centralization because it becomes harder and harder for a hobbiest to stand a chance.
 
 ## How it Works
 
@@ -36,7 +36,7 @@ Time and money is spent by way of a guess and check process.  Given the block pl
 
 ### How This Creates Security
 
-The chain of blocks that has had the most amount of work put into it is the only chain the network trusts.  If someone malicious created a bad block, the rest of the network should ignore that block.  Overtime the malicious block will be completely overrun by the sheer numbers of people doing the right thing.
+The chain of blocks that has had the most amount of work put into it is the only chain the network trusts.  If someone malicious created a bad block, the rest of the network should ignore that block.  Over time, the malicious block will be completely overrun by the sheer number of people doing the right thing.
 
 Because of this, it is standard to only accept a transaction as final after a few additional blocks have been added to the chain.
 
@@ -56,6 +56,6 @@ Most Proof of Work algorithms (including Bitcoins) would theoretically be broken
 
 
 
-<br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here, do your own research and seek professional advice first.
+<br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here; do your own research and seek professional advice first.
 
 Have a correction or something to add?  Join us daily at [twitch.tv/HardlyDifficult](http://twitch.tv/HardlyDifficult).

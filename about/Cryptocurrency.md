@@ -1,6 +1,6 @@
 # CryptoCurrency
 
-The comments on this page apply to every cryptocurrency, with very few exceptions (that will be called out when discussing those specific coins).
+The comments on this page apply to every cryptocurrency, with very few exceptions (which will be called out when discussing those specific coins).
 
 ## Market
 
@@ -11,7 +11,7 @@ The comments on this page apply to every cryptocurrency, with very few exception
  - Stored value
    - "Digital Gold" - Bitcoin has value because people think it's going to grow in value.
  - Transaction medium
-   - An alternative to credit cards, paypal, bank wires, etc.
+   - An alternative to credit cards, Paypal, bank wires, etc.
  - Bypass government
    - Country-to-country and transactions for any good or service cannot be directly stopped by any entity.
 
