@@ -11,6 +11,8 @@
 
 ## History
 
+ - DNA
+   - Bought 1853 on 12/18 for ~$750
  - Beatcoin
    - A misclick, I promise!
    - Lost ~$30 on 12/18
