@@ -55,6 +55,8 @@ The comments below are specific to Bitcoin and exclude general pros/cons of cryp
  - Name Brand of Crypto
  - Secure
    - The arrival of Quantum computers seems to be the only viable attack today.
+ - Supports limited Smart Contacts
+    - TODO more detail
 
 ### Cons
 
