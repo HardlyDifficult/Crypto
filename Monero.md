@@ -10,7 +10,7 @@ Monero is a trusted [public ledger](about/PublicLedger.md) hosted by [nodes](abo
    - [Cryptonote](https://cryptonote.org/whitepaper.pdf) meets [Ring Signatures](https://lab.getmonero.org/pubs/MRL-0005.pdf)
  - Private Transactions
    - Using ring signatures
-   - Your balance and transactions are secured when playing a transaction.  This method requires no trust.
+   - Your balance and transactions are secured when paying a transaction.  This method requires no trust.
  - .5 - 2000 TPS 
     - Adaptive block sizes(TODO confirm)
     - Difficulty: target

@@ -4,7 +4,7 @@
    - 5.0218 ETH
    - .0008 BTC
  - Cryptopia:
-   - 0.03948739 BTC (which alt coin do we buy next)
+   - 0.03948739 BTC (which alt coin do we buy next?)
  - CryptoKitties / MetaMask
    - 0.165168 ETH
    - [2 worthless kitties up for sale](https://www.cryptokitties.co/profile/0xdb92c096bc5efa8adb48f05cd601dddb75228203)

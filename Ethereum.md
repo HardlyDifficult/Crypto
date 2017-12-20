@@ -3,16 +3,16 @@
 
 ## Summary
 
-Ethereum is a trusted [public ledger](about/PublicLedger.md) with support for [smart contracts](about/SmartContracts.md) hosted by [nodes](about/Nodes.md) and secured by [miners](about/Miners.md) using a [Proof of Work algorithm](about/ProofOfWork.md).
+Ethereum is a trusted [public ledger](about/PublicLedger.md) with support for [smart contracts](about/SmartContracts.md), hosted by [nodes](about/Nodes.md) and secured by [miners](about/Miners.md) using a [Proof of Work algorithm](about/ProofOfWork.md).
 
-When discussing the currency portion of the Ethereum platform (i.e. excluding the smart contracts), it's simply called **Ether**.
+When discussing the currency portion of the Ethereum platform (i.e., excluding the smart contracts), it's simply called **Ether**.
 
 ### Tech
 
  - [Docs](http://www.ethdocs.org/en/latest/)
  - POW algorithm: Ethash
     - Mined with GPUs.
-    - Changing to POS (sometime in 2018 they hope).
+    - Changing to POS (sometime in 2018, they hope).
  - ~10 TPS
    - Block size: TODO
    - Difficulty: TODO
@@ -37,7 +37,7 @@ Ethereum pays miners 7/8th the usual reward for submitting a block which could h
 
  - Only 2 uncles may be accepted per block.
  - Pro: this limits some centralization of miners by lessening the impact of how quickly you receive updates from the network.
-    - For example, Bitcoin has a large percent of miners in China.  There is concern that they have an advantage because when they create a block, Chinese miners are able to start working on the next one before the rest of the world... due to slow connections leaving China.
+    - For example, Bitcoin has a large percentage of miners in China.  There is concern that they have an advantage because when they create a block, Chinese miners are able to start working on the next one before the rest of the world due to slow connections leaving China.
  - TODO
 
 TODO consensus
@@ -62,18 +62,18 @@ The comments below are specific to Ethereum and exclude general pros/cons of cry
 ### Cons
 
  - It's a bad name.
-   - First couple times I heard the name, I had no idea what to type into google.
+   - First couple of times I heard the name, I had no idea what to type into Google.
 
 ## Failures 
 
- - Ethereum classic
-   - There was a smart contract bug which cost people millions.  
+ - Ethereum Classic
+   - There was a smart contract bug, which cost people millions.  
      - TODO detail
-   - Ethereum created a fork to correct the problem... effectively reversing a smart contact with human intervention.  
+   - Ethereum created a fork to correct the problem, effectively reversing a smart contact with human intervention.  
      - That's not supposed to be possible!
    - Some of the community refused to go along with the change on principle.  
-     - They continue the original fork, now known as "Ethereum Classic".
-     - The new fork dominates the market under the name "Ethereum".
+     - They continue the original fork, now known as "Ethereum Classic."
+     - The new fork dominates the market under the name "Ethereum."
 
 ## Resources
 
@@ -84,6 +84,6 @@ The comments below are specific to Ethereum and exclude general pros/cons of cry
 
 
 
-<br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here, do your own research and seek professional advice first.
+<br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here; do your own research and seek professional advice first.
 
 Have a correction or something to add?  Join us daily at [twitch.tv/HardlyDifficult](http://twitch.tv/HardlyDifficult).

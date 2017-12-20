@@ -2,13 +2,13 @@
 
 ## Summary
 
-The Abyss is an upcoming ICO which aims to become the 'in-app purchase' payment provider for browser games and MMOs.
+The Abyss is an upcoming ICO which aims to become the "in-app purchase" payment provider for browser games and MMOs.
 
 ## Tech
 
  - [Whitepaper](https://www.theabyss.com/static/docs/theabyss-whitepaper-en.pdf?20171208T130812)
  - Ethereum [ERC-20 tokens](about/ERC-20.md)
- - 70% rev share with game developers
+ - 70% revenue share with game developers
    - % is after payment processor fees and taxes
  - Multi-level referral program
 
@@ -58,6 +58,6 @@ https://www.theabyss.com/
 
 
 
-<br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here, do your own research and seek professional advice first.
+<br><br><hr>  **Disclaimer**: I am not a financial adviser.  This site includes my thoughts and non-expert opinions.  Do not take action based on what you read here; do your own research and seek professional advice first.
 
 Have a correction or something to add?  Join us daily at [twitch.tv/HardlyDifficult](http://twitch.tv/HardlyDifficult).

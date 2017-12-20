@@ -16,7 +16,7 @@ Their primary service is 'Bitcoin Lending':
  - No whitepaper
  - ~6 TPS
    - Block size: 0.25 MB
-   - Difficulty: target 2 mins per block
+   - Difficulty: target 2 minutes per block
      - Recalcs every block
  - Minting:
    - POS Minting: Currently 7% return per month
@@ -32,10 +32,10 @@ Their primary service is 'Bitcoin Lending':
 
 ## How It Works
 
-In more detail, their primary service is 'Bitcoin Lending':
+In more detail, their primary service is "Bitcoin Lending":
 
- - Users deposit Bitcoin and then 'loan' it to BitConnect.  
- - BitConnect's secret trading bot uses these funds to buy and sell crypto currencies on various exchanges. 
+ - Users deposit Bitcoin and then "loan" it to BitConnect.  
+ - BitConnect's secret trading bot uses these funds to buy and sell cryptocurrencies on various exchanges. 
  - Profits are then shared as a percent gain (which varies day-to-day) with people who loaned money to BitConnect.
 
 ## Is BitConnect a Scam?

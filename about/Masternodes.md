@@ -1,6 +1,6 @@
 # Masternode
 
-A single node with proof of stake in the network.  This node may be given additional responsibilities which a typically node could not be trusted with.
+A single node with proof of stake in the network.  This node may be given additional responsibilities that a typical node could not be trusted with.
 
 ## Pros
 
