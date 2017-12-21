@@ -14,7 +14,7 @@ Transaction fees on Bitcoin are also rising due to this limit.  When Bitcoin Cas
 
 The concern is that if this limit is not addressed, there is no future for Bitcoin as a transaction medium.  It simply cannot compete with Visa or Paypal.
 
-## How Bitcoin Upgrades?
+## How Does Bitcoin Normally Makes Changes?
 
 Bitcoin can be changed, and has changed in the past.  Changes are made when the majority of the community accepts those changes. 
 
