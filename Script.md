@@ -93,6 +93,7 @@ The response to Bitcoin Cash has been mixed.  The problem of scaling can still b
 One final point, there are other coins in the market which are aiming to address problems with scaling in new and innovative ways.  If scaling is your primary concern, other coins have solutions which promise to do thousands of times better than either Bitcoin or Bitcoin Cash.
 
 
+Roll Credits
 
 
 
