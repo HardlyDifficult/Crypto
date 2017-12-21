@@ -1,7 +1,3 @@
-# Bitcoin Cash vs Bitcoin
-
-## Intro
-
 You may have heard of Bitcoin Cash, but how is it different from Bitcoin?
 
 Let's start by looking at the problems with Bitcoin that Bitcoin Cash wanted to address.
@@ -14,7 +10,9 @@ Transaction fees on Bitcoin are also rising due to this limit.  When Bitcoin Cas
 
 The concern is that if this limit is not addressed, there is no future for Bitcoin as a transaction medium.  It simply cannot compete with Visa or Paypal.
 
-## How Does Bitcoin Normally Makes Changes?
+<hr>
+
+Can Bitcoin Make a Change To Support More Transactions?
 
 Bitcoin can be changed, and has changed in the past.  Changes are made when the majority of the community accepts those changes. 
 
@@ -30,7 +28,9 @@ There are a lot of different ways that problems like transaction throughput coul
 
 In fact, Bitcoin Cash's approach to addressing this problem, which we will review in a moment, was a proposal reviewed by Bitcoin Core as early as 2015.
 
-## What Bitcoin Cash Did 
+<hr>
+
+How Did Bitcoin Cash Support More Transactions?
 
 Bitcoin Cash created a hard fork in July of 2017, which included two small changes to Bitcoin's technology, anticipated to significantly increase how many transactions the network can handle.
 
@@ -46,10 +46,9 @@ Normally when there is a hard-fork, one of the two forks is the clear winner and
 
 However, Bitcoin Cash has stood strong, as has Bitcoin.  Neither has proved themselves to be the clear winner, so both Bitcoin and Bitcoin Cash have real value.
 
-Don't you wish you had bought Bitcoin before the fork?
-...I do.
+<hr>
 
-## Technically, What Changed?
+What Exactly Did Bitcoin Cash Change?
 
 Bitcoin Cash technically only made one small change from Bitcoin at the time.
 
@@ -81,7 +80,9 @@ The downside of this approach is it will consume a little more space than if the
 
 Bitcoin has been slowly adopting Segwit, but after 4 months it's still only used for 10% of transactions. Because of the slow adoption, Bitcoin has not seen much increase in the number of transactions supported and therefore it continues to be slower and more expensive to use than Bitcoin Cash.
 
-## Conclusion
+<hr>
+
+In Conclusion...
 
 Bitcoin Cash is an incremental improvement to Bitcoin.  The group behind it thought that the Bitcoin community was simply moving too slowly and pushed a change to address Bitcoin's largest concern, scaling.
 
