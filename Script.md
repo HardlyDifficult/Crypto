@@ -34,11 +34,11 @@ In fact, Bitcoin Cash's approach to addressing this problem, which we will revie
 
 But How Was Bitcoin Cash Created?
 
-Bitcoin Cash created a hard fork in July of 2017, which included two small changes to Bitcoin's technology, anticipated to significantly increase how many transactions the network can handle.
+Bitcoin Cash created a hard fork in July of 2017, which included a small change to Bitcoin's technology, anticipated to significantly increase how many transactions the network can handle.
 
 A 'Hard-Fork' means that Bitcoin was copy-pasted, and then modified for Bitcoin Cash.  
 
-This copy-paste means that Bitcoin Cash inherits Bitcoin's security and stability, allowing them to make small, targeted, low-risk changes.
+This copy-paste means that Bitcoin Cash inherits Bitcoin's security and stability, allowing them to make a small, targeted, low-risk change.
 
 The copy-paste also means anyone with Bitcoin before the fork has both Bitcoin and Bitcoin Cash after the fork.
 
@@ -80,7 +80,7 @@ The advantage of this approach is that the community can slowly choose to adopt 
 
 The downside of this approach is it will consume a little more space than if the limit was simply increased.  This is why Bitcoin Cash will not adopt Segwit. Increasing the blocksize limit, if possible, is a better solution.
 
-Bitcoin has been slowly adopting Segwit, but after 4 months it's still only used for 10% of transactions. Because of the slow adoption, Bitcoin has not seen much increase in the number of transactions supported and therefore it continues to be slower and more expensive to use than Bitcoin Cash.
+Bitcoin has been slowly adopting Segwit, but after 4 months it's still only used for 10% of transactions. Because of the slow adoption, Bitcoin has not seen much increase in the number of transactions supported and therefore it continues to be slower and more expensive to use than Bitcoin Cash.  Once segwit is fully adopted, Bitcoin Cash will still be able to support more than twice as many transactions.
 
 <hr>
 
