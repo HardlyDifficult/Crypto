@@ -14,7 +14,7 @@ The concern is that if this limit is not addressed, there is no future for Bitco
 
 <hr>
 
-Can Bitcoin Change?
+Can Bitcoin Be Improved?
 
 Bitcoin can be changed, and has changed in the past.  Changes are made when the majority of the community accepts those changes. 
 
@@ -32,7 +32,7 @@ In fact, Bitcoin Cash's approach to addressing this problem, which we will revie
 
 <hr>
 
-How Was Bitcoin Cash Created?
+So How Exactly Was Bitcoin Cash Created?
 
 Bitcoin Cash created a hard fork in July of 2017, which included two small changes to Bitcoin's technology, anticipated to significantly increase how many transactions the network can handle.
 
@@ -50,7 +50,7 @@ However, Bitcoin Cash has stood strong, as has Bitcoin.  Neither has proved them
 
 <hr>
 
-What Did Bitcoin Cash Change?
+So What Exactly Did Bitcoin Cash Change?
 
 Bitcoin Cash technically only made one small change from Bitcoin at the time.
 
