@@ -14,7 +14,7 @@ The concern is that if this limit is not addressed, there is no future for Bitco
 
 <hr>
 
-Can Bitcoin Be Improved?
+Can Bitcoin Be Upgraded Or Is v1 the Only Bitcoin we will ever know?
 
 Bitcoin can be changed, and has changed in the past.  Changes are made when the majority of the community accepts those changes. 
 
@@ -32,7 +32,7 @@ In fact, Bitcoin Cash's approach to addressing this problem, which we will revie
 
 <hr>
 
-So How Exactly Was Bitcoin Cash Created?
+But How Was Bitcoin Cash Created?
 
 Bitcoin Cash created a hard fork in July of 2017, which included two small changes to Bitcoin's technology, anticipated to significantly increase how many transactions the network can handle.
 
@@ -42,7 +42,7 @@ This copy-paste means that Bitcoin Cash inherits Bitcoin's security and stabilit
 
 The copy-paste also means anyone with Bitcoin before the fork has both Bitcoin and Bitcoin Cash after the fork.
 
-Wait, did I just double my money?!  In a way, yes.  If I had 1 Bitcoin before the fork, after the fork I have 1 Bitcoin plus 1 Bitcoin Cash. Once the fork has happened, they are independent, so I can spend my Bitcoin Cash without losing any Bitcoin.
+Wait, did everyone just double their money?!  In a way, yes.  If you had 1 Bitcoin before the fork, after the fork you have 1 Bitcoin plus 1 Bitcoin Cash. Once the fork has happened, they are independent, so I can spend my Bitcoin Cash without losing any Bitcoin.
 
 Normally when there is a hard-fork, one of the two forks is the clear winner and the other becomes worthless, and is eventually discarded.  This means that net net, when a fork happens the total money in the end is the same as where it started.
 
