@@ -16,7 +16,7 @@ The concern is that if this limit is not addressed, there is no future for Bitco
 
 Can Bitcoin Be Upgraded Or Is v1 the Only Bitcoin we will ever know?
 
-Bitcoin can be changed, and has changed in the past.  Changes are made when the majority of the community accepts those changes. 
+Bitcoin can be upgraded, and has been in the past.  Upgrades roll out when the majority of the community agrees to them. 
 
 However, changes are slow coming as there are no official leaders and no formal process for reaching consensus.  Anyone can make a proposal for the community to consider; in theory, the strongest proposals gain enough support, and then may successfully be rolled out. 
 
