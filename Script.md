@@ -74,6 +74,8 @@ Originally Bitcoin had no limit.  The limit of 1 megabyte per block was added in
 
 Huge blocks could be added to increase the cost of running a node or a miner.  As a larger and larger hardware investment is required, less hobbyists participate and the network starts to be controlled by a limited number of large companies.  
 
+What Has Bitcoin Done To Increase Transaction Volume?
+
 Shortly after the launch of Bitcoin Cash, Bitcoin activated Segwit.  
 
 Segwit, or segregated witness, is a way of increasing the blocksize by up to 4-times, without requiring a hard-fork. 
