@@ -34,7 +34,7 @@ In fact, Bitcoin Cash's approach to addressing this problem, which we will revie
 
 Then How Was Bitcoin Cash Created?
 
-Bitcoin Cash created a hard fork in July of 2017, which included a small change to Bitcoin's technology, anticipated to significantly increase how many transactions the network can handle.
+Bitcoin Cash created a hard-fork in July of 2017, which included a small change to Bitcoin's technology, anticipated to significantly increase how many transactions the network can handle.
 
 A 'Hard-Fork' means that Bitcoin was copy-pasted, and then modified for Bitcoin Cash.  
 
@@ -44,9 +44,9 @@ The copy-paste also means anyone with Bitcoin before the fork has both Bitcoin a
 
 Wait, did everyone just double their money?!  In a way, yes.  If you had 1 Bitcoin before the fork, after the fork you have 1 Bitcoin plus 1 Bitcoin Cash. Once the fork has happened, they are independent, so I can spend my Bitcoin Cash without losing any Bitcoin.
 
-Normally when there is a hard-fork, one of the two forks is the clear winner and the other becomes worthless, and is eventually discarded.  This means that net net, when a fork happens the total money in the end is the same as where it started.
+Normally when there is a hard-fork, one of the two forks is the clear winner and the other becomes worthless, and is eventually discarded.  This means that when a fork happens the total money in the end is the same as where it started.
 
-However, Bitcoin Cash has stood strong, as has Bitcoin.  Neither has proved themselves to be the clear winner, so both Bitcoin and Bitcoin Cash have real value.
+However, both Bitcoin and Bitcoin Cash have stood strong.  Neither has proved themselves to be the clear winner, so both have real value.
 
 <hr>
 
@@ -58,13 +58,15 @@ They increased the maximum size of a block.
 
 A block is a set of transactions which have been verified by miners and added to the blockchain.  
 
-Most blockchains, Bitcoin included, have a target cadence for producing blocks.  This means that if more miners start creating blocks; instead of supporting more transactions, the work gets harder so that the same number of blocks are actually produced.
-
-Increasing the maximum size of this block allows the network to process more transactions.  Another viable approach for supporting more transactions could be to decrease the target time between blocks - this is the approach Litecoin took.
+Increasing the maximum size of this block allows the network to process more transactions. 
 
 Bitcoin Cash increased the blocksize from 1 megabyte to 8 megabytes.  This means Bitcoin Cash can handle up to 8 times as many transactions as Bitcoin.  
 
 Due to the increased throughput, Bitcoin Cash also offers significantly lower fees - at least until they reach capacity, too.
+
+Couldn't You Just Mine More Blocks?
+
+Most blockchains, Bitcoin included, have a target cadence for producing blocks.  This means that if more miners start creating blocks; instead of supporting more transactions, the work gets harder so that the same number of blocks are actually produced.  Another viable approach for supporting more transactions could be to decrease the target time between blocks - this is the approach Litecoin took.
 
 So why wouldn't Bitcoin want to increase the limit?  And wait - why is there a limit at all?
 
