@@ -18,7 +18,7 @@ Can Bitcoin Be Upgraded Or Is v1 the Only Bitcoin we will ever know?
 
 Bitcoin can be upgraded, and has been in the past.  Upgrades roll out when the majority of the community agrees to them. 
 
-However, changes are slow coming as there are no official leaders and no formal process for reaching consensus.  Anyone can make a proposal for the community to consider; in theory, the strongest proposals gain enough support, and then may successfully be rolled out. 
+However, changes are slow coming as there are no official leaders and no formal process for reaching consensus.  Anyone can make a proposal for the community to consider; in theory, the strongest proposals gain enough support that may be rolled out. 
 
 There is a group known as Bitcoin Core.  This group has earned the reputation of being leaders for Bitcoin without actually having any power.  They are not the owners of Bitcoin and cannot force a change to be accepted.
 
