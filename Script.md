@@ -32,7 +32,7 @@ In fact, Bitcoin Cash's approach to addressing this problem, which we will revie
 
 <hr>
 
-But How Was Bitcoin Cash Created?
+Then How Was Bitcoin Cash Created?
 
 Bitcoin Cash created a hard fork in July of 2017, which included a small change to Bitcoin's technology, anticipated to significantly increase how many transactions the network can handle.
 
