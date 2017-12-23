@@ -8,7 +8,7 @@ Bitcoin is currently running at max capacity. It simply cannot process any more 
 
 Bitcoin supports about 4 transactions per second.  Compare this to Visa's network, which can handle over fifty thousand transactions per second. 
 
-Transaction fees on Bitcoin are also rising due to this limit.  When Bitcoin Cash was created in July 2017, Bitcoin's fees were around five dollars, and rising.  As of December 2017, we see fees of thirty dollars or more, while Bitcoin Cash's fees are only 20 cents.
+Transaction fees on Bitcoin are also rising due to this limit.  When Bitcoin Cash was created in August 2017, Bitcoin's fees were around five dollars, and rising.  As of December 2017, we see fees of thirty dollars or more, while Bitcoin Cash's fees are only 20 cents.
 
 The concern is that if this limit is not addressed, there is no future for Bitcoin as a transaction medium.  It simply cannot compete with Visa or Paypal.
 
