@@ -26,7 +26,7 @@ Private Businesses:
 
 General Recommendations
 
- - Buy coins at [Coinbase](coinbase.com/join/59ebf3c17be14a00f92091b8) and we both get $10.  
+ - Buy coins at [Coinbase](http://coinbase.com/join/59ebf3c17be14a00f92091b8) and we both get $10.  
    - Coinbase is one of the largest exchanges and is based in California.  
    - You can buy there and then transfer to an offline wallet or another exchange (which allows you to trade alt coins).
    - Not all countries are supported, though...
