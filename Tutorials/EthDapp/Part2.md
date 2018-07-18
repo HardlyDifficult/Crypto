@@ -29,14 +29,17 @@ We'll be using the NPM package manager, Node.js, and the Webpack dev server.
 Metamask will only communicate with websites using `https`.  We’ll be using Node.js as our web server so we can test `https` locally.
 
 <br>
+
 ### 2.  Create a folder for your dapp and a directory inside named `src`.
 ![Directory structure](https://i.imgur.com/oRws1qI.png)
 
 <br>
+
 ### 3.  Create an empty file in the `src` directory named `index.js`.
 This file, `src/index.js,` is required in order to start the Webpack dev server.  We only need the most basic support from Webpack, so this file is going to remain empty for this tutorial.
 
 <br>
+
 ### 4.  Install Webpack.
 Open a command prompt. Navigate to your dapp's directory and run the following:
 ```
@@ -56,6 +59,7 @@ Each space-delimited statement here refers to a component of Webpack, which we w
 `--save-dev` tells NPM to make the packages available in development mode, but not in production.  The dapp we are creating will have no server-side dependencies.
 
 <br>
+
 <h3>5.  Launch the Webpack dev server.</h3>
 ```
 npx webpack-dev-server --https
@@ -68,6 +72,7 @@ npx webpack-dev-server --https
 The `--https` option specified here will generate a certificate automatically, making testing easy.
 
 <br>
+
 ### 6.  Open https://localhost:8080 in your browser.
 You can click past the scary warnings by selecting 'Advanced' followed by 'Proceed to localhost (unsafe)'. This warning message will only appear when testing locally.  Once the app is deployed, users will not see this.
 
@@ -88,6 +93,7 @@ Add the following code to create a basic website template with jQuery included:
 ```
 
 <br>
+
 ### 8.  Add the smart contract’s address from Remix.
 
 We will need the contract's address. Assign it as a string to a `const` variable named `contract_address` between the empty `<script></script>` tags in our template.  
@@ -101,6 +107,7 @@ We will need the contract's address. Assign it as a string to a `const` variable
 ```
 
 <br>
+
 ### 9.  Copy the ABI from Remix.
 The ABI, or Application Binary Interface, describes the API supported by the contract.  We use this to call methods or read data types by name.
 
@@ -130,6 +137,7 @@ The ABI may be quite long.  You may want to save this in a separate file for rea
 ```
 
 <br>
+
 ### 11.  Create a `contract` object.
 Metamask automatically adds an object named `web3` to the page before the `load` event completes.  On `load`, we leverage the `web3` object to create a `contract` object using the `abi` and `contract_address` defined above.  
 
@@ -144,6 +152,7 @@ window.addEventListener('load', () => {
 ```
 
 <br>
+
 ### 12.  Read the current message.
 After the `contract` object has been created, we can use it to read data, call methods, and post transactions through Metamask.  Here we are reading `message`, which is a `string` in the `contract`.
 ```
@@ -166,6 +175,7 @@ window.addEventListener('load', () => {
 `call` is a  [web3.js function](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethcall) which will read a data type or the result from a read-only method.  This will not create a transaction, does not cost gas, and returns very quickly.
 
 <br>
+
 ### 13.  Add a form allowing users to change the message.
 ```
 New Message: <input type="text" id="new_message" />
@@ -173,6 +183,7 @@ New Message: <input type="text" id="new_message" />
 ```
 
 <br>
+
 ### 14.  Create the `setMessage` `function` for the form to call.
 ```
 function setMessage() {
@@ -202,12 +213,16 @@ The callback will return the transaction’s hash code and/or any error messages
 
 <h2>Test and Deploy</h2>
 
+<br>
+
 ### 15. Using Chrome's Developer Tools
 Chrome offers some useful tools when debugging. Open the Developer Tools by right-clicking on the page and selecting 'Inspect.'  You should see a navigation bar at the top of the new dialog window that looks like this:
 
 ![Chrome Dev Tools](https://i.imgur.com/dfjxgHR.png)
 
 The 'Console' tab will display diagnostic information as your code runs, including any error messages.  You can also use the 'Sources' tab to add a breakpoint by clicking a line number in your code.  This will pause the site on that line and allow you to mouse over data for more information and to step through the logic.
+
+<br>
 
 ### 16. Deploy to GitHub
 Obviously, there are tons of hosting options.  I like GitHub as a free and easy way to host a website, and it has the `https` support required for our dapp.
@@ -225,11 +240,13 @@ Open the repository 'Settings' page.
 The URL for your site will be generated. It will take a few minutes before your content is available.
 
 <hr>
+
 <br>
 
 That’s it!  Hope this was helpful.  In Part 3 we will be adding support for the Ledger Nano S hardware wallet, and addressing some of the corner cases including getting the message to display to someone without either Metamask or a Ledger.  
 
 <br>
+
 <hr>
 
 <h1>Source Code - Part 2</h1>
