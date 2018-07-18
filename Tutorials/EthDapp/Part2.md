@@ -61,6 +61,7 @@ Each space-delimited statement here refers to a component of Webpack, which we w
 <br>
 
 <h3>5.  Launch the Webpack dev server.</h3>
+
 ```
 npx webpack-dev-server --https
 ```
@@ -94,21 +95,33 @@ Add the following code to create a basic website template with jQuery included:
 
 <br>
 
-### 8.  Add the smart contract’s address from Remix.
+### 8.  Add a div to display the message.
+
+```
+<body>
+  <div id="message"></div>
+</body>
+```
+
+<br>
+
+### 9.  Add the smart contract’s address from Remix.
 
 We will need the contract's address. Assign it as a string to a `const` variable named `contract_address` between the empty `<script></script>` tags in our template.  
 
 **Note:** If your dapp supports both testnet and mainnet, you will need a way of selecting the correct address for the specified network.
 
+We will be using the Ropsten testnet for this, however you may also consider using [Ganache](https://truffleframework.com/ganache) to test locally instead.
+
 ```
-  <script>
-    const contract_address = "0x654b54c945d29981d597fc8756cdb3c6e372440c";
-  </script>
+<script>
+  const contract_address = "0x654b54c945d29981d597fc8756cdb3c6e372440c";
+</script>
 ```
 
 <br>
 
-### 9.  Copy the ABI from Remix.
+### 10.  Copy the ABI from Remix.
 The ABI, or Application Binary Interface, describes the API supported by the contract.  We use this to call methods or read data types by name.
 
 To get the `abi`, click the ‘Compile’ tab and select ‘Details’. Then click the copy icon next to ‘ABI’.  
@@ -119,24 +132,14 @@ Paste this as a `const` variable named `abi` under the `contract_address`.
 
 ```
 const abi = [
-	{
-		"anonymous": false,
-		"inputs": [
-	...
-	}
+    {
+        "anonymous": false,
+        "inputs": [
+    ...
+    }
 ];
 ```
 The ABI may be quite long.  You might want to save this in a separate file for readability. 
-<br>
-
-<h3>10.  Add a div to display the message.</h3>
-
-```
-<body>
-  <div id="message"></div>
-</body>
-```
-
 <br>
 
 ### 11.  Create a `contract` object.
@@ -145,8 +148,8 @@ Metamask automatically adds an object named `web3` to the page before the `load`
 If the `web3` object is not found, it is because the user does not have Metamask installed.  We will address this scenario in Part 3.
 ```
 window.addEventListener('load', () => {
-      if(!web3) {
-	    return console.log("Metamask is not installed.");
+            if(typeof(web3) === 'undefined') {
+        return console.log("Metamask is not installed.");
       }
       contract = web3.eth.contract(abi).at(contract_address);
 });
@@ -158,7 +161,7 @@ window.addEventListener('load', () => {
 After the `contract` object has been created, we can use it to read data, call methods, and post transactions through Metamask.  Here we are reading `message`, which is a `string` in the `contract`.
 ```
 window.addEventListener('load', () => {
-    if(!web3) {
+    if(typeof(web3) === 'undefined') {
         return console.log("Metamask is not installed.");
     }
     contract = web3.eth.contract(abi).at(contract_address);
@@ -228,7 +231,7 @@ The 'Console' tab will display diagnostic information as your code runs, includi
 ### 16. Deploy to GitHub
 Obviously, there are tons of hosting options.  I like GitHub as a free and easy way to host a website, and it has the `https` support required for our dapp.
 
-Create a repository on GitHub and upload your `index.html` file (and any other dependencies that you may have added, such as images).  If you're unfamiliar with Github, check out how to create a repository using the [GUI](https://help.github.com/articles/create-a-repo/) or from the [command line.](https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/)
+Create a repository on GitHub and upload the entire project directory (or just your `index.html` file and any other dependencies that you may have added, such as images).  If you're unfamiliar with Github, check out how to create a repository using the [GUI](https://help.github.com/articles/create-a-repo/) or from the [command line.](https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/)
 
 Open the repository 'Settings' page.
 
@@ -255,167 +258,167 @@ That’s it!  Hope this was helpful.  In Part 3 we will be adding support for th
 ```html
 <html>
 <head>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script>
     const contract_address = "0x654b54c945d29981d597fc8756cdb3c6e372440c";
     const abi = [
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "previousOwner",
-				"type": "address"
-			}
-		],
-		"name": "OwnershipRenounced",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "previousOwner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "OwnershipTransferred",
-		"type": "event"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_maxLength",
-				"type": "uint256"
-			}
-		],
-		"name": "setMaxLength",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_message",
-				"type": "string"
-			}
-		],
-		"name": "setMessage",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "maxLength",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "message",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "owner",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	}
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "name": "previousOwner",
+                "type": "address"
+            }
+        ],
+        "name": "OwnershipRenounced",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "name": "previousOwner",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
+    },
+    {
+        "constant": false,
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_maxLength",
+                "type": "uint256"
+            }
+        ],
+        "name": "setMaxLength",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_message",
+                "type": "string"
+            }
+        ],
+        "name": "setMessage",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "maxLength",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "message",
+        "outputs": [
+            {
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }
 ];
-	
+    
 
     let contract;
     window.addEventListener('load', () => {
-			if(!web3) {
-				return console.log("Metamask is not installed");
-			}
+      if(typeof(web3) === 'undefined') {
+          return console.log("Metamask is not installed");
+      }
       contract = web3.eth.contract(abi).at(contract_address);
       contract.message.call((error, result) => {
-				if(error) {
-					return console.log(error);
-				}
-				$('#message').text(result);
+          if(error) {
+              return console.log(error);
+          }
+          $('#message').text(result);
       });
     });
 
     function setMessage() {
-			let message = $('#new_message').val();
-			contract.setMessage.sendTransaction(
-				message, 
-				{gasPrice: web3.toWei(4.1, 'Gwei')}, 
-				(error, result) => {
-					if(error) {
-						return console.log(error);
-					}
-					console.log("txhash: " + result); 
-				}
-			);
+      let message = $('#new_message').val();
+      contract.setMessage.sendTransaction(
+        message, 
+        {gasPrice: web3.toWei(4.1, 'Gwei')}, 
+        (error, result) => {
+            if(error) {
+                return console.log(error);
+            }
+            console.log("txhash: " + result); 
+        }
+      );
     }
   </script>
 </head>
