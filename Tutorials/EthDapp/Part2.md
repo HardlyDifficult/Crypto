@@ -111,11 +111,11 @@ We will need the contract's address. Assign it as a string to a `const` variable
 ### 9.  Copy the ABI from Remix.
 The ABI, or Application Binary Interface, describes the API supported by the contract.  We use this to call methods or read data types by name.
 
-To get the `abi`, click the ‘Compile’ tab, select ‘Details’ and then click the copy icon next to ‘ABI’.  
+To get the `abi`, click the ‘Compile’ tab and select ‘Details’. Then click the copy icon next to ‘ABI’.  
 
 ![Remix](https://i.imgur.com/8NYoRYI.png)
 
-Paste this as a `const` named `abi` under the `contract_address`.  
+Paste this as a `const` variable named `abi` under the `contract_address`.  
 
 ```
 const abi = [
@@ -126,7 +126,7 @@ const abi = [
 	}
 ];
 ```
-The ABI may be quite long.  You may want to save this in a separate file for readability. 
+The ABI may be quite long.  You might want to save this in a separate file for readability. 
 <br>
 
 <h3>10.  Add a div to display the message.</h3>
@@ -173,11 +173,11 @@ window.addEventListener('load', () => {
 ```
 
 #### `call`
-`call` is a  [web3.js function](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethcall) which will read a data type or the result from a read-only method.  This will not create a transaction, does not cost gas, and returns very quickly.
+`call` is a  [web3.js function](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethcall) which will read a data type or result from a read-only method.  This will not create a transaction, does not cost gas, and returns very quickly.
 
 <br>
 
-### 13.  Add a form allowing users to change the message.
+<h3>13.  Add a form allowing users to change the message.<h3>
 ```
 New Message: <input type="text" id="new_message" />
 <button onclick="setMessage()">Set Message</button>
@@ -185,7 +185,7 @@ New Message: <input type="text" id="new_message" />
 
 <br>
 
-### 14.  Create the `setMessage` `function` for the form to call.
+<h3>14.  Create the `setMessage` `function` for the form to call.</h3>
 ```
 function setMessage() {
     let message = $('#new_message').val();
