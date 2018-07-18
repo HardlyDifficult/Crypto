@@ -130,6 +130,7 @@ The ABI may be quite long.  You may want to save this in a separate file for rea
 <br>
 
 <h3>10.  Add a div to display the message.</h3>
+
 ```
 <body>
   <div id="message"></div>
