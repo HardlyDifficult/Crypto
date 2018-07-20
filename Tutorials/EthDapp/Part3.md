@@ -31,8 +31,12 @@ In part 2 we used a minimal Webpack deployment for testing.  In this part we'll 
 You may prefer to use a template such as [Vuejs's Webpack Template](https://github.com/vuejs-templates/webpack).  This makes setup easy and adds features like hot reloading, but steepens the learning curve.
 
 
-### 1.  Run `npm init`
+### 1.  Run `npm init -y`
 This command will create a `package.json` file, required for managing the packages we will be adding below.
+
+#### `-y`
+
+The `-y` param accepts all the defaults.  You can remove this and then answer a series of questions, configuring metadata for the application.
 
 <br>
 
@@ -105,6 +109,10 @@ This compiles your application, generating the `dist/main.js` required when view
 
 This command needs to be repeated anytime you change a js file.  There are hot-reloading options available to make development easier (included with the Vuejs template mentioned above). 
 
+#### `--mode=development`
+
+This option prevents things like compression in order to make debugging a bit easier.
+
 ### 8.  Test
 
 At this point, the app should work exactly as it did at the end of Part 2.  It should work so long as the user has Metamask installed and the correct network selected.
@@ -114,7 +122,7 @@ At this point, the app should work exactly as it did at the end of Part 2.  It s
 ### 9. Install web3 and the Ledger components
 
 ```
-npm install web3 web3-provider-engine @ledgerhq/web3-subprovider  @ledgerhq/hw-transport-u2f
+npm install web3 web3-provider-engine @ledgerhq/web3-subprovider @ledgerhq/hw-transport-u2f
 ```
 
 #### `web3`
@@ -136,16 +144,18 @@ These two components are required to interface with the Ledger Nano S hardware w
 Add the following to the top of `index.js`:
  
 ```javascript
-import Web3 from "web3"
+import Web3 from "web3";
 ```
 
 <br>
 
 ### 11.  Declare global variables
 
+```javascript
 let my_web3;
 let account;
 const rpcUrl = "https://ropsten.infura.io";
+```
 
 #### `my_web3`
 
@@ -161,6 +171,8 @@ This variable allows us to block any attempt to create a transaction (which woul
 
 Our application is reading information from an Ethereum node.  Metamask will select the node automatically, but we need to do it ourselves for users without Metamask.
 
+We are using [Infura](https://infura.io/) and the Ropsten testnet.
+
 
 <br>
 
@@ -170,7 +182,7 @@ Remove the 'Metamask is not installed' check, it's no longer an error as we can 
 
 ```javascript
 window.addEventListener('load', () => {
-  if(typeof(web3) == 'undefined') {
+  if(typeof(web3) === 'undefined') {
     my_web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
   } else {
     my_web3 = new Web3(web3.currentProvider);    
@@ -198,16 +210,119 @@ window.addEventListener('load', () => {
   );
 ```
 
+### 14.  Test again, we added a feature but lost one as well
+
+Rebuild!
+
+```
+npx webpack --mode=development
+```
+
+Anyone can now read the message.  Previously that only worked for users with Metamask installed.  The easiest way to test the experience without Metamask installed is by using a new incognito window.
+
+You will not be able to change the message though.  If you try, with or without Metamask, it throws an error 'No "from" address specified in neither the given options, nor the default options.'
+
+<br>
+
+### 15.  Get the user's address
+
+Add the following after setting the contract variable (`contract = new...`):
+
+```javascript
+my_web3.eth.getAccounts((error, result) => {
+  if(error) {
+    console.log(error);
+  } else if(result.length == 0) {
+    console.log("You are not logged in");
+  } else {
+    account = result[0];
+    contract.options.from = account;
+  }
+});
+```
+
+Rebuild and test, you can now change the message again.
+
+<br>
+
+### 16.  Add Ledger support
+
+Import the following at the top of your `index.js` file:
+
+```javascript
+import createLedgerSubprovider from "@ledgerhq/web3-subprovider";
+import TransportU2F from "@ledgerhq/hw-transport-u2f";
+import ProviderEngine from "web3-provider-engine";
+import RpcSubprovider from "web3-provider-engine/subproviders/rpc";
+```
+
+Inside the '`load`' event, add the following:
+
+```javascript
+window.addEventListener('load', () => {
+  const use_ledger = location.search.indexOf("ledger=true") >= 0;
+
+  if(use_ledger)
+  {
+    const engine = new ProviderEngine();
+    const getTransport = () => TransportU2F.create();
+    const ledger = createLedgerSubprovider(getTransport, {
+      networkId: 3, // 3 == Ropsten testnet
+    });
+    engine.addProvider(ledger);
+    engine.addProvider(new RpcSubprovider({ rpcUrl }));
+    engine.start();
+    my_web3 = new Web3(engine); 
+  } else if(typeof(web3) === 'und...
+```
+
+#### `location.search.indexOf("ledger=true") >= 0`
+
+A poor mans solution allowing the user to select when to use Ledger.  We'll implement the front-end for that next.
+
+#### `ProviderEngine`
+
+TODO
+
+#### `TransportU2F`
+
+TODO
+
+#### `createLedgerSubprovider`
+
+TODO
+
+#### `RpcSubprovider`
+
+TODO
+
+#### `start`
+
+TODO
+
+
+<br>
+
+### 17.  Create a widget to select Ledger
+
+Add the following to your `index.html`:
+
+```html
+<a href="?ledger=false">Metamask</a> | <a href="?ledger=true">Ledger</a>
+```
 
 
 
-
+To test plug in, open Eth app.  Make sure both 'Contract data' and 'Browser support' are enabled and then refresh the page.
 
 <hr>
 
 <br>
 
 That’s it!  Hope this was helpful.  
+
+Next steps:
+wrong network selected in metamask: use getNetwork ..
 
 <br>
 
