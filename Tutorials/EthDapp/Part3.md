@@ -363,11 +363,12 @@ To test:
 
 <br>
 
-That’s it!  Hope this was helpful.  
+That’s it!  You now know the basics and with a bit of time should be able to create some interesting dapps.  Hope this was helpful and let us know if you have questions.  
 
-Next steps:
- - Web3.js's getTransactionReceipt function.
- - Use getNetwork wrong network selected in metamask.
+Some possible next steps:
+ - Add [Web3.js's getTransactionReceipt](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethgettransactionreceipt) function to display status about the transaction and to respond when it completes.
+ - Use [Web3.js's getNetwork](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3versionnetwork) to allow the user to switch between networks and to detect when a Metamask user has an unsupported network selected.
+ - Use [Web3.js's Contract Events](https://github.com/ethereum/wiki/wiki/JavaScript-API#contract-events) to watch for changes and display more information.
 
 <br>
 
