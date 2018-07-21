@@ -95,15 +95,24 @@ jQuery for setting a callback for responding to a click event.
 
 <br>
 
-### 6.  Launch the server with `npx webpack-dev-server --https`
+### 6.  Launch the server 
 
-Same as last time.
+Same as last time:
+
+```
+npx webpack-dev-server --https
+```
+
 
 <br>
 
-### 7.  Build with `npx webpack --mode=development`
+### 7.  Build the application
 
 Execute this command in a new command window so that you don't need to stop the server.
+
+```
+npx webpack --mode=development
+```
 
 This compiles your application, generating the `dist/main.js` required when viewing the site.
 
@@ -117,9 +126,9 @@ This option prevents things like compression in order to make debugging a bit ea
 
 At this point, the app should work exactly as it did at the end of Part 2.  It should work so long as the user has Metamask installed and the correct network selected.
 
-<h2>Add Ledger Support</h2>
+<h2>Update Web3 and Add Ledger Support</h2>
 
-### 9. Install web3 and the Ledger components
+### 9. Install Web3.js and the Ledger components
 
 ```
 npm install web3 web3-provider-engine @ledgerhq/web3-subprovider @ledgerhq/hw-transport-u2f
@@ -131,7 +140,7 @@ We need to install Web3.js to use if Metamask is not available.
 
 #### `web3-provider-engine`
 
-This allows us to use Web3 with custom providers.  We use this to enable two features: 1) Ledger integration and 2) read-only support when neither Metamask nor Ledger is available.
+This allows us to use Web3.js with custom providers.  We use this to enable two features: 1) Ledger integration and 2) read-only support when neither Metamask nor Ledger is available.
 
 #### `@ledgerhq/web3-subprovider  @ledgerhq/hw-transport-u2f`
 
@@ -178,7 +187,7 @@ We are using [Infura](https://infura.io/) and the Ropsten testnet.
 
 ### 12.  Construct the `my_web3` object
 
-Remove the 'Metamask is not installed' check, it's no longer an error as we can support users without Metamask.  Replace it with the following:
+Remove the 'Metamask is not installed' check, it's no longer an error as we can support users without Metamask now.  Replace it with the following:
 
 ```javascript
 window.addEventListener('load', () => {
@@ -192,6 +201,15 @@ window.addEventListener('load', () => {
 }
 ```
 
+
+#### `Web3.providers.HttpProvider`
+
+This defines a node for the API to connect to for making requests.  This enables read-only support for anyone viewing the site, even if they do not have an Ethereum account.
+
+#### `web3.currentProvider`
+
+This allows the latest version of Web3.js to the Metamask provider, allowing the application to interface with `my_web3` consistently (i.e. the same code will work for Metamask and for Ledger users).
+
 <br>
 
 ### 13.  Update the Web3.js calls to the latest standard
@@ -200,6 +218,8 @@ window.addEventListener('load', () => {
   contract = new my_web3.eth.Contract(abi, contract_address);
   contract.methods.message().call((error, result) => {
     ...
+  }).catch((error) => {
+    console.log("Error: " + error);
   });
 
   ...
@@ -207,8 +227,30 @@ window.addEventListener('load', () => {
   contract.methods.setMessage(message).send(
     {gasPrice: my_web3.utils.toWei("4.1", 'Gwei')},
     ...
-  );
+  ).catch((error) => {
+    console.log("Error: " + error);
+  });
 ```
+
+#### `my_web3`
+
+We will be replacing all other instances of `web3` with `my_web3`, so that calls are the same for all users.
+
+#### `eth.Contract`
+
+With the newer version of Web3.js, constructing a contract has changed.  
+
+#### `.methods`
+
+The contract object moved all the data and methods under this `.methods` type.  Additionally when calling a method, the paramaters you are passing in are moved to the method itself vs inside `.call` or `.send`.
+
+#### `.utils`
+
+Helper methods such as .toWei have moved under .utils, but otherwise work the same.
+
+#### `.catch`
+
+The newer version of Web3.js uses Promises, if an error is thrown you may respond to it here.
 
 ### 14.  Test again, we added a feature but lost one as well
 
@@ -238,6 +280,8 @@ my_web3.eth.getAccounts((error, result) => {
     account = result[0];
     contract.options.from = account;
   }
+}).catch((error) => {
+  console.log("Error: " + error);
 });
 ```
 
@@ -273,7 +317,7 @@ window.addEventListener('load', () => {
     engine.addProvider(new RpcSubprovider({ rpcUrl }));
     engine.start();
     my_web3 = new Web3(engine); 
-  } else if(typeof(web3) === 'und...
+  } else if(typeof(web3) === ...
 ```
 
 #### `location.search.indexOf("ledger=true") >= 0`
@@ -282,23 +326,19 @@ A poor mans solution allowing the user to select when to use Ledger.  We'll impl
 
 #### `ProviderEngine`
 
-TODO
+Provider engine's are a pattern used to connect an implementation to the Web3.js API.
 
 #### `TransportU2F`
 
-TODO
+The hardware communication layer for the Ledger device.
 
 #### `createLedgerSubprovider`
 
-TODO
+This handles communications with the device for authenticated actions, such as getting the user's account or sending a transaction.
 
 #### `RpcSubprovider`
 
-TODO
-
-#### `start`
-
-TODO
+Rpc is added as well to enable read-only calls, which do not require communication with the Ledger hardware device.
 
 
 <br>
@@ -311,9 +351,13 @@ Add the following to your `index.html`:
 <a href="?ledger=false">Metamask</a> | <a href="?ledger=true">Ledger</a>
 ```
 
+To test:
 
-
-To test plug in, open Eth app.  Make sure both 'Contract data' and 'Browser support' are enabled and then refresh the page.
+ - Rebuild!
+ - Plug in your Ledger Nano S
+ - Open the Ethereum app
+ - Make sure both 'Contract data' and 'Browser support' are enabled.
+ - Refresh the page and then attempt a transaction.
 
 <hr>
 
@@ -322,7 +366,8 @@ To test plug in, open Eth app.  Make sure both 'Contract data' and 'Browser supp
 That’s it!  Hope this was helpful.  
 
 Next steps:
-wrong network selected in metamask: use getNetwork ..
+ - Web3.js's getTransactionReceipt function.
+ - Use getNetwork wrong network selected in metamask.
 
 <br>
 
@@ -331,5 +376,204 @@ wrong network selected in metamask: use getNetwork ..
 <h1>Source Code - Part 3</h1>
 
 ```html
+import Web3 from "web3";
+import createLedgerSubprovider from "@ledgerhq/web3-subprovider";
+import TransportU2F from "@ledgerhq/hw-transport-u2f";
+import ProviderEngine from "web3-provider-engine";
+import RpcSubprovider from "web3-provider-engine/subproviders/rpc";
 
+const contract_address = "0x654b54c945d29981d597fc8756cdb3c6e372440c";
+const abi = [
+{
+    "anonymous": false,
+    "inputs": [
+        {
+            "indexed": true,
+            "name": "previousOwner",
+            "type": "address"
+        }
+    ],
+    "name": "OwnershipRenounced",
+    "type": "event"
+},
+{
+    "anonymous": false,
+    "inputs": [
+        {
+            "indexed": true,
+            "name": "previousOwner",
+            "type": "address"
+        },
+        {
+            "indexed": true,
+            "name": "newOwner",
+            "type": "address"
+        }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+},
+{
+    "constant": false,
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+},
+{
+    "constant": false,
+    "inputs": [
+        {
+            "name": "_maxLength",
+            "type": "uint256"
+        }
+    ],
+    "name": "setMaxLength",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+},
+{
+    "constant": false,
+    "inputs": [
+        {
+            "name": "_message",
+            "type": "string"
+        }
+    ],
+    "name": "setMessage",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+},
+{
+    "constant": false,
+    "inputs": [
+        {
+            "name": "_newOwner",
+            "type": "address"
+        }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+},
+{
+    "inputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+},
+{
+    "constant": true,
+    "inputs": [],
+    "name": "maxLength",
+    "outputs": [
+        {
+            "name": "",
+            "type": "uint256"
+        }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+},
+{
+    "constant": true,
+    "inputs": [],
+    "name": "message",
+    "outputs": [
+        {
+            "name": "",
+            "type": "string"
+        }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+},
+{
+    "constant": true,
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+        {
+            "name": "",
+            "type": "address"
+        }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+}
+];
+
+let my_web3;
+let account;
+const rpcUrl = "https://ropsten.infura.io";
+let contract;
+window.addEventListener('load', () => {
+  const use_ledger = location.search.indexOf("ledger=true") >= 0;
+
+  if(use_ledger)
+  {
+    const engine = new ProviderEngine();
+    const getTransport = () => TransportU2F.create();
+    const ledger = createLedgerSubprovider(getTransport, {
+      networkId: 3, // 3 == Ropsten testnet
+    });
+    engine.addProvider(ledger);
+    engine.addProvider(new RpcSubprovider({ rpcUrl }));
+    engine.start();
+    my_web3 = new Web3(engine); 
+  } else if(typeof(web3) === 'undefined') {
+    my_web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+  } else {
+    my_web3 = new Web3(web3.currentProvider);    
+  }
+  contract = new my_web3.eth.Contract(abi, contract_address);
+  my_web3.eth.getAccounts((error, result) => {
+    if(error) {
+      console.log(error);
+    } else if(result.length == 0) {
+      console.log("You are not logged in");
+    } else {
+      account = result[0];
+      contract.options.from = account;
+    }
+  }).catch((error) => {
+    console.log("Error: " + error);
+  });
+  contract.methods.message().call((error, result) => {
+      if(error) {
+          return console.log(error);
+      }
+      $('#message').text(result);
+  }).catch((error) => {
+    console.log("Error: " + error);
+  });
+
+  $('#set_message').click(setMessage);
+});
+
+function setMessage() {
+  let message = $('#new_message').val();
+  contract.methods.setMessage(message).send(
+    {gasPrice: my_web3.utils.toWei("4.1", 'Gwei')}, 
+    (error, result) => {
+        if(error) {
+            return console.log(error);
+        }
+        console.log("txhash: " + result); 
+    }
+  ).catch((error) => {
+    console.log("Error: " + error);
+  });
+}
 ```
