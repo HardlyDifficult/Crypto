@@ -26,28 +26,28 @@ This tutorial will utilize the following references and resources. Don’t worry
 <br>
 
 ##  Setting Up the Environment 
-In part 2 we used a minimal Webpack deployment for testing.  In this part we'll need a more capable environment for development.  
+In Part 2 we used a minimal Webpack deployment for testing.  In this part, we'll need a more capable environment for development.  
 
 You may prefer to use a template such as [Vuejs's Webpack Template](https://github.com/vuejs-templates/webpack).  This makes setup easy and adds features like hot reloading, but steepens the learning curve.
 
 
-### 1.  Run `npm init -y`
-This command will create a `package.json` file, required for managing the packages we will be adding below.
+### 1.  Run `npm init -y`.
+This command will create a `package.json` file, which is required for managing the packages we will be adding below.
 
 #### `-y`
 
-The `-y` param accepts all the defaults.  You can remove this and then answer a series of questions, configuring metadata for the application.
+We need to configure some metadata for the application. The `-y` parameter accepts all the defaults.  You can remove this if you wish to customize the configuration.
 
 <br>
 
-### 2.  Move the javascript to `index.js`
+### 2.  Move the javascript to `index.js`.
 Remove all the javascript we wrote in `index.html` and add it to the `/src/index.js` file.  
 
-We are moving the javascript in order to support `include` statements.  Templates such as the Vuejs template mentioned above can make this more seemless.
+We are moving the javascript in order to support `include` statements.  Templates, such as the Vuejs template mentioned above, can make this more seamless.
 
 <br>
 
-### 3.  Include `dist/main.js` in `index.html`
+<h3>3.  Include `dist/main.js` in `index.html`.</h3>
 
 ```html
 <head>
@@ -56,12 +56,12 @@ We are moving the javascript in order to support `include` statements.  Template
 </head>
 ```
 
-This file, `dist/main.js,` is a bundle of all your other js files, generated when we do a webpack build as described below.
+This file, `dist/main.js,` is a bundle of all your other `.js` files, generated when we do a Webpack build as described below.
 
 <br>
 
-### 4.  In the button, replace the event with an id
-Since we separated the js into another file, we will attach the javascript event handler to the button instead of the other way around.  In other words, the button does nothing until the javascript file has been initialized.
+### 4.  In the button, replace the `event` with an `id`.
+In Part 2 of the tutorial, we created a `button` and assigned it an `onclick` event. Since we separated the `.js` into another file, we will attach the javascript event handler to the button instead of the other way around.  In other words, the button does nothing until the javascript file has been initialized.
 
 Replace:
 
@@ -77,11 +77,11 @@ With:
 
 <br>
 
-<h3>5.  Attach the button's event handler from `index.js`</h3>
+### 5.  Attach the button's event handler from `index.js`.
 
-Inside the callback for the '`load`' event, attach the `setMessage` function to the button named `set_message`.
+Inside the callback for the `load` event, attach the `setMessage` function to the button named `set_message`.
 
-We do this on `load` to ensure that the DOM has loaded, otherwise it may execute before the HTML is available... and then fail to attach.
+We do this on `load` to ensure that the DOM has loaded; otherwise, it may execute before the HTML is available, then fail to attach.
 
 ```javascript
 window.addEventListener('load', () => {
@@ -91,13 +91,13 @@ window.addEventListener('load', () => {
 ```
 
 #### `.click(...)`
-jQuery for setting a callback for responding to a click event.
+jQuery syntax to set a callback for responding to a click event.
 
 <br>
 
 ### 6.  Launch the server 
 
-Same as last time:
+Same as the last time:
 
 ```
 npx webpack-dev-server --https
@@ -116,7 +116,7 @@ npx webpack --mode=development
 
 This compiles your application, generating the `dist/main.js` required when viewing the site.
 
-This command needs to be repeated anytime you change a js file.  There are hot-reloading options available to make development easier (included with the Vuejs template mentioned above). 
+This command needs to be repeated anytime you change a `.js` file.  There are hot reloading options available to make development easier (included with the Vuejs template mentioned above). 
 
 #### `--mode=development`
 
@@ -124,11 +124,11 @@ This option prevents things like compression in order to make debugging a bit ea
 
 ### 8.  Test
 
-At this point, the app should work exactly as it did at the end of Part 2.  It should work so long as the user has Metamask installed and the correct network selected.
+At this point, the app should work exactly as it did at the end of Part 2.  It should work as long as the user has Metamask installed and the correct network selected.
 
 <h2>Update Web3 and Add Ledger Support</h2>
 
-### 9. Install Web3.js and the Ledger components
+### 9. Install Web3.js and the Ledger components.
 
 ```
 npm install web3 web3-provider-engine @ledgerhq/web3-subprovider @ledgerhq/hw-transport-u2f
@@ -148,7 +148,7 @@ These two components are required to interface with the Ledger Nano S hardware w
 
 <br>
 
-### 10.  Import Web3.js
+### 10.  Import Web3.js.
 
 Add the following to the top of `index.js`:
  
@@ -158,7 +158,9 @@ import Web3 from "web3";
 
 <br>
 
-### 11.  Declare global variables
+### 11.  Declare global variables.
+
+We are using [Infura](https://infura.io/) and the Ropsten testnet.
 
 ```javascript
 let my_web3;
@@ -172,22 +174,20 @@ Metamask does not use the latest version of Web3.js, presumably to maintain back
 
 #### `account`
 
-By pulling in the Web3.js library, we are able to support read-only calls for users which don't have either Metamask or Ledger connected (i.e. anyone can read the current message).  
+By pulling in the Web3.js library, we are able to support read-only calls for users who don't have either Metamask or Ledger connected (i.e., anyone can read the current message).  
 
-This variable allows us to block any attempt to create a transaction (which would fail anyways).
+This variable allows us to block any attempt to create a transaction (which would fail anyway).
 
 #### `rpcUrl`
 
 Our application is reading information from an Ethereum node.  Metamask will select the node automatically, but we need to do it ourselves for users without Metamask.
-
-We are using [Infura](https://infura.io/) and the Ropsten testnet.
 
 
 <br>
 
 ### 12.  Construct the `my_web3` object
 
-Remove the 'Metamask is not installed' check, it's no longer an error as we can support users without Metamask now.  Replace it with the following:
+Remove the 'Metamask is not installed' check. It's no longer an error as we can support users without Metamask now.  Replace it with the following:
 
 ```javascript
 window.addEventListener('load', () => {
@@ -208,11 +208,11 @@ This defines a node for the API to connect to for making requests.  This enables
 
 #### `web3.currentProvider`
 
-This allows the latest version of Web3.js to the Metamask provider, allowing the application to interface with `my_web3` consistently (i.e. the same code will work for Metamask and for Ledger users).
+This gives the latest version of Web3.js to the Metamask provider, allowing the application to interface with the `my_web3` object consistently (i.e., the same code will work for Metamask and for Ledger users).
 
 <br>
 
-### 13.  Update the Web3.js calls to the latest standard
+<h3>13.  Update the Web3.js calls to the latest standard.</h3>
 
 ```
   contract = new my_web3.eth.Contract(abi, contract_address);
@@ -234,7 +234,7 @@ This allows the latest version of Web3.js to the Metamask provider, allowing the
 
 #### `my_web3`
 
-We will be replacing all other instances of `web3` with `my_web3`, so that calls are the same for all users.
+We will be replacing all other instances of `web3` with `my_web3` so that calls are the same for all users.
 
 #### `eth.Contract`
 
@@ -242,17 +242,19 @@ With the newer version of Web3.js, constructing a contract has changed.
 
 #### `.methods`
 
-The contract object moved all the data and methods under this `.methods` type.  Additionally when calling a method, the paramaters you are passing in are moved to the method itself vs inside `.call` or `.send`.
+The contract object moved all the data and methods under this `.methods` type.  Additionally, when calling a method, the paramaters you are passing in are moved to the method itself, as opposed to inside `.call` or `.send`.
 
 #### `.utils`
 
-Helper methods such as .toWei have moved under .utils, but otherwise work the same.
+Helper methods such as `.toWei` have moved under `.utils`, but otherwise work the same.
 
 #### `.catch`
 
-The newer version of Web3.js uses Promises, if an error is thrown you may respond to it here.
+The newer version of Web3.js uses Promises. If an error is thrown you may respond to it here.
 
-### 14.  Test again, we added a feature but lost one as well
+### 14.  Test again.
+
+We added a feature, but lost one as well.
 
 Rebuild!
 
@@ -260,9 +262,9 @@ Rebuild!
 npx webpack --mode=development
 ```
 
-Anyone can now read the message.  Previously that only worked for users with Metamask installed.  The easiest way to test the experience without Metamask installed is by using a new incognito window.
+Anyone can now read the message.  Previously, this only worked for users with Metamask installed.  The easiest way to test the experience without Metamask installed is by using a new incognito window.
 
-You will not be able to change the message though.  If you try, with or without Metamask, it throws an error 'No "from" address specified in neither the given options, nor the default options.'
+You will not be able to change the message, though.  If you try, with or without Metamask, the application will throw an error: 'No "from" address specified in neither the given options, nor the default options.'
 
 <br>
 
@@ -285,7 +287,7 @@ my_web3.eth.getAccounts((error, result) => {
 });
 ```
 
-Rebuild and test, you can now change the message again.
+Rebuild and test. You should be able to change the message again.
 
 <br>
 
@@ -322,11 +324,11 @@ window.addEventListener('load', () => {
 
 #### `location.search.indexOf("ledger=true") >= 0`
 
-A poor mans solution allowing the user to select when to use Ledger.  We'll implement the front-end for that next.
+A poor man's solution allowing the user to select when to use Ledger.  We'll implement the front-end for that next.
 
 #### `ProviderEngine`
 
-Provider engine's are a pattern used to connect an implementation to the Web3.js API.
+Provider engines are a pattern used to connect an implementation to the Web3.js API.
 
 #### `TransportU2F`
 
@@ -338,12 +340,12 @@ This handles communications with the device for authenticated actions, such as g
 
 #### `RpcSubprovider`
 
-Rpc is added as well to enable read-only calls, which do not require communication with the Ledger hardware device.
+Rpc is added to enable read-only calls, which do not require communication with the Ledger hardware device.
 
 
 <br>
 
-### 17.  Create a widget to select Ledger
+### 17.  Create a widget to select Ledger.
 
 Add the following to your `index.html`:
 
