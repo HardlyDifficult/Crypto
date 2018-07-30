@@ -1,16 +1,8 @@
 This is a tutorial on how to create a simple jukebox in Decentraland.
 
-Full source code is available below and on (GitHub)[https://github.com/hardlydifficult/DecentralandJukebox].
+Full source code is available below and on [GitHub](https://github.com/hardlydifficult/DecentralandJukebox).
 
 <hr>
-
-<h1>How-to: Jukebox in Decentraland</h1>
-
-This tutorial will utilize the following references and resources. Don’t worry about collecting them all right now; we’ll refer to them inline as we use them.
-
-TODO ?
-* [Decentraland SDK](https://docs.decentraland.org/sdk-reference/SDK-Overview/)
-
 <br>
 
 ##  Setting Up the Environment 
