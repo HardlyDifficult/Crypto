@@ -1,9 +1,8 @@
-This is a tutorial on how to create a simple jukebox in Decentraland.
+This is a tutorial on how to create a simple **Jukebox in Decentraland**.
 
 Full source code is available below and on [GitHub](https://github.com/hardlydifficult/DecentralandJukebox).
 
 <hr>
-<br>
 
 ##  Setting Up the Environment 
 
@@ -15,24 +14,27 @@ Then run:
 npm install -g decentraland
 ```
 
-This command is only run once per machine.
+#### `npm install -g`
+
+This will install a Node.js package.  Using `-g` installs it once for the machine (vs the default of installing packages per-project).
 
 ##  Create a Project
+
+With a cmd prompt in the project's directory, run:
 
 ```
 dcl init
 ```
 
-Start with a 'basic' scene for this tutorial.
+Start with a `basic` scene for this tutorial.
 
 #### `dcl`
 
-`dcl` is the command for the 'decentraland' SDK.
+`dcl` is the command for the Decentraland SDK that we installed above.
 
 #### `init`
 
-`dcl init` will ask a series of questions to configure a project template you can then build from.
-
+`dcl init` will ask a series of questions to configure a project template that you can then build from.
 
 ## Start the Game
 
@@ -47,11 +49,11 @@ This should open a new tab automatically to [http://localhost:8000](http://local
 
 Add the art and sounds for our app to the project's directory.
 
-Download the [model and music](https://github.com/hardlydifficult/DecentralandJukebox/raw/master/Jukebox.zip) or use your own of course.
+Download the [model and music](https://github.com/hardlydifficult/DecentralandJukebox/raw/master/Jukebox.zip) we've selected or use your own of course.
 
-## Add Jukebox to the scene
+## Add the Jukebox to the Scene
 
-Modify `scene.tsx`, removing everything between the scene tags and then adding a glfx model:
+Modify `scene.tsx`, removing everything between the scene tags and then adding a gltf model:
 
 ```typescript
 <scene>
@@ -61,13 +63,16 @@ Modify `scene.tsx`, removing everything between the scene tags and then adding a
 </scene>
 ```
 
+#### `gltf-model`
+
+gltf is the model format Decentraland uses.  It's supported by Blender, [see here for more information](https://docs.decentraland.org/sdk-reference/entity-interfaces/).
+
 ##  Position and Scale Jukebox
 
 Adjust the position and scale until it looks good.
 
 ```typescript
-<gltf-model
-  src="art/Jukebox.gltf"
+<gltf-model ...
   position={{x: 5, y: 0, z: 9.5}}
   scale={.6}>
 </gltf-model>
@@ -81,7 +86,7 @@ The scale can either be a single number as shown here or a Vector3 (similiar to 
 
 The position entered is relative to the tile's origin.
 
-## Define the songs to be included
+## Define the Songs to be Included
 
 In the `SampleScene` class, add `songs`:
 
@@ -154,9 +159,10 @@ Rotation here is in Euler form, defined in degrees.
 
 ##  Add Text for Each Song
 
+Inside the `entity` for each song, add a `text` label displaying the song's `name`.
+
 ```typescript
-<entity ...>
-<cylinder ... />
+  <cylinder ... />
   <text 
     hAlign="left"
     value={this.songs[index].name} 
@@ -170,19 +176,17 @@ Rotation here is in Euler form, defined in degrees.
 In the `SampleScene` class, add `state`:
 
 ```typescript
-export default class SampleScene extends DCL.ScriptableScene 
-{
-  songs...;
+songs: ...;
 
-  state: {buttonState: boolean[], lastSelectedState: number} = {
-    buttonState: Array(this.songs.length).fill(false),
-    lastSelectedState: 0,
-  };
+state: {buttonState: boolean[], lastSelectedState: number} = {
+  buttonState: Array(this.songs.length).fill(false),
+  lastSelectedState: 0,
+};
 ```
 
 ```Array(this.songs.length).fill(false)```
 
-This creates an array to track state for each song.  `.fill(false)` sets the default state for each button to be unpressed.
+This creates an array to track state for each song.  `.fill(false)` sets the default state for each button to be unpressed, without this the default would be `undefined`.
 
 ## Position Buttons when Pressed
 
@@ -196,13 +200,10 @@ if(this.state.buttonState[index])
 }
 return (
   <entity ...>
-    <cylinder
-      ...
+    <cylinder ...
       position={{x: 0, y: 0, z: buttonZ}} 
       transition={{position: {duration: 100}}} />
-      <text ... />
-  </entity>
-)
+      <text ...
 ```
 
 Note you could change the buttonState manually at this point to test.
@@ -238,7 +239,7 @@ sceneDidMount()
 
 `sceneDidMount` is an event which is called after the scene has loaded.  We use this for any initialization required, such as subscribing to object events.
 
-#### `this.eventSubscriber.on(`song${i}_click`, () =>`
+#### `this.eventSubscriber.on('song${i}_click', () =>`
 
 The `eventSubscriber` allows you to respond to object specific events, in this example when the user clicks on the object.  `song${i}` is the id of the object and `click` is the event type.
 
@@ -257,11 +258,6 @@ Add `sound` to the entity for each song to play when that button is selected.
     playing:this.state.buttonState[index]}}>
 ```
 
-# 
-
-
-
-
 <hr>
 
 <br>
@@ -269,7 +265,9 @@ Add `sound` to the entity for each song to play when that button is selected.
 That’s it!  You now know the basics and with a bit of time should be able to create some interesting interactive experiences in Decentraland.  Hope this was helpful and let us know if you have questions.  
 
 Some possible next steps:
- - Maybe see pay to open to make a pay to play
+ - Maybe charge for playing songs, see the [pay to open sample](https://github.com/decentraland/sample-scene-payments).
+ - Maybe add multiplayer support, so people may listen to music together.  See the [multiplayer sample](https://github.com/decentraland/sample-scene-server).
+ - Maybe add a dance floor, thumping speakers, and a bar.
 
 <br>
 
