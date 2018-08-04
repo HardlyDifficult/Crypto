@@ -1,24 +1,22 @@
-This is a tutorial on how to create a simple **Jukebox in Decentraland**.
 
-Full source code is available below and on [GitHub](https://github.com/hardlydifficult/DecentralandJukebox).
+This is a tutorial on creating a basic **AI in Decentraland**. We'll add a dog which follows you around and listens to some of your commands.
+
+Full source code is available below and on [GitHub](https://github.com/hardlydifficult/BlockDog).
+
+If you are new to Decentraland development, you may want to start with our [beginner tutorial, creating a Jukebox](https://steemit.com/tutorial/@hardlydifficult/decentraland-tutorial-creating-a-music-jukebox).
 
 <hr>
 
 ##  Setting Up the Environment 
 
-Install [Node.js](https://nodejs.org/en/download/) and [Python](https://www.python.org/downloads/) if you don't already have them installed. 
+One time setup:
 
-Then in a command prompt run:
+ - [Node.js](https://nodejs.org/en/download/) 
+ - [Python](https://www.python.org/downloads/)
 
 ```
 npm install -g decentraland
 ```
-
-#### `npm install -g`
-
-This will install a Node.js package.  Using `-g` installs it once for the machine (vs the default of installing packages per-project).
-
-##  Create a Project
 
 With a cmd prompt in the project's directory, run:
 
@@ -26,17 +24,9 @@ With a cmd prompt in the project's directory, run:
 dcl init
 ```
 
-Start with a `basic` scene for this tutorial.
+Start with a `basic` scene for this tutorial.  This will populate the directory with a few files for us to start from.  We require `scene.tsx` for this tutorial which only comes with the `basic` and `interactive` templates.
 
-#### `dcl`
-
-`dcl` is the command for the Decentraland SDK that we installed above.
-
-#### `init`
-
-`dcl init` will ask a series of questions to configure a project template that you can then build from.
-
-## Start the Game
+Now start the game:
 
 ```
 dcl start
@@ -49,23 +39,122 @@ This should open a new tab automatically to [http://localhost:8000](http://local
 
 Add the art and sounds for our app to the project's directory.
 
-Download the [model and music](https://github.com/hardlydifficult/DecentralandJukebox/raw/master/Jukebox.zip) we've selected or use your own of course.
+Download the [dog's model](https://github.com/hardlydifficult/BlockDog/raw/master/art.zip) we've created or use your own of course.
 
-## Add the Jukebox to the Scene
+## Add the models to the Scene
 
-Modify `scene.tsx`, removing everything between the scene tags and then adding a gltf model:
+Modify `scene.tsx`, removing everything between the `scene` tags and then adding gltf models:
 
 ```typescript
 <scene>
+  <gltf-model 
+    id="Dog"
+    src="art/BlockDog.gltf"
+  />
   <gltf-model
-    src="art/Jukebox.gltf">
-  </gltf-model>
+    id="Bowl"
+    src="art/BlockDogBowl.gltf"
+  />
 </scene>
 ```
 
 #### `gltf-model`
 
-gltf is the model format Decentraland uses.  It's supported by Blender, [see here for more information](https://docs.decentraland.org/sdk-reference/entity-interfaces/).
+gltf is the model format Decentraland uses.  It's supported by Blender by installing [a glTF exporter](https://github.com/KhronosGroup/glTF-Blender-Exporter), [see Decentralands Scene Content Guide](https://docs.decentraland.org/sdk-reference/scene-content-guide/) for more information.
+
+## Add Babylonjs
+
+We will be using [Babylonjs](https://www.babylonjs.com/) for their Vector3 and Quaternion support.  
+
+```
+npm install babylonjs
+```
+
+```typescript
+import {Vector3, Quaternion} from "babylonjs"; 
+```
+
+Note: The Vector3Component that Decentraland includes by default is just data.  To ease coding, we'll use Babylon's instead which includes methods such as `.subtract` and `.normalize`.  You could use another library for this, or code the math yourself.
+
+
+## Add `state` for position and rotation
+
+Above the `SampleScene` class, add an interface for state:
+
+```typescript
+export interface IState 
+{
+  characterPosition: Vector3, 
+  bowlPosition: Vector3, 
+  dogPosition: Vector3, 
+  dogRotation: Quaternion,
+}
+```
+
+Add `IState` to the `SampleScene` class definition:
+
+```typescript
+export default class SampleScene extends DCL.ScriptableScene<any, IState>
+```
+
+Then inside the class, add the state object itself:
+
+```typescript
+state = { 
+  characterPosition: new Vector3(0, 0, 0), 
+  bowlPosition: new Vector3(1, 0, 1), 
+  dogPosition: new Vector3(9, 0, 9), 
+  dogRotation: new Quaternion(0, 0, 0, 1), 
+};
+```
+
+And finally leverage this state in the `render` method:
+
+```typescript
+<gltf-model...
+  position={this.state.dogPosition} 
+  rotation={this.state.dogRotation.toEulerAngles().scale(180 / Math.PI)} 
+/>
+<gltf-model...
+  position={this.state.bowlPosition} 
+/>
+```
+
+#### `export interface IState`
+
+This is declaring the type of information that will be stored by the state object.  This declaration is optional, but a best practice and will allow your IDE to display better hints.
+
+#### `Vector3` 
+
+For more information see [Babylonjs's doc on Vector3](https://doc.babylonjs.com/api/classes/babylon.vector3).
+
+#### `Quaternion` 
+
+Quaternion is the preferred format used by games for storing and modifying rotation.  For more information see [Babylonjs's doc on Quaternion](https://doc.babylonjs.com/api/classes/babylon.quaternion).
+
+To better understand Quaternion and why that format is preferred over Euler or other representations, see [our tutorial on Quaternions](https://youtu.be/kYOtk5a6_x4).
+
+
+#### `<any, IState>`
+
+This format is for [Generics in Typescript](https://www.typescriptlang.org/docs/handbook/generics.html).  Generics allow you to write more general purpose code and then have specific types slotted in after.  In this example we are allowing our base class, `DCL.ScriptableScene`, to know exactly what state will be stored.
+
+#### `.toEulerAngles().scale(180 / Math.PI)`
+
+Decentraland is expecting rotations in Eulers, using degrees.  This is converting our Quaternion to that desired format.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ##  Position and Scale Jukebox
 
@@ -78,9 +167,6 @@ Adjust the position and scale until it looks good.
 </gltf-model>
 ```
 
-#### `scale`
-
-The scale can either be a single number as shown here or a Vector3 (similiar to the position).  Use a Vector3 to scale the model unevenly (e.g. in order to stretch the height).
 
 #### `position`
 
@@ -178,9 +264,9 @@ In the `SampleScene` class, add `state`:
 ```typescript
 songs: ...;
 
-state: {buttonState: boolean[], lastSelectedState: number} = {
+state: {buttonState: boolean[], lastSelectedButton: number} = {
   buttonState: Array(this.songs.length).fill(false),
-  lastSelectedState: 0,
+  lastSelectedButton: 0,
 };
 ```
 
@@ -210,7 +296,7 @@ Note you could change the buttonState manually at this point to test.
 
 #### `transition`
 
-Transitions can be used in Decentraland to animate from one state to another.  This works for position, rotation, scale, and color.  For more info on the [`TransitionValue`](https://docs.decentraland.org/sdk-reference/entity-interfaces/).
+Transitions can be used in Decentraland to animate from one state to another.  This works for position, rotation, scale, and color.  See [Scene State in the Decentraland docs](https://docs.decentraland.org/sdk-reference/scene-state/) for more information.  
 
 ##  Push buttons
 
@@ -223,13 +309,16 @@ sceneDidMount()
   {
     this.eventSubscriber.on(`song${i}_click`, () => 
     {
-      if(i != this.state.lastSelectedState)
-      {
-        this.state.buttonState[this.state.lastSelectedState] = false;
-      }
-      this.state.buttonState[i] = !this.state.buttonState[i];
-      this.state.lastSelectedState = i;
-      this.forceUpdate();
+        let newButtonState = this.state.buttonState.slice();
+        if(i != this.state.lastSelectedButton)
+        {
+          newButtonState[this.state.lastSelectedButton] = false;
+        }
+        newButtonState[i] = !this.state.buttonState[i];
+        this.setState({
+          buttonState: newButtonState,
+          lastSelectedButton: i
+        });
     });
   }
 }
@@ -243,9 +332,14 @@ sceneDidMount()
 
 The `eventSubscriber` allows you to respond to object specific events, in this example when the user clicks on the object.  `song${i}` is the id of the object and `click` is the event type.
 
-#### `this.forceUpdate();`
+#### `.slice()`
 
-`forceUpdate()` will cause the scene to re-render.
+We start by copying the current `buttonState` array.  This allows us to make changes without potentially causing unintended consequences. 
+
+#### `this.setState`
+
+Use `setState` to modify any of the variables stored by the `state` variable.  When using this method, render is called automatically, without any need to call forceUpdate (which would be less efficient than only rendering changes).   See [Scene State in the Decentraland docs](https://docs.decentraland.org/sdk-reference/scene-state/) for more information.  
+
 
 ## Play the Selected Song
 
@@ -275,6 +369,8 @@ Some possible next steps:
 
 <h1>Source Code</h1>
 
+**`scene.tsx`**:
+
 ```typescript
 import * as DCL from 'metaverse-api'
 
@@ -288,9 +384,9 @@ export default class SampleScene extends DCL.ScriptableScene
     {src: "sounds/Scherzo No1_ Chopin.mp3", name: "Chopin"},
   ];
 
-  state: {buttonState: boolean[], lastSelectedState: number} = { 
+  state: {buttonState: boolean[], lastSelectedButton: number} = { 
     buttonState: Array(this.songs.length).fill(false),
-    lastSelectedState: 0,
+    lastSelectedButton: 0,
   };
 
   sceneDidMount() 
@@ -299,13 +395,16 @@ export default class SampleScene extends DCL.ScriptableScene
     {
       this.eventSubscriber.on(`song${i}_click`, () => 
       {
-        if(i != this.state.lastSelectedState)
+        let newButtonState = this.state.buttonState.slice();
+        if(i != this.state.lastSelectedButton)
         {
-          this.state.buttonState[this.state.lastSelectedState] = false;
+          newButtonState[this.state.lastSelectedButton] = false;
         }
-        this.state.buttonState[i] = !this.state.buttonState[i];
-        this.state.lastSelectedState = i;
-        this.forceUpdate();
+        newButtonState[i] = !this.state.buttonState[i];
+        this.setState({
+          buttonState: newButtonState,
+          lastSelectedButton: i
+        });
       });
     }
   }
