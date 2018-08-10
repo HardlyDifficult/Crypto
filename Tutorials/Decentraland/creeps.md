@@ -1,7 +1,7 @@
 
-This is a tutorial on creating a simple **Tower Defense Game in Decentraland**. Creeps are making their way through your base.  Stop as many as you can by springing traps at the right moment.  This is multiplayer, who will win? Humans or the creeps?
+This is a tutorial on creating a simple **Tower Defense Game in Decentraland**. Creeps are making their way through your base.  Stop as many as you can by springing traps at the right moment.  This is multiplayer, who will win: Humans or the Creeps?
 
-Full source code is available below and on [GitHub](https://github.com/hardlydifficult/DecentralandCreeps).
+Full source code is available on [GitHub](https://github.com/hardlydifficult/DecentralandCreeps).
 
 If you are new to Decentraland development, you may want to start with our [beginner tutorial, creating a Jukebox](https://steemit.com/tutorial/@hardlydifficult/decentraland-tutorial-creating-a-music-jukebox).
 
@@ -26,17 +26,17 @@ With a cmd prompt in the project's directory, run:
 dcl init
 ```
 
- - **Parcels**: Select 4 parcels for this tutorial.  Any 4 is fine for testing locally:
+ - **Parcels**: Select 4 parcels for this tutorial.  Any 2x2 plot is fine for testing locally, for example:
 
 ```
 42,42; 43,42; 42,43; 43,43
 ```
 
-- **Scene Template**: `Remote`
+- **Scene Template**: select `Remote`
 
 For everything else, the defaults are fine.
 
-In the `\server\` directory, run~
+In the `server\` directory, run:
 
 ```
 npm install
@@ -59,7 +59,7 @@ Modify `server\package.json`:
 
 You'll want three different command prompts for this.
 
-In the first command prompt, navigate to the `\server\` directory:
+In the first command prompt, navigate to the `server\` directory and run:
 
 ```
 npm run watch
@@ -67,7 +67,7 @@ npm run watch
 
 This will build your application.  If any files are modified, it will rebuild automatically.
 
-In the second command prompt, also in the the `\server\` directory:
+In the second command prompt, also in the the `server\` directory, run:
 
 ```
 npm start
@@ -75,7 +75,7 @@ npm start
 
 This hosts your server for local testing, at ws://localhost:8087
 
-And in the third prompt, navigate the the project directory:
+And in the third prompt, navigate the the project directory and run:
 
 ```
 dcl start
@@ -85,13 +85,15 @@ This starts the game and should open a new tab automatically to [http://localhos
 
 ##  Add Assets
 
-Add the art for our game to the project's root directory.
+Add the art for the game to the project's root directory.
 
-Download the [models we've created](https://github.com/hardlydifficult/DecentralandCreeps/raw/master/assets.zip) or use your own of course.
+You can download the [models we've created](https://github.com/hardlydifficult/DecentralandCreeps/raw/master/assets.zip) or use your own of course.
 
-## Add Random Path
+## Add a Random Path
 
-Modify `server\state.ts`'s `state` variable:
+We'll generate a path which always starts from the same location and then travels randomly until it reaches the other side.
+
+Modify the `state` variable in `server\state.ts` to add a `path`:
 
 ```typescript
 import { Vector2Component } from 'metaverse-api'
@@ -103,7 +105,7 @@ let state: {
 };
 ```
 
-Modify `server\RemoteScene.tsx`:
+Modify `server\RemoteScene.tsx` to generate and render the `path`:
 
 ```typescript
 import * as DCL from 'metaverse-api'
@@ -237,11 +239,19 @@ function getNeighborCount(path: Vector2Component[], position: Vector2Component)
 }
 ```
 
-This generates a random path from one side of the parcel to the other.
+**Test**: A random path should appear, rendered as white boxes (we'll style next).
 
 ## Create a Component to Render Tiles
 
-Create a `components` directory and a file `\server\components\Tile.tsx`:
+For this tutorial, we will be separating out the render logic for various components into their own file.  This helps with readability as your app becomes more elaborate. 
+
+Components only include the render information.  Any logic, including responding to events, is still owned by the main scene's class (`server\RemoteScene.tsx`).
+
+Data, including state information, is communicated from the scene's class to the component by using properties. 
+
+Here's [Decentraland's docs on components](https://docs.decentraland.org/sdk-reference/scene-state/#reference-the-state-from-a-child-object).
+
+Create a `components` directory and a file `server\components\Tile.tsx`:
 
 ```typescript
 import * as DCL from 'metaverse-api'
@@ -275,7 +285,10 @@ Add a `material` tag defining the texture for the Tiles to use.
   {this.renderTiles()}
 ```
 
-Change the `renderTiles` function:
+The material is defined once and then leveraged for every individual tile.  See [Decentraland's doc on Materials](https://docs.decentraland.org/sdk-reference/scene-content-guide/#materials).
+
+Change the `renderTiles` function to leverage the `Tile` component we created:
+
 ```typescript
 import { Tile, ITileProps } from './components/Tile'
 ...
@@ -305,6 +318,8 @@ Add a bit of static scenery to pretty the place up a bit:
         id="floorTileMaterial" 
         albedoTexture="./assets/StoneFloor.png"
       />
+      {this.renderTiles()}
+
       <plane
         position={{x: 10, y: 0, z: 10}}
         rotation={{x: 90, y: 0, z: 0}}
@@ -322,7 +337,6 @@ Add a bit of static scenery to pretty the place up a bit:
         position={{x: endOfPath.x, y: 0, z: endOfPath.y}}
         scale={{x: 1, y: 1, z: 1.5}}
       />
-      {this.renderTiles()}
     </scene>
   );
 ```
@@ -415,9 +429,9 @@ Add the `spawnEntity` and `kill` functions below:
 ```typescript
 async spawnEntity()
 {
-  for(const e of getState().creeps)
+  for(const creep of getState().creeps)
   {
-    if(JSON.stringify(e.gridPosition) == JSON.stringify(getStartPosition()))
+    if(JSON.stringify(creep.gridPosition) == JSON.stringify(getStartPosition()))
     {
       return;
     }
@@ -465,7 +479,16 @@ async kill(creep: ICreepProps)
 }
 ```
 
-Add `renderCreeps`:
+Add creeps to `render`:
+
+```typescript
+<scene>
+...
+  {this.renderCreeps()}
+</scene>
+```
+
+And create a function `renderCreeps`:
 
 ```typescript
 renderCreeps()
@@ -477,16 +500,9 @@ renderCreeps()
 }
 ```
 
-And call it from `render`:
-
-```typescript
-<scene>
-...
-  {this.renderCreeps()}
-</scene>
-```
-
 ## Add Traps
+
+The traps have three components.  There are two levers and a set of spikes.  When one lever has been pulled the other unlocks.  Then when the second lever is pulled the spikes trigger for about a second, killing any creeps standing above.
 
 Create a component for the traps at `server\components\Trap.tsx`:
 
@@ -597,7 +613,7 @@ In `server\RemoteScene.tsx` add:
 import { Trap, ITrapProps, TrapState } from './components/Trap'
 ```
 
-Then inside the `newGame` function, add:
+Then inside the `newGame` function spawn two traps:
 
 ```typescript
 newGame()
@@ -613,7 +629,7 @@ newGame()
         break;
 ```
 
-Add functions for managing the traps:
+Add functions for spawning traps and responding to click events:
 
 ```typescript
 spawnTrap()
@@ -709,7 +725,7 @@ randomTrapPosition()
 }
 ```
 
-In `sceneDidMount`, add:
+To ensure that someone joining a game-in-progress subscribes to events for the existing traps add the following to `sceneDidMount`.  This will subscribe to events for all the existing traps:
 
 ```typescript
 sceneDidMount() 
@@ -725,8 +741,6 @@ sceneDidMount()
     }
   }
 ```
-
-This ensures that someone joining a game-in-progress subscribes to events for the existing traps.
 
 Add `renderTraps`:
 
@@ -809,14 +823,10 @@ Update `server\State.ts`:
 import { IScoreBoardProps } from './components/ScoreBoard'
 
 let state: {
-  path: Vector2Component[],
-  creeps: ICreepProps[],
-  traps: ITrapProps[],
+  ...
   score: IScoreBoardProps,
 } = {
-  path: [],
-  creeps: [],
-  traps: [],
+  ...
   score: {humanScore: 0, creepScore: 0},
 };
 ```
@@ -827,7 +837,7 @@ In `scene\RemoteScene.tsx`:
 import { ScoreBoard } from './components/ScoreBoard'
 ```
 
-And add it to `render`:
+And add the score board to `render`:
 
 ```typescript
 <scene>
@@ -838,7 +848,7 @@ And add it to `render`:
 
 **Test**: The scoreboard should appear, `0 v 0`.
 
-Update score when a trap kills the creep:
+Now let's update the score when a trap kills the creep:
 
 ```typescript
 if(JSON.stringify(entity.gridPosition) == JSON.stringify(trap.gridPosition) && !entity.isDead)
@@ -863,6 +873,8 @@ if(pathIndex >= getState().path.length)
   setState({score});
 }
 ```
+
+**Test**: Kill a creep or two and allow some to reach the end.  You should see the scoreboard update appropriately. 
 
 ## New Game Button
 
