@@ -983,14 +983,23 @@ this.eventSubscriber.on("newGame_click", async () =>
 });
 ```
 
-Modify `setState` in the `newGame` function to clear the other variables when the game restarts:
+Modify the `newGame` function to kill existing creaps and clear the variables when the game restarts:
 
 ```typescript
-setState({
-  path: generatePath(),
-  creeps: [],
-  traps: [],
-  score: {humanScore: 0, creepScore: 0},
+for(let creep of getState().creeps)
+{
+  creep.isDead = true;
+}
+
+while(true)
+{
+  try 
+  {
+    setState({
+      path: generatePath(),
+      creeps: [],
+      traps: [],
+      score: {humanScore: 0, creepScore: 0},
 });
 ```
 
