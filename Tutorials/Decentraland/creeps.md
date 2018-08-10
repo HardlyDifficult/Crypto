@@ -305,6 +305,8 @@ renderTiles()
 }
 ```
 
+**Test**: A random path should appear as it did before, but now it's styled to create a stone path.
+
 ## Static Scenery 
 
 Add a bit of static scenery to pretty the place up a bit:
@@ -340,6 +342,8 @@ Add a bit of static scenery to pretty the place up a bit:
     </scene>
   );
 ```
+
+**Test**: Confirm the position, scale, colors, etc for your scene.
 
 ## Add Creeps
 
@@ -499,6 +503,8 @@ renderCreeps()
   });
 }
 ```
+
+**Test**: Creeps should spawn and walk the path to the end, and then despawn.  Note the first spawn may take up to 20 seconds.
 
 ## Add Traps
 
@@ -763,6 +769,10 @@ renderTraps()
 }
 ```
 
+**Test**: Pull both levers for a trap and test both a miss and a kill.  Traps are single use, once fired they should despawn and then another should spawn in at a random location a second later.
+
+**Multiplayer Test**: Open a second tab in your browser to simulate a second player.  Try interacting with each, confirming the updates appear in both tabs.
+
 ## Score
 
 Create a `server\components\ScoreBoard.tsx` component:
@@ -878,6 +888,8 @@ if(pathIndex >= getState().path.length)
 
 ## New Game Button
 
+Once the server starts, the world's state persists as people walk in and out of the world.  We'll need a way to restart the game periodically, so we'll add a button.
+
 Create a `server\components\Button.tsx` component:
 
 ```typescript
@@ -990,15 +1002,17 @@ And update the `render` function:
 </scene>
 ```
 
+**Test**: When you press the button creeps should despawn, a new random path appears, and the scores reset.
+
 <hr>
 
 <br>
 
 That’s it!  This is a bare-bones implementation of a game, obviously it needs more in order to be compelling.  Hope this helps you get started. 
 
-Next steps:
- - Change the lever interactions to require more than one person to be involved.
- - Add more weapon types, instead of just the trap.
- - Track per-player scores (and maintain stats b/w games).
- - Add health, instead of one-shot kills.
+Some possible next steps:
  - Make the creeps spawn faster and walk faster as the game progresses, and/or randomize their movement.
+ - Add health, instead of one-shot kills.
+ - Change the lever interactions to require more than one person to be involved.
+ - Track per-player scores (and maintain stats b/w games).
+ - Add more weapon types, instead of just the trap.
