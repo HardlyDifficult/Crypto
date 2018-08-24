@@ -2,9 +2,9 @@
 
 TODO intro.  
 
-We'll be creating a scene in which a predator guards it's home, attacking any prey in-sight.  The prey is on a mission; sneak through the fence, get some cheese, and then get out safely.
+We'll be creating a scene in which a predator guards its home, attacking any prey in sight.  The prey is on a mission: sneak through the fence, get some cheese, and get out safely.
 
-In this example we will create a stack-based finite state machine (FSM) to manage AI for animals.
+In this example, we will create a stack-based finite state machine (FSM) to manage AI for animals.
 
 ## Getting Started
 
@@ -28,11 +28,11 @@ dcl start
 
 This will open a new browser tab with the scene.
 
-**Test**: Walk around and take a look, nice right?  Thanks James (the artist).
+**Test**: Walk around and take a look. Nice, right?  Thanks James (the artist).
 
 ## Adding a Grid
 
-For path finding and collision handling we will be logically positioning objects into a grid, where each cell is 1m x 1m.
+For path finding and collision handling, we will be logically positioning objects into a grid in which each cell is 1m x 1m.
 
 ### Create a Grid
 
@@ -162,7 +162,7 @@ export namespace Grid
 }
 ```
 
-Note: you could change the percision of the grid by changing all the `Math.round(position.x)` like lines.  For example:
+Note: you could change the precision of the grid by changing all the `Math.round(position.x)` like lines.  For example:
 
 ```
 const gridCellX = Math.round(position.x * 2)
