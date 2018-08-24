@@ -173,40 +173,92 @@ This would make each grid cell .5m x .5m (twice as percise).
 
 ### Init Grid
 
-TODO:
+Add the following to `sceneDidMount` in the `scene.tsx` file to init the grid:
 
 ```typescript
-		Grid.init(30, 30);
+sceneDidMount()
+{
+	Grid.init(30, 30);
 ```
+
+This will initialize the Grid's arrays to the correct size for our world.
 
 ### Spawn Trees in Random Locations
 
-scene.tsx spawnTrees (replace static tree):
-  const range = config.trees.max - config.trees.min;
-		let counter = 0;
-		for (let i = 0; i < Math.random() * range + config.trees.min; i++)
-		{
-			let position;
-			do
-			{
-				position = Grid.randomPosition(2, true);
-				if (counter++ > 500)
-				{ // Don't get stuck working too hard
-					break;
-				}
-			} while (!Grid.hasClearance(position, 4));
-			Grid.set(position);
+Update `spawnTrees` in the `scene.tsx` file to create a number of trees in random locations:
 
-			trees.push({
-				position,
-				rotation: { x: 0, y: Math.random() * 360, z: 0 },
-				scale: { x: 1, y: Math.random() * .4 + 1, z: 1 }
-			});
-		}
+```typescript
+spawnTrees()
+{
+  let trees: ISceneryProps[] = [];
+  const range = config.trees.max - config.trees.min;
+  let counter = 0;
+  for (let i = 0; i < Math.random() * range + config.trees.min; i++)
+  {
+    let position;
+    do
+    {
+      position = Grid.randomPosition(2, true);
+      if (counter++ > 500)
+      { // Don't get stuck working too hard
+        break;
+      }
+    } while (!Grid.hasClearance(position, 4));
+    Grid.set(position);
+
+    trees.push({
+      position,
+      rotation: { x: 0, y: Math.random() * 360, z: 0 },
+      scale: { x: 1, y: Math.random() * .4 + 1, z: 1 }
+    });
+  }
+  this.setState({ trees });
+}
+```
+
+**Test**: Each time you refresh the browser, there should be a new random layout of trees.  Note that trees may overlap scenery ATM.
+
+We are using a JSON config file to make adjusting certain settings easy.  You can modify `config.json` to change the number of trees spawned:
+
+```json
+"trees": {
+  "min": 5,
+  "max": 20
+},
+```
+
+### Click the Exit to Start Over
+
+To ease testing, we'll add a click event which will restart the world.
+
+In `scene.tsx` add:
+
+```typescript
+onExitClick()
+{ 
+  for (const tree of this.state.trees)
+  {
+    Grid.clear(tree.position);
+  }
+  this.spawnTrees();
+}
+```
+
+Then update `sceneDidMount` to add:
+
+```typescript
+this.eventSubscriber.on("Exit_click", e => this.onExitClick());
+```
+
+**Test**: Click on the exit mount and the trees should re-spawn with new random positions.
 
 ### Add Static Scenery to the Grid
 
-ts/SceneHelper:
+The `spawnTrees` algorithm above includes a loop to select a position with clearance / free space around it.  For this to work, we'll need to register the position of each of our static scenery objects with the grid.
+
+Update `ts/SceneHelper` by adding the following method:
+
+```typescript
 export function updateGridWithStaticScenery()
 {
 	for (const fence of fenceProps)
@@ -275,77 +327,133 @@ export function updateGridWithStaticScenery()
 		}
 	}
 }
+```
 
+Then in `scene.tsx`, update `sceneDidMount` to update the Grid:
 
- Grid.set(this.state.baitProps.position);
-		SceneHelper.updateGridWithStaticScenery();
+```typescript
+sceneDidMount()
+{
+  Grid.init(30, 30);
+  SceneHelper.updateGridWithStaticScenery();
+  Grid.set(this.state.baitProps.position);
+  this.spawnTrees();
+}
+```
 
-### Click the Exit to Start Over
+**Test**: Click the exit mount several times and confirm the trees are never overlapping scenery.
+
+### Render Grid for Debugging
+
+As we add more experiences, we'll need a better way to confirm the grid is configured correctly.  Let's add a `renderGrid` method to `scene.tsx`:
+
+```typescript
+renderGrid()
+{
+  let trees: ISceneryProps[] = [];
+  for (let x = 0; x < 30; x++)
+  {
+    for (let z = 0; z < 30; z++)
+    {
+      let position = { x, y: 0, z };
+      if (Grid.isAvailable(position))
+      {
+        continue;
+      }
+
+      trees.push({
+        position,
+        rotation: { x: 0, y: Math.random() * 360, z: 0 },
+        scale: { x: 1, y: Math.random() * .4 + 1, z: 1 }
+      });
+    }
+  }
+  this.setState({ trees });
+}
+```
+
+Call it from `sceneDidMount`, after `spawnTrees`:
+
+```typescript
+sceneDidMount()
+{
+  ...
+  //this.spawnTrees();
+  this.renderGrid(); // For debugging
+  this.eventSubscriber.on("Exit_click", e => this.onExitClick());
+}
+```
+
+Note: commenting out spawnTrees is optional.
+
+**Test**: There should be a tree rendered on top of each fence post as well as on other scenery in the world.  
+
+Animals will only be able to walk where there is no tree (i.e. the grid cell is not occupied).  So it's important there are gaps in the fence, for example, so they can navigate through.
+
+Turn off `renderGrid`, but remember this for debugging when you need it:
+
+```typescript
+sceneDidMount()
+{
+  ...
+  this.spawnTrees();
+  //this.renderGrid(); // For debugging
+  this.eventSubscriber.on("Exit_click", e => this.onExitClick());
+}
+```
+
+## Animals
+
+	// Helper methods
+	spawnAnimal(animalKey: keyof typeof AnimalType,
+		position: Vector3Component,
+		lookAtPosition: Vector3Component,
+		moveDuration: number): IAnimalProps | null
+	{
+		if (!Grid.isAvailable(position))
+		{ // Space is occupied, can't spawn
+			return null;
+		}
+		Grid.set(position);
+
+		const animal: IAnimalProps = {
+			id: "Animal" + this.objectCounter++,
+			animalType: AnimalType[animalKey],
+			position,
+			lookAtPosition,
+			moveDuration,
+			animationWeights: [
+				{ animation: Animation.Idle, weight: 1 },
+				{ animation: Animation.Walk, weight: 0 },
+				{ animation: Animation.Drink, weight: 0 },
+				{ animation: Animation.Dead, weight: 0 },
+				{ animation: Animation.Run, weight: 0 },
+				{ animation: Animation.Sit, weight: 0 },
+			],
+			isDead: false,
+			scale: 1,
+		};
+		this.setState({ animals: [...this.state.animals, animal] });
+		this.eventSubscriber.on(animal.id + "_click", () =>
+		{
+			AnimalStateMachine.sendMessage(animal.id, "click");
+		});
+
+		return animal;
+	}
+
 
 onExitClick()
-	{ // Reset the scene
+	{ 
 		for (const animal of this.state.animals.slice())
 		{
 			EventManager.emit("despawn", animal.id);
 		}
-		for (const tree of this.state.trees)
-		{
-			Grid.clear(tree.position);
-		}
-		this.spawnTrees();
-	}
-
-### Render Grid for Debugging
-
-scene.tsx renderGrid
-renderGrid()
+	
+	onRenderAnimals()
 	{
-		let trees: ISceneryProps[] = [];
-		for (let x = 0; x < 30; x++)
-		{
-			for (let z = 0; z < 30; z++)
-			{
-				let position = { x, y: 0, z };
-				if (Grid.isAvailable(position))
-				{
-					continue;
-				}
-
-				trees.push({
-					position,
-					rotation: { x: 0, y: Math.random() * 360, z: 0 },
-					scale: { x: 1, y: Math.random() * .4 + 1, z: 1 }
-				});
-			}
-		}
-		this.setState({ trees });
+		this.setState({ animals: this.state.animals });
 	}
-
-## Something cool
-
-
-
-Changes:
-ts\EventManager
-ts\StateMachine\*
-scene.tsx
-
-scene.tsx Didmount:
-  EventManager.init(this.eventSubscriber);
-
-		this.eventSubscriber.on("Entrance_click", e => this.onEntranceClick());
-		this.eventSubscriber.on("House_click", e => this.onHouseClick());
-		this.eventSubscriber.on("Exit_click", e => this.onExitClick());
-
-		this.eventSubscriber.on('renderAnimals', e => this.onRenderAnimals());
-		this.eventSubscriber.on('captureCheese', e => this.onCaptureBait());
-		this.eventSubscriber.on('despawn', (animalId, delay) => this.onDespawn(animalId, delay));
-		this.eventSubscriber.on('gridCellSet', cell => this.onGridCellSet(cell));
-
-
-
-scene.tsx Logic:
-// Events
 	onEntranceClick()
 	{ // Spawn prey
 		const animalProps = this.spawnAnimal(
@@ -378,11 +486,41 @@ scene.tsx Logic:
 			));
 		}
 	}
-	
-	onRenderAnimals()
-	{
-		this.setState({ animals: this.state.animals });
-	}
+
+
+
+
+
+
+
+
+
+
+
+## Something cool
+
+
+
+Changes:
+ts\EventManager
+ts\StateMachine\*
+scene.tsx
+
+scene.tsx Didmount:
+  EventManager.init(this.eventSubscriber);
+
+		this.eventSubscriber.on("Entrance_click", e => this.onEntranceClick());
+		this.eventSubscriber.on("House_click", e => this.onHouseClick());
+
+		this.eventSubscriber.on('renderAnimals', e => this.onRenderAnimals());
+		this.eventSubscriber.on('captureCheese', e => this.onCaptureBait());
+		this.eventSubscriber.on('despawn', (animalId, delay) => this.onDespawn(animalId, delay));
+		this.eventSubscriber.on('gridCellSet', cell => this.onGridCellSet(cell));
+
+
+
+scene.tsx Logic:
+// Events  
 	async onCaptureBait()
 	{
 		await sleep(750);
@@ -432,45 +570,8 @@ scene.tsx Logic:
 		}
 	}
 
-	// Helper methods
-	spawnAnimal(animalKey: keyof typeof AnimalType,
-		position: Vector3Component,
-		lookAtPosition: Vector3Component,
-		moveDuration: number): IAnimalProps | null
-	{
-		if (!Grid.isAvailable(position))
-		{ // Space is occupied, can't spawn
-			return null;
-		}
-		Grid.set(position);
-
-		const animal: IAnimalProps = {
-			id: "Animal" + this.objectCounter++,
-			animalType: AnimalType[animalKey],
-			position,
-			lookAtPosition,
-			moveDuration,
-			animationWeights: [
-				{ animation: Animation.Idle, weight: 1 },
-				{ animation: Animation.Walk, weight: 0 },
-				{ animation: Animation.Drink, weight: 0 },
-				{ animation: Animation.Dead, weight: 0 },
-				{ animation: Animation.Run, weight: 0 },
-				{ animation: Animation.Sit, weight: 0 },
-			],
-			isDead: false,
-			scale: 1,
-		};
-		this.setState({ animals: [...this.state.animals, animal] });
-		this.eventSubscriber.on(animal.id + "_click", () =>
-		{
-			AnimalStateMachine.sendMessage(animal.id, "click");
-		});
-
-		return animal;
-	}
-
 
 
 todo in Grid.ts
 		EventManager.emit("gridCellSet", position);
+
