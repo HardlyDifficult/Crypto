@@ -30,10 +30,6 @@ This will open a new browser tab with the scene.
 
 **Test**: Walk around and take a look. Nice, right?  Thanks James (the artist).
 
-### About the Starting Scene
-
-TODO describe the various elements already included.
-
 ## Adding a Grid
 
 For path finding and collision handling, we will be logically positioning objects into a grid in which each cell is 1m x 1m.
@@ -173,11 +169,11 @@ const gridCellX = Math.round(position.x * 2)
 const gridCellY = Math.round(position.y * 2)
 ```
 
-This would make each grid cell .5m x .5m (twice as percise).
+This would make each grid cell .5m x .5m (twice as precise).
 
-### Init Grid
+### Initialize the Grid
 
-Add the following to `sceneDidMount` in the `scene.tsx` file to init the grid:
+Add the following to `sceneDidMount` in the `scene.tsx` file to initialize the grid:
 
 ```typescript
 sceneDidMount()
@@ -185,7 +181,7 @@ sceneDidMount()
   Grid.init(30, 30);
 ```
 
-This will initialize the Grid's arrays to the correct size for our world.
+This will initialize the grid's arrays to the correct size for our world.
 
 ### Spawn Trees in Random Locations
 
@@ -220,7 +216,7 @@ spawnTrees()
 }
 ```
 
-**Test**: Each time you refresh the browser, there should be a new random layout of trees.  Note that trees may overlap scenery ATM.
+**Test**: Each time you refresh the browser, there should be a new random layout of trees.  Note that trees may overlap scenery at the moment.
 
 We are using a JSON config file to make adjusting certain settings easy.  You can modify `config.json` to change the number of trees spawned:
 
@@ -333,7 +329,7 @@ export function updateGridWithStaticScenery()
 }
 ```
 
-Then in `scene.tsx`, update `sceneDidMount` to update the Grid:
+Then in `scene.tsx`, update `sceneDidMount` to update the grid:
 
 ```typescript
 sceneDidMount()
@@ -349,7 +345,7 @@ sceneDidMount()
 
 ### Render Grid for Debugging
 
-As we add more experiences, we'll need a better way to confirm the grid is configured correctly.  Let's add a `renderGrid` method to `scene.tsx`:
+As we add more experiences, we'll need a better way to confirm that the grid is configured correctly.  Let's add a `renderGrid` method to `scene.tsx`:
 
 ```typescript
 renderGrid()
@@ -388,11 +384,11 @@ sceneDidMount()
 }
 ```
 
-Note: commenting out spawnTrees is optional.
+Note: commenting out `spawnTrees` is optional.
 
 **Test**: There should be a tree rendered on top of each fence post as well as on other scenery in the world.  
 
-Animals will only be able to walk where there is no tree (i.e. the grid cell is not occupied).  So it's important there are gaps in the fence, for example, so they can navigate through.
+Animals will only be able to walk where there is no tree (i.e., the grid cell is not occupied).  So it's important that there are gaps in the fence, for example, so they can navigate through.
 
 Turn off `renderGrid`, but remember this for debugging when you need it:
 
@@ -407,7 +403,7 @@ sceneDidMount()
 ```
 
 ## Animals
-
+```
   // Helper methods
   spawnAnimal(animalKey: keyof typeof AnimalType,
     position: Vector3Component,
@@ -491,19 +487,9 @@ onExitClick()
     }
   }
 
-
-
-
-
-
-
-
-
-
+```
 
 ## Something cool
-
-
 
 Changes:
 ts\EventManager
