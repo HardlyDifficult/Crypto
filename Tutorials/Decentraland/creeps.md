@@ -1,4 +1,3 @@
-
 This is a tutorial on creating a simple **Tower Defense Game in Decentraland**. Creeps are making their way through your base.  Stop as many as you can by springing traps at the right moment.  This is multiplayer, who will win: Humans or the Creeps?
 
 Full source code is available on [GitHub](https://github.com/hardlydifficult/DecentralandCreeps).
