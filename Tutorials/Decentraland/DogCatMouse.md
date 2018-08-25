@@ -577,11 +577,11 @@ export namespace EventManager
 Update `sceneDidMount` in `scene.tsx` with:
 
 ```typescript
-sceneDidMount()
-{
-  EventManager.init(this.eventSubscriber);
-  ...
-}
+  sceneDidMount()
+  {
+    EventManager.init(this.eventSubscriber);
+    ...
+  }
 ```
 
 ### Render Animals on Event
@@ -589,20 +589,20 @@ sceneDidMount()
 When one of the display properties for an animal changes, such as the position, we will fire a `renderAnimals` event.  Update `scene.tsx` to re-render the animals when this event occurs:
 
 ```typescript
-sceneDidMount()
-{
-  ...
-  this.eventSubscriber.on('renderAnimals', e => this.onRenderAnimals());
-}
+  sceneDidMount()
+  {
+    ...
+    this.eventSubscriber.on('renderAnimals', e => this.onRenderAnimals());
+  }
 ```
 
 Add a method to respond to the event:
 
 ```typescript
-onRenderAnimals()
-{
-  this.setState({ animals: this.state.animals });
-}
+  onRenderAnimals()
+  {
+    this.setState({ animals: this.state.animals });
+  }
 ```
 
 ## State Machine
