@@ -1202,40 +1202,42 @@ When an animal is eaten or reaches the end, we need to despawn it, removing it f
 Add a new event subscription to `sceneDidMount`:
 
 ```typescript
-this.eventSubscriber.on('despawn', (animalId, delay) => this.onDespawn(animalId, delay));
+    this.eventSubscriber.on('despawn', (animalId, delay) => this.onDespawn(animalId, delay));
 ```
 
 And an event handler:
 
 ```typescript
-async onDespawn(animalId: string, delay: number)
-{
-  const animal = this.state.animals.find(a => a.id == animalId);
-  if (animal)
+  async onDespawn(animalId: string, delay: number)
   {
-    AnimalStateMachine.terminate(animalId);
-    animal.isDead = true;
-    await sleep(delay);
-    Grid.clear(animal.position);
-    this.setState({ animals: this.state.animals.filter((a) => a.id != animal.id) });
+    const animal = this.state.animals.find(a => a.id == animalId);
+    if (animal)
+    {
+      AnimalStateMachine.terminate(animalId);
+      animal.isDead = true;
+      await sleep(delay);
+      Grid.clear(animal.position);
+      this.setState({ animals: this.state.animals.filter((a) => a.id != animal.id) });
+    }
   }
-}
 ```
+
+### Despawn Animals When Scene Restarts
 
 Update the `onExitClick` handler to despawn any existing animals when resetting the scene:
 
 ```typescript
-onExitClick()
-{ 
-  for (const animal of this.state.animals.slice())
-  {
-    EventManager.emit("despawn", animal.id);
+  onExitClick()
+  { 
+    for (const animal of this.state.animals.slice())
+    {
+      EventManager.emit("despawn", animal.id);
+    }
+    ...
   }
-  ...
-}
 ```
 
-**Test**: Spawn one or more prey in, click the exit, and confirm they despawn.  Note that this does not yet work for predators.
+**Test**: Spawn one or more prey in, click the exit, and confirm they despawn.  Note that **this does not yet work for predators**.
 
 ### Add a State to Despawn an Animal
 
@@ -1282,19 +1284,21 @@ export class StateDespawn extends AnimalState
 And update the prey to fallback in `scene.tsx` to despawn once goto completes:
 
 ```typescript
-if (animalProps)
-{
-  AnimalStateMachine.pushStates([
-    new StateDespawn(animalProps, {delay: 1000}),
-    new StateGoTo(animalProps, SceneHelper.exitProps, config.prey.exitConfig, config.prey.blockedConfig),
-  ]);
-}
+    if (animalProps)
+    {
+      AnimalStateMachine.pushStates([
+        new StateDespawn(animalProps, {delay: 1000}),
+        new StateGoTo(animalProps, SceneHelper.exitProps, config.prey.exitConfig, config.prey.blockedConfig),
+      ]);
+    }
 ```
 
 **Test**: Spawn in several prey. Once they get to the end, they should all despawn (previously they would have lined up at the exit).
 
 
 ## Eat
+
+Eating requires the food is nearby.  So this state will add `StateGoTo` if needed in order to reach the food.  Once it's close enough, the animal will animate and then pop `StateEat` from the stack.
 
 Create `ts\StateMachine\StateEat.ts`:
 
