@@ -4,8 +4,16 @@ We'll be creating a scene in which a predator guards its home, attacking any pre
 
 In this example, we will create a stack-based finite state machine (FSM) to manage AI for animals.
 
-TODO TOC
-TODO tabs to spaces
+ - [Getting Started](#getting-started)
+ - [Adding a Grid](#adding-a-grid)
+ - [Animals](#animals)
+ - [Event Manager](#event-manager)
+ - [State Machine](#state-machine)
+ - [Path Finding](#path-finding)
+ - [Despawn](#despawn)
+ - [Eat](#eat)
+ - [Patrol](#patrol)
+ - [Polish](#polish)
   
 ## Getting Started
 
@@ -271,10 +279,10 @@ Update `sceneDidMount` in `scene.tsx` to subscribe to the event:
 
 ```typescript
   sceneDidMount()
-	{
-		...
-		this.eventSubscriber.on("Exit_click", e => this.onExitClick());
-	}
+  {
+    ...
+    this.eventSubscriber.on("Exit_click", e => this.onExitClick());
+  }
 ```
 
 Then add an event handler:
@@ -374,13 +382,13 @@ Then in `scene.tsx`, update `sceneDidMount` to update the grid (note there are t
 
 ```typescript
   sceneDidMount()
-	{
-		Grid.init(30, 30);
-		SceneHelper.updateGridWithStaticScenery();
+  {
+    Grid.init(30, 30);
+    SceneHelper.updateGridWithStaticScenery();
     Grid.set(this.state.baitProps.position);
-		this.spawnTrees();
-		this.eventSubscriber.on("Exit_click", e => this.onExitClick());
-	}
+    this.spawnTrees();
+    this.eventSubscriber.on("Exit_click", e => this.onExitClick());
+  }
 ```
 
 **Test**: Click the exit mound several times and confirm the trees are never overlapping scenery.
@@ -542,7 +550,7 @@ Add the following method to respond to the click event by spawning prey:
 
 ```json
   "prey": {
-		"animalType": "Cat",
+    "animalType": "Cat",
 ```
 
 Switch back to `Mouse` when your done testing.
@@ -1300,6 +1308,8 @@ And update the prey to fallback in `scene.tsx` to despawn once goto completes:
 
 Eating requires the food is nearby.  So this state will add `StateGoTo` if needed in order to reach the food.  Once it's close enough, the animal will animate and then pop `StateEat` from the stack.
 
+### Create a State for Eating
+
 Create `ts\StateMachine\StateEat.ts`:
 
 ```typescript
@@ -1389,19 +1399,25 @@ export class StateEat extends AnimalState
 }
 ```
 
+### Add StateEat to the Prey
+
 Update the prey's initial state machine in `scene.tsx` to eat the cheese before exiting:
 
 ```typescript
-AnimalStateMachine.pushStates([
-  new StateDespawn(animalProps, {delay: 1000}),
-  new StateGoTo(animalProps, SceneHelper.exitProps, config.prey.exitConfig, config.prey.blockedConfig),
-  new StateEat(animalProps, this.state.baitProps, config.prey.eatConfig, config.prey.blockedConfig),
-]);
+    AnimalStateMachine.pushStates([
+      new StateDespawn(animalProps, {delay: 1000}),
+      new StateGoTo(animalProps, SceneHelper.exitProps, config.prey.exitConfig, config.prey.blockedConfig),
+      new StateEat(animalProps, this.state.baitProps, config.prey.eatConfig, config.prey.blockedConfig),
+    ]);
 ```
 
 **Test**: Spawn a mouse. It should go touch the cheese and then proceed to the exit.
 
 ## Patrol
+
+The predator is going to patrol around the dog house.  If it spots prey, it will try to eat it, which in turn will make the predator chase its prey.
+
+### Create a State for Patroling
 
 Create `ts\StateMachine\StatePatrol.ts`:
 
@@ -1492,25 +1508,27 @@ export class StatePatrol extends AnimalState
 }
 ```
 
+### Have Predators Patrol on Spawn
+
 Update `onHouseClick` in `scene.tsx` to spawn in predators with `StatePatrol`:
 
 ```typescript
-onHouseClick()
-{ 
-  const animalProps = this.spawnAnimal(
-    config.predator.animalType,
-    SceneHelper.houseProps.position,
-    add(SceneHelper.houseProps.position, { x: 0, y: 0, z: -1 }),
-    config.predator.patrolSpeed);
-  if (animalProps)
-  {
-    AnimalStateMachine.pushState(new StatePatrol(
-      animalProps,
-      SceneHelper.houseProps,
-      config.predator.patrolConfig
-    ));
+  onHouseClick()
+  { 
+    const animalProps = this.spawnAnimal(
+      config.predator.animalType,
+      SceneHelper.houseProps.position,
+      add(SceneHelper.houseProps.position, { x: 0, y: 0, z: -1 }),
+      config.predator.patrolSpeed);
+    if (animalProps)
+    {
+      AnimalStateMachine.pushState(new StatePatrol(
+        animalProps,
+        SceneHelper.houseProps,
+        config.predator.patrolConfig
+      ));
+    }
   }
-}
 ```
 
 **Test**: This one enabled a lot:
@@ -1524,26 +1542,28 @@ onHouseClick()
 
 Now we'll add a couple of visual effects to improve our scene.
 
-### Capture bait
+### Capture Bait
+
+Let's animate the cheese a bit when an animal eats some.  For this, we'll simply hide crumbs which then reappear a second later.
 
 Add a new event to `sceneDidMount` in `scene.tsx`:
 
 ```typescript
-this.eventSubscriber.on('captureBait', e => this.onCaptureBait());
+    this.eventSubscriber.on('captureBait', e => this.onCaptureBait());
 ```
 
 Then add a method to handle the event:
 
 ```typescript
-async onCaptureBait()
-{
-  await sleep(750);
-  this.state.baitProps.isVisible = false;
-  this.setState({ baitProps: this.state.baitProps });
-  await sleep(2000);
-  this.state.baitProps.isVisible = true;
-  this.setState({ baitProps: this.state.baitProps });
-}
+  async onCaptureBait()
+  {
+    await sleep(750);
+    this.state.baitProps.isVisible = false;
+    this.setState({ baitProps: this.state.baitProps });
+    await sleep(2000);
+    this.state.baitProps.isVisible = true;
+    this.setState({ baitProps: this.state.baitProps });
+  }
 ```
 
 This event is already included in `StateEat`.
@@ -1558,48 +1578,59 @@ When any animal walks under one of the broken fence segments, let's play an anim
 First, let's emit an event from the Grid class allowing our program to react to grid changes:
 
 ```typescript
-export function set(position: Vector3Component, canBeOccupiedAlready: boolean = false)
-{
-  ...
-  EventManager.emit("gridCellSet", position);
-}
+  export function set(position: Vector3Component, canBeOccupiedAlready: boolean = false)
+  {
+    ...
+    EventManager.emit("gridCellSet", position);
+  }
 ```
 Then register to the event in `sceneDidMount` of `scene.tsx`:
 
 ```typescript
-this.eventSubscriber.on('gridCellSet', cell => this.onGridCellSet(cell));
+    this.eventSubscriber.on('gridCellSet', cell => this.onGridCellSet(cell));
 ```
 
 And add a method to handle the event:
 
 ```typescript
-async onGridCellSet(position: Vector3Component)
-{
-  let index = -1;
-  for (let i = 0; i < SceneHelper.fenceSpinnerProps.length; i++)
+  async onGridCellSet(position: Vector3Component)
   {
-    if (approxEquals(position, SceneHelper.fenceSpinnerProps[i].position))
+    let index = -1;
+    for (let i = 0; i < SceneHelper.fenceSpinnerProps.length; i++)
     {
-      index = i;
-      break;
+      if (approxEquals(position, SceneHelper.fenceSpinnerProps[i].position))
+      {
+        index = i;
+        break;
+      }
+    }
+    if (index >= 0)
+    {
+      let fenceSpinState = this.state.fenceSpinState.slice();
+      if (fenceSpinState[index] != SpinState.None)
+      { // One at a time to keep the animation timing
+        return;
+      }
+      // Note this is not always correct..
+      fenceSpinState[index] = index == 0 ? SpinState.Enter : SpinState.Exit; 
+      this.setState({ fenceSpinState });
+      await sleep(75 * 1000 / 25);
+      fenceSpinState = this.state.fenceSpinState.slice();
+      fenceSpinState[index] = SpinState.None;
+      this.setState({ fenceSpinState });
     }
   }
-  if (index >= 0)
-  {
-    let fenceSpinState = this.state.fenceSpinState.slice();
-    if (fenceSpinState[index] != SpinState.None)
-    { // One at a time to keep the animation timing
-      return;
-    }
-    // Note this is not always correct..
-    fenceSpinState[index] = index == 0 ? SpinState.Enter : SpinState.Exit; 
-    this.setState({ fenceSpinState });
-    await sleep(75 * 1000 / 25);
-    fenceSpinState = this.state.fenceSpinState.slice();
-    fenceSpinState[index] = SpinState.None;
-    this.setState({ fenceSpinState });
-  }
-}
 ```
 
 **Test**: Spawn in a few mice and watch them walk through the fence.  The same effect should work if a cat or dog travels that way, but this is harder to test as our current patrol settings keep them away from the fence.
+
+<br>
+<hr>
+
+That's it, and we covered a lot!  Thanks for taking the time.
+
+Some possible next steps:
+
+ - Modify various values in the config to tweak the experience.
+ - Maybe add cat food and update the state machine so that the cat occasionally takes a break from patrol in order to go it.
+ - Add more animal types.  Try reusing states across different animals, but in a way that gives each animal a unique set of behaviors.
