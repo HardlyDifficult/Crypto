@@ -20,6 +20,8 @@ We are starting with a scene and a collection of components already created.  Fo
  - [Tower Defense](https://steemit.com/tutorial/@hardlydifficult/decentraland-tutorial-a-simple-tower-defense-game)
     Here we create a basic game, introducing components and how you might start to scale up more complex scenes and interactions.
 
+Decentraland also has a page showing a [collection of example scenes](https://docs.decentraland.org/examples/sample-scenes/) you could learn from.
+
 ### Download the Starting Scene
 
 Get the scene and art from:
@@ -36,13 +38,15 @@ Open a command prompt, navigate to the project's directory, and run:
 dcl start
 ```
 
+Note this assumes you have installed Decentraland's SDK.  If not, please refer to one of the other tutorials mentioned above to get started.
+
 This will open a new browser tab with the scene.
 
 **Test**: Walk around and take a look. Nice, right?  Thanks James (the artist).
 
 ### About the Starting Scene
 
-Due to the size of the scene we are creating, we are starting from a static scene.  Once you have completed a basic Decentraland tutorial or two, I hope most of the code included here will make sense.
+Due to the size of the scene we are creating, we are kicking off the tutorial with a static scene and some basic logic.  Once you have completed a basic Decentraland tutorial or two, I hope most of the code included here will make sense.
 
  - All art will be rendered by a component (in the components directory). 
  - `scene.tsx` includes some default state and calls to render each of the components.
@@ -53,6 +57,12 @@ Due to the size of the scene we are creating, we are starting from a static scen
 ## Adding a Grid
 
 For path finding and collision handling, we will be logically positioning objects into a grid in which each cell is 1m x 1m.
+
+For simplicity, when an object moves, it jumps from cell to cell.  In the rendered component, we use a `transition` in order to animate that change in position. 
+
+To check for collisions, we simply check if the target grid cell is already occupied.
+
+The grid will also make integrating a-star pathfinding easy.
 
 ### Create a Grid
 
