@@ -1195,6 +1195,10 @@ Change the prey's initial state from `StateIdle` to `StateGoTo`:
 
 ## Despawn 
 
+When an animal is eaten or reaches the end, we need to despawn it, removing it from the scene and freeing up resources.  We'll be using events to communicate from the state machine (or anywhere in the application) to the front-end (`scene.tsx`) for removal.
+
+### Remove Animal on Despawn
+
 Add a new event subscription to `sceneDidMount`:
 
 ```typescript
@@ -1233,7 +1237,7 @@ onExitClick()
 
 **Test**: Spawn one or more prey in, click the exit, and confirm they despawn.  Note that this does not yet work for predators.
 
-### State Despawn
+### Add a State to Despawn an Animal
 
 Create `ts\StateMachine\StateDespawn.ts`:
 
@@ -1275,7 +1279,7 @@ export class StateDespawn extends AnimalState
 }
 ```
 
-And update the prey to fallback to despawn once goto completes:
+And update the prey to fallback in `scene.tsx` to despawn once goto completes:
 
 ```typescript
 if (animalProps)
