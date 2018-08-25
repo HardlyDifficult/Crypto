@@ -607,6 +607,20 @@ Add a method to respond to the event:
 
 ## State Machine
 
+We'll be creating a stack-based finite state machine to handle the AI for the animals.  This means that for each animal, there is a single state which currently defines its behavior.  That state may add another state to the stack in order to achieve an interm goal, or pop itself once it achieves its own goal.
+
+For the prey, we will be working towards the following scenario:
+
+ - The prey spawns with a stack of Despawn, GoTo (exit), and Eat.
+ - Eat is at the top of the stack, so that executes first.
+ - In order to eat, the animal must be near the food.  If the food is out of reach, it adds a GoTo state.
+ - GoTo paths to the cheese and animates the walk there.
+ - Once there, GoTo pops itself off.
+ - Eat kicks in again, this time the food is within range so it plays an eating animation and then pops itself off the stack.
+ - GoTo (exit) is next on the stack.  That paths the animal to the exit.
+ - Once at the exit, GoTo pops itself off and Despawn begins.
+ - Despawn waits a second and then removes the animal from the scene.
+
 Create `ts/StateMachine/AnimalState.ts`:
 
 ```typescript
@@ -918,23 +932,23 @@ export class StateIdle extends AnimalState
 ### Set the initial state to idle
 
 ```typescript
-onEntranceClick()
-{
-  const animalProps = this.spawnAnimal(
-      config.prey.animalType,
-      SceneHelper.entranceProps.position,
-      add(SceneHelper.entranceProps.position, { x: 1, y: 0, z: 0 }),
-      config.prey.sneakSpeed);
-  if (animalProps)
+  onEntranceClick()
   {
-    AnimalStateMachine.pushState(
-      new StateIdle(animalProps, config.prey.blockedConfig),
-    );
+    const animalProps = this.spawnAnimal(
+        config.prey.animalType,
+        SceneHelper.entranceProps.position,
+        add(SceneHelper.entranceProps.position, { x: 1, y: 0, z: 0 }),
+        config.prey.sneakSpeed);
+    if (animalProps)
+    {
+      AnimalStateMachine.pushState(
+        new StateIdle(animalProps, config.prey.blockedConfig),
+      );
+    }
   }
-}
 ```
 
-**Test**: The scene will look the same as it did previously.  Spawn an animal and it idles for a period of time... and then an error is thrown.  The error will be thrown promptly. For testing you could modify `config.json` to increase the `minLength` \ `maxLength`.
+**Test**: The scene will look the same as it did previously.  Spawn a prey and it idles for a period of time... and then an error is thrown (which you can see in the console).  The error will be thrown promptly. For testing you could modify `config.json` to increase the `minLength` \ `maxLength`.
 
 ## Path Finding
 
