@@ -213,7 +213,7 @@ Add the following to `sceneDidMount` in the `scene.tsx` file to initialize the g
 
 This will initialize the grid's arrays to the correct size for our world.
 
-Note that you will also need to import the `Grid` for this to compile.  IDEs (such as VS Code) will present a hint, allowing you to auto-complete the missing reference.  This will come up several times throughout this tutorial (and we will not be mentioning it explicitly each time).  The import for `Grid` will look like:
+Note that you will also need to import the `Grid` for this to compile.  IDEs (such as VS Code) will present a hint, allowing you to auto-complete the missing reference (usually by pressing Ctrl+Space).  This will come up several times throughout this tutorial (and we will not be mentioning it explicitly each time).  The import for `Grid` will look like:
 
 ```typescript
 import { Grid } from 'ts/Grid';
@@ -267,7 +267,17 @@ We are using a JSON config file to make adjusting certain settings easy.  You ca
 
 To make testing easier, we'll add a click event which will restart the world.
 
-In `scene.tsx` add:
+Update `sceneDidMount` in `scene.tsx` to subscribe to the event:
+
+```typescript
+  sceneDidMount()
+	{
+		...
+		this.eventSubscriber.on("Exit_click", e => this.onExitClick());
+	}
+```
+
+Then add an event handler:
 
 ```typescript
   onExitClick()
@@ -280,15 +290,6 @@ In `scene.tsx` add:
   }
 ```
 
-Then update `sceneDidMount` to add:
-
-```typescript
-  sceneDidMount()
-	{
-		...
-		this.eventSubscriber.on("Exit_click", e => this.onExitClick());
-	}
-```
 
 **Test**: Click on the exit mound (which is the dirt pile closer to the dog house). The trees should re-spawn with new random positions.
 
@@ -444,70 +445,70 @@ Turn off `renderGrid`, but remember this for debugging when you need it:
 
 ## Animals
 
-There will be two types of animals in the scene, and we have 3 models to choose from.  Model selection is driven from our `config.json` file.  It's intended to allow you to change the scene from a cat chasing a mouse to a dog chasing a cat.  It also shows how separating components from logic allow more flexibility - the cat here can either play the role of a predator, or a prey.
+There will be two types of animals in the scene, and we have 3 models to choose from.  Model selection is driven from our `config.json` file.  It's intended to allow you to change the scene from a cat chasing a mouse to a dog chasing a cat.  It also shows how separating components from logic allow for more flexibility - the cat here can either play the role of a predator, or a prey.
 
 ### Spawn a Predator (Dog or Cat)
 
-The predator starts at the dog house and then will patrol the area, looking for prey.  For this example we will use the `config.json` file to select the predator's type: either a dog or a cat.
+The predator starts at the dog house and then will patrol the area, looking for prey. 
 
 Add an event to `sceneDidMount` for when the user clicks on the `House`:
 
 ```typescript
-sceneDidMount()
-{
-  ...
-  this.eventSubscriber.on("House_click", e => this.onHouseClick());
-}
+  sceneDidMount()
+  {
+    ...
+    this.eventSubscriber.on("House_click", e => this.onHouseClick());
+  }
 ```
 
 Add the following method to respond to the click event by spawning a predator:
 
 ```typescript
-onHouseClick()
-{ // Spawn predator
-  this.spawnAnimal(
-    config.predator.animalType,
-    SceneHelper.houseProps.position,
-    add(SceneHelper.houseProps.position, { x: 0, y: 0, z: -1 }),
-    config.predator.patrolSpeed);
-}
+  onHouseClick()
+  { // Spawn predator
+    this.spawnAnimal(
+      config.predator.animalType,
+      SceneHelper.houseProps.position,
+      add(SceneHelper.houseProps.position, { x: 0, y: 0, z: -1 }),
+      config.predator.patrolSpeed);
+  }
 ```
 
 Add a helper method for spawning animals, which we will use again for the prey:
 
 ```typescript
-spawnAnimal(animalKey: keyof typeof AnimalType,
-  position: Vector3Component,
-  lookAtPosition: Vector3Component,
-  moveDuration: number): IAnimalProps | null
-{
-  if (!Grid.isAvailable(position))
-  { // Space is occupied, can't spawn
-    return null;
+  spawnAnimal(animalKey: keyof typeof AnimalType,
+    position: Vector3Component,
+    lookAtPosition: Vector3Component,
+    moveDuration: number): IAnimalProps | null
+  {
+    if (!Grid.isAvailable(position))
+    { // Space is occupied, can't spawn
+      return null;
+    }
+    Grid.set(position);
+
+    const animal: IAnimalProps = {
+      id: "Animal" + this.objectCounter++,
+      animalType: AnimalType[animalKey],
+      position,
+      lookAtPosition,
+      moveDuration,
+      animationWeights: [
+        { animation: AnimationType.Idle, weight: 1 },
+        { animation: AnimationType.Walk, weight: 0 },
+        { animation: AnimationType.Drink, weight: 0 },
+        { animation: AnimationType.Dead, weight: 0 },
+        { animation: AnimationType.Run, weight: 0 },
+        { animation: AnimationType.Sit, weight: 0 },
+      ],
+      isDead: false,
+      scale: 1,
+    };
+    this.setState({ animals: [...this.state.animals, animal] });
+
+    return animal;
   }
-  Grid.set(position);
-
-  const animal: IAnimalProps = {
-    id: "Animal" + this.objectCounter++,
-    animalType: AnimalType[animalKey],
-    position,
-    lookAtPosition,
-    moveDuration,
-    animationWeights: [
-      { animation: AnimationType.Idle, weight: 1 },
-      { animation: AnimationType.Walk, weight: 0 },
-      { animation: AnimationType.Drink, weight: 0 },
-      { animation: AnimationType.Dead, weight: 0 },
-      { animation: AnimationType.Run, weight: 0 },
-      { animation: AnimationType.Sit, weight: 0 },
-    ],
-    isDead: false,
-    scale: 1,
-  };
-  this.setState({ animals: [...this.state.animals, animal] });
-
-  return animal;
-}
 ```
 
 **Test**: Click on the dog house to see a cat spawn.  Modify the `config.json` to see a `Dog` spawn instead.
