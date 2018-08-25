@@ -518,27 +518,34 @@ Add a helper method for spawning animals, which we will use again for the prey:
 Add an event to `sceneDidMount` for when the user clicks on the `Entrance`:
 
 ```typescript
-sceneDidMount()
-{
-  ...
-  this.eventSubscriber.on("Entrance_click", e => this.onEntranceClick());
-}
+  sceneDidMount()
+  {
+    ...
+    this.eventSubscriber.on("Entrance_click", e => this.onEntranceClick());
+  }
 ```
 
 Add the following method to respond to the click event by spawning prey:
 
 ```typescript
-onEntranceClick()
-{ // Spawn prey
-  this.spawnAnimal(
-    config.prey.animalType,
-    SceneHelper.entranceProps.position,
-    add(SceneHelper.entranceProps.position, { x: 1, y: 0, z: 0 }),
-    config.prey.sneakSpeed);
-}
+  onEntranceClick()
+  { // Spawn prey
+    this.spawnAnimal(
+      config.prey.animalType,
+      SceneHelper.entranceProps.position,
+      add(SceneHelper.entranceProps.position, { x: 1, y: 0, z: 0 }),
+      config.prey.sneakSpeed);
+  }
 ```
 
-**Test**: Click on the entrance mound... and it will look like nothing happened.  The mouse spawns in the dirt mound, but we cannot see it.  Modify the `config.json` to see a `Cat` spawn instead and you'll see a head poking through.  You can also turn off rendering of the dirt mound in order to see the mouse spawn.
+**Test**: Click on the entrance mound... and it will look like nothing happened.  The mouse spawns in the dirt mound, but we cannot see it.  Modify the `config.json` to see a `Cat` spawn instead and you'll see a head poking through:
+
+```json
+  "prey": {
+		"animalType": "Cat",
+```
+
+Switch back to `Mouse` when your done testing.
 
 Note that clicking on the exit mound no longer fully resets the scene.
 
