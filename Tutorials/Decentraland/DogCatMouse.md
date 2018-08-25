@@ -553,6 +553,8 @@ Note that clicking on the exit mound no longer fully resets the scene.
 
 We are creating an `EventManager` namespace to make it easy to interface with the `eventSubscriber` found in `scene.tsx`.  
 
+### Create the Event Manager
+
 Create an `ts\EventManager.ts` file with the following:
 
 ```typescript
@@ -621,7 +623,9 @@ For the prey, we will be working towards the following scenario:
  - Once at the exit, GoTo pops itself off and Despawn begins.
  - Despawn waits a second and then removes the animal from the scene.
 
-Create `ts/StateMachine/AnimalState.ts`:
+### Create a Shared, Abstract State
+
+Create `ts/StateMachine/AnimalState.ts`, which will be inherited by each of the states we implement below:
 
 ```typescript
 import { AnimationType, IAnimalProps } from "ts/SharedProperties";
@@ -670,7 +674,9 @@ export class AnimalState
 }
 ```
 
-Create `ts/StateMachine/AnimalStateMachine.ts`:
+### Create the State Machine
+
+Create `ts/StateMachine/AnimalStateMachine.ts`, which manages the state machine for each individual animal:
 
 ```typescript
 import { AnimationType, IAnimalProps } from "ts/SharedProperties";
@@ -869,7 +875,9 @@ export namespace AnimalStateMachine
 }
 ```
 
-Create `ts/StateMachine/StateIdle.ts`:
+### Create a State for Idling
+
+Create `ts/StateMachine/StateIdle.ts`, a simple state which idles for a few moments and then pops itself off the stack:
 
 ```typescript
 import { AnimalState } from "ts/StateMachine/AnimalState";
@@ -928,8 +936,9 @@ export class StateIdle extends AnimalState
 }
 ```
 
-
 ### Set the initial state to idle
+
+Update `onEntranceClick` in `scene.tsx` to add `StateIdle` to prey that spawns in:
 
 ```typescript
   onEntranceClick()
@@ -954,13 +963,19 @@ export class StateIdle extends AnimalState
 
 We are going to use an open-sounce implementation of a-star, which is an effecient way of finding the best path between points.
 
+### Install A-Star
+
+We are going to use a package for the a-star implementation.  You could, of course, implement your own as well.
+
 In the command prompt, navigate to the project's directory and run:
 
 ```
 npm install a-star
 ```
 
-Add the following method to `Grid.ts`:
+### Create an API for Pathing
+
+Add a `calcPath` method to `Grid.ts`:
 
 ```typescript
 const aStar = require('a-star');
@@ -1005,7 +1020,9 @@ export namespace Grid
 }
 ```
 
-### State GoTo
+### Create a State For Pathing
+
+This state will take a target position, use a-star to find a path to that position, and then animate the walk there as well as handle and collisions that arrise.
 
 Create `ts/StateMachine/StateGoTo.ts`:
 
@@ -1156,21 +1173,21 @@ export class StateGoTo extends AnimalState
 }
 ```
 
-### Set the initial state to goto
+### Change the Prey to Use StateGoTo
 
 Change the prey's initial state from `StateIdle` to `StateGoTo`:
 
 ```typescript
-onEntranceClick()
-{
-  ...
-  if (animalProps)
+  onEntranceClick()
   {
-    AnimalStateMachine.pushState(
-      new StateGoTo(animalProps, SceneHelper.exitProps, config.prey.exitConfig, config.prey.blockedConfig),
-    );
+    ...
+    if (animalProps)
+    {
+      AnimalStateMachine.pushState(
+        new StateGoTo(animalProps, SceneHelper.exitProps, config.prey.exitConfig, config.prey.blockedConfig),
+      );
+    }
   }
-}
 ```
 
 **Test**: When you spawn in prey, it will start to walk towards the exit, navigating around obstacles such as the fence.  Once they reach the exit, they start to line up (until we add the ability to despawn).
