@@ -15,10 +15,10 @@ We are starting with a scene and a collection of components already created.  Fo
     Beginners, start here.
 
  - [Block Dog](https://steemit.com/tutorial/@hardlydifficult/decentraland-tutorial-basic-ai-with-block-dog)
-    The Block Dog tutorial shows a way of controlling motion in your scene that's very from this tutorial.  You may want to consider both before deciding which approach may be best for your project.
+    The Block Dog tutorial shows a way of controlling motion in your scene that's very different from this tutorial.  You may want to consider both before deciding which approach may be best for your project.
 
  - [Tower Defense](https://steemit.com/tutorial/@hardlydifficult/decentraland-tutorial-a-simple-tower-defense-game)
-    Here we create a basic game, introducing components and how you might to start scaling up a more complex scene and interactions.
+    Here we create a basic game, introducing components and how you might start to scale up more complex scenes and interactions.
 
 ### Download the Starting Scene
 
@@ -42,7 +42,7 @@ This will open a new browser tab with the scene.
 
 ### About the Starting Scene
 
-Due to the size of the scene we are creating, we are starting from a static scene.  Once you have completed a basic Decentraland tutorial or two, I hope most of the code included makes sense.
+Due to the size of the scene we are creating, we are starting from a static scene.  Once you have completed a basic Decentraland tutorial or two, I hope most of the code included here will make sense.
 
  - All art will be rendered by a component (in the components directory). 
  - `scene.tsx` includes some default state and calls to render each of the components.
@@ -249,7 +249,7 @@ We are using a JSON config file to make adjusting certain settings easy.  You ca
 
 ### Click the Exit to Start Over
 
-To ease testing, we'll add a click event which will restart the world.
+To make testing easier, we'll add a click event which will restart the world.
 
 In `scene.tsx` add:
 
@@ -270,7 +270,7 @@ Then update `sceneDidMount` to add:
 this.eventSubscriber.on("Exit_click", e => this.onExitClick());
 ```
 
-**Test**: Click on the exit mount and the trees should re-spawn with new random positions.
+**Test**: Click on the exit mound. The trees should re-spawn with new random positions.
 
 ### Add Static Scenery to the Grid
 
@@ -361,7 +361,7 @@ sceneDidMount()
 }
 ```
 
-**Test**: Click the exit mount several times and confirm the trees are never overlapping scenery.
+**Test**: Click the exit mound several times and confirm the trees are never overlapping scenery.
 
 ### Render Grid for Debugging
 
@@ -453,7 +453,7 @@ onHouseClick()
 }
 ```
 
-And a helper method for spawning animals, which we will use again for the prey:
+Add a helper method for spawning animals, which we will use again for the prey:
 
 ```typescript
 spawnAnimal(animalKey: keyof typeof AnimalType,
@@ -517,13 +517,13 @@ onEntranceClick()
 }
 ```
 
-**Test**: Click on the entrance mound... and it will look like nothing happened.  The mouse spawns in the dirt mount, but we cannot see it.  Modify the `config.json` to see a `Cat` spawn instead and you'll see a head poking through.  You could also turn off rendering of the dirt mound in order to see the mouse spawn.
+**Test**: Click on the entrance mound... and it will look like nothing happened.  The mouse spawns in the dirt mound, but we cannot see it.  Modify the `config.json` to see a `Cat` spawn instead and you'll see a head poking through.  You can also turn off rendering of the dirt mound in order to see the mouse spawn.
 
 Note that clicking on the exit mound no longer fully resets the scene.
 
 ## Event Manager
 
-We are creating an `EventManager` namespace to make it easy to interface with the eventSubscriber found in `scene.tsx`.  
+We are creating an `EventManager` namespace to make it easy to interface with the `eventSubscriber` found in `scene.tsx`.  
 
 Create an `ts\EventManager.ts` file with the following:
 
@@ -568,7 +568,7 @@ sceneDidMount()
 }
 ```
 
-And add a method to respond to the event:
+Add a method to respond to the event:
 
 ```typescript
 onRenderAnimals()
@@ -906,19 +906,19 @@ onEntranceClick()
 }
 ```
 
-**Test**: The scene will look the same as it did previously.  Spawn an animal and it idles for a period of time... and then an error is thrown.  The error will be thrown promptly, for testing you could modify `config.json` to increase the `minLength` \ `maxLength`.
+**Test**: The scene will look the same as it did previously.  Spawn an animal and it idles for a period of time... and then an error is thrown.  The error will be thrown promptly. For testing you could modify `config.json` to increase the `minLength` \ `maxLength`.
 
 ## Path Finding
 
 We are going to use an open-sounce implementation of a-star, which is an effecient way of finding the best path between points.
 
-In the command prompt, in the project's directory, run:
+In the command prompt, navigate to the project's directory and run:
 
 ```
 npm install a-star
 ```
 
-Add the following method to Grid.ts:
+Add the following method to `Grid.ts`:
 
 ```typescript
 const aStar = require('a-star');
@@ -1131,7 +1131,7 @@ onEntranceClick()
 }
 ```
 
-**Test**: When you spawn in prey, it will start to walk towards the exit... navigating around obstacles such as the fence.  Once they reach the exit, they start to line up (until we add the ability to despawn.)
+**Test**: When you spawn in prey, it will start to walk towards the exit, navigating around obstacles such as the fence.  Once they reach the exit, they start to line up (until we add the ability to despawn).
 
 
 ## Despawn 
@@ -1172,7 +1172,7 @@ onExitClick()
 }
 ```
 
-**Test**: Spawn one or more prey in, click the exit and confirm they despawn.  Note that this does not yet work for predators.
+**Test**: Spawn one or more prey in, click the exit, and confirm they despawn.  Note that this does not yet work for predators.
 
 ### State Despawn
 
@@ -1228,7 +1228,7 @@ if (animalProps)
 }
 ```
 
-**Test**: Spawn in several prey, once they get to the end they should all despawn (previously they would have lined up at the exit.)
+**Test**: Spawn in several prey. Once they get to the end, they should all despawn (previously they would have lined up at the exit).
 
 
 ## Eat
@@ -1322,7 +1322,7 @@ export class StateEat extends AnimalState
 }
 ```
 
-Update the prey's initial state machine to eat the cheese before exiting, in `scene.tsx`:
+Update the prey's initial state machine in `scene.tsx` to eat the cheese before exiting:
 
 ```typescript
 AnimalStateMachine.pushStates([
@@ -1332,7 +1332,7 @@ AnimalStateMachine.pushStates([
 ]);
 ```
 
-**Test**: Spawn a mouse, it should go touch the cheese and then proceed to the exit.
+**Test**: Spawn a mouse. It should go touch the cheese and then proceed to the exit.
 
 ## Patrol
 
@@ -1455,7 +1455,7 @@ onHouseClick()
 
 ## Polish
 
-Now we'll add a couple visual effects to improve our scene.
+Now we'll add a couple of visual effects to improve our scene.
 
 ### Capture bait
 
@@ -1488,7 +1488,7 @@ This event is already included in `StateEat`.
 
 When any animal walks under one of the broken fence segments, let's play an animation to make it spin.
 
-First let's emit an event from the Grid class allowing our program to react to grid changes.
+First, let's emit an event from the Grid class allowing our program to react to grid changes:
 
 ```typescript
 export function set(position: Vector3Component, canBeOccupiedAlready: boolean = false)
@@ -1535,4 +1535,4 @@ async onGridCellSet(position: Vector3Component)
 }
 ```
 
-**Test**: Spawn in a few mice and watch them walk through the fence.  The same effect should work if a cat or dog traveled that way, but it's harder to test as our current patrol settings keep them away from the fence.
+**Test**: Spawn in a few mice and watch them walk through the fence.  The same effect should work if a cat or dog travels that way, but this is harder to test as our current patrol settings keep them away from the fence.
