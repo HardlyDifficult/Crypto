@@ -1,25 +1,24 @@
 # Dog, Cat, Mouse, Cheese.  Decentraland.
 
-TODO intro.  
-
 We'll be creating a scene in which a predator guards its home, attacking any prey in sight.  The prey is on a mission: sneak through the fence, get some cheese, and get out safely.
 
 In this example, we will create a stack-based finite state machine (FSM) to manage AI for animals.
 
 TODO TOC
-
-TODO update starting scene.  Animation -> AnimationType
 TODO tabs to spaces
-TODO less aggressive timeout on a-star
-
-TODO remove	this.eventSubscriber.on(animal.id + "_click", () =>
-		{
-			AnimalStateMachine.sendMessage(animal.id, "click");
-		}); 
-
+  
 ## Getting Started
 
-We are starting with a scene and a collection of components already created.  For more information about components and how to get started with Decentraland, see one of our previous tutorials: TODO 
+We are starting with a scene and a collection of components already created.  For more information about components and how to get started with Decentraland, see one of our previous tutorials: 
+
+ - [Music Jukebox](https://steemit.com/tutorial/@hardlydifficult/decentraland-tutorial-creating-a-music-jukebox)
+    Beginners, start here.
+
+ - [Block Dog](https://steemit.com/tutorial/@hardlydifficult/decentraland-tutorial-basic-ai-with-block-dog)
+    The Block Dog tutorial shows a way of controlling motion in your scene that's very from this tutorial.  You may want to consider both before deciding which approach may be best for your project.
+
+ - [Tower Defense](https://steemit.com/tutorial/@hardlydifficult/decentraland-tutorial-a-simple-tower-defense-game)
+    Here we create a basic game, introducing components and how you might to start scaling up a more complex scene and interactions.
 
 ### Download the Starting Scene
 
@@ -43,7 +42,13 @@ This will open a new browser tab with the scene.
 
 ### About the Starting Scene
 
-TODO describe the various elements already included.
+Due to the size of the scene we are creating, we are starting from a static scene.  Once you have completed a basic Decentraland tutorial or two, I hope most of the code included makes sense.
+
+ - All art will be rendered by a component (in the components directory). 
+ - `scene.tsx` includes some default state and calls to render each of the components.
+ - `ts/SharedProperties.ts`: includes common types.
+ - `ts/MathHelper.ts`: includes basic Vector3 math to make writing logic a bit easier.
+ - `ts/SceneHelper.ts`: includes positioning information for static scenery.
 
 ## Adding a Grid
 
@@ -430,8 +435,8 @@ Add an event to `sceneDidMount` for when the user clicks on the `House`:
 ```typescript
 sceneDidMount()
 {
-	...
-	this.eventSubscriber.on("House_click", e => this.onHouseClick());
+  ...
+  this.eventSubscriber.on("House_click", e => this.onHouseClick());
 }
 ```
 
@@ -440,11 +445,11 @@ Add the following method to respond to the click event by spawning a predator:
 ```typescript
 onHouseClick()
 { // Spawn predator
-	this.spawnAnimal(
-		config.predator.animalType,
-		SceneHelper.houseProps.position,
-		add(SceneHelper.houseProps.position, { x: 0, y: 0, z: -1 }),
-		config.predator.patrolSpeed);
+  this.spawnAnimal(
+    config.predator.animalType,
+    SceneHelper.houseProps.position,
+    add(SceneHelper.houseProps.position, { x: 0, y: 0, z: -1 }),
+    config.predator.patrolSpeed);
 }
 ```
 
@@ -452,36 +457,36 @@ And a helper method for spawning animals, which we will use again for the prey:
 
 ```typescript
 spawnAnimal(animalKey: keyof typeof AnimalType,
-	position: Vector3Component,
-	lookAtPosition: Vector3Component,
-	moveDuration: number): IAnimalProps | null
+  position: Vector3Component,
+  lookAtPosition: Vector3Component,
+  moveDuration: number): IAnimalProps | null
 {
-	if (!Grid.isAvailable(position))
-	{ // Space is occupied, can't spawn
-		return null;
-	}
-	Grid.set(position);
+  if (!Grid.isAvailable(position))
+  { // Space is occupied, can't spawn
+    return null;
+  }
+  Grid.set(position);
 
-	const animal: IAnimalProps = {
-		id: "Animal" + this.objectCounter++,
-		animalType: AnimalType[animalKey],
-		position,
-		lookAtPosition,
-		moveDuration,
-		animationWeights: [
-			{ animation: AnimationType.Idle, weight: 1 },
-			{ animation: AnimationType.Walk, weight: 0 },
-			{ animation: AnimationType.Drink, weight: 0 },
-			{ animation: AnimationType.Dead, weight: 0 },
-			{ animation: AnimationType.Run, weight: 0 },
-			{ animation: AnimationType.Sit, weight: 0 },
-		],
-		isDead: false,
-		scale: 1,
-	};
-	this.setState({ animals: [...this.state.animals, animal] });
+  const animal: IAnimalProps = {
+    id: "Animal" + this.objectCounter++,
+    animalType: AnimalType[animalKey],
+    position,
+    lookAtPosition,
+    moveDuration,
+    animationWeights: [
+      { animation: AnimationType.Idle, weight: 1 },
+      { animation: AnimationType.Walk, weight: 0 },
+      { animation: AnimationType.Drink, weight: 0 },
+      { animation: AnimationType.Dead, weight: 0 },
+      { animation: AnimationType.Run, weight: 0 },
+      { animation: AnimationType.Sit, weight: 0 },
+    ],
+    isDead: false,
+    scale: 1,
+  };
+  this.setState({ animals: [...this.state.animals, animal] });
 
-	return animal;
+  return animal;
 }
 ```
 
@@ -527,17 +532,17 @@ import { EventSubscriber } from "metaverse-api";
 
 export namespace EventManager
 {
-	let eventSubscriber: EventSubscriber;
+  let eventSubscriber: EventSubscriber;
 
-	export function init(_eventSubscriber: EventSubscriber)
-	{
-		eventSubscriber = _eventSubscriber;
-	}
+  export function init(_eventSubscriber: EventSubscriber)
+  {
+    eventSubscriber = _eventSubscriber;
+  }
 
-	export function emit(eventType: string, ...params: any[])
-	{
-		eventSubscriber.emit(eventType, ...params);
-	}
+  export function emit(eventType: string, ...params: any[])
+  {
+    eventSubscriber.emit(eventType, ...params);
+  }
 }
 ```
 
@@ -583,43 +588,43 @@ import { setTimeout, clearTimeout } from "timers";
 
 export class AnimalState
 {
-	animalProps: IAnimalProps;
-	animationTimeout?: NodeJS.Timer = undefined;
+  animalProps: IAnimalProps;
+  animationTimeout?: NodeJS.Timer = undefined;
 
-	constructor(animal: IAnimalProps)
-	{
-		this.animalProps = animal;
-	}
+  constructor(animal: IAnimalProps)
+  {
+    this.animalProps = animal;
+  }
 
-	start(): void { }
+  start(): void { }
 
-	stop(): void
-	{
-		if (this.animationTimeout)
-		{
-			clearTimeout(this.animationTimeout);
-		}
-	}
+  stop(): void
+  {
+    if (this.animationTimeout)
+    {
+      clearTimeout(this.animationTimeout);
+    }
+  }
 
-	processMessage(message: string): boolean
-	{
-		return false;
-	}
+  processMessage(message: string): boolean
+  {
+    return false;
+  }
 
-	animate(steps: { animation: AnimationType, for: number }[], then: () => void, stepNumber: number = 0)
-	{
-		if (stepNumber >= steps.length)
-		{
-			then();
-			return;
-		}
+  animate(steps: { animation: AnimationType, for: number }[], then: () => void, stepNumber: number = 0)
+  {
+    if (stepNumber >= steps.length)
+    {
+      then();
+      return;
+    }
 
-		AnimalStateMachine.changeAnimation(this.animalProps.id, steps[stepNumber].animation);
-		this.animationTimeout = setTimeout(() =>
-		{
-			this.animate(steps, then, ++stepNumber);
-		}, steps[stepNumber].for);
-	}
+    AnimalStateMachine.changeAnimation(this.animalProps.id, steps[stepNumber].animation);
+    this.animationTimeout = setTimeout(() =>
+    {
+      this.animate(steps, then, ++stepNumber);
+    }, steps[stepNumber].for);
+  }
 }
 ```
 
@@ -633,192 +638,192 @@ import { AnimalState } from "ts/StateMachine/AnimalState";
 
 export namespace AnimalStateMachine
 {
-	interface AnimalStateObject
-	{
-		animalProps: IAnimalProps,
-		stateStack: AnimalState[],
-		animationInterval?: NodeJS.Timer 
-	};
-	const animalStates: AnimalStateObject[] = [];
+  interface AnimalStateObject
+  {
+    animalProps: IAnimalProps,
+    stateStack: AnimalState[],
+    animationInterval?: NodeJS.Timer 
+  };
+  const animalStates: AnimalStateObject[] = [];
 
-	export function getAnimals(where: (a: AnimalStateObject) => boolean)
-	{
-		return animalStates.filter(where);
-	}
+  export function getAnimals(where: (a: AnimalStateObject) => boolean)
+  {
+    return animalStates.filter(where);
+  }
 
-	export function getAnimalProps(id: string): IAnimalProps | undefined
-	{
-		let state = animalStates.find(a => a.animalProps.id == id);
-		if (state)
-		{
-			return state.animalProps;
-		}
+  export function getAnimalProps(id: string): IAnimalProps | undefined
+  {
+    let state = animalStates.find(a => a.animalProps.id == id);
+    if (state)
+    {
+      return state.animalProps;
+    }
 
-		return undefined;
-	}
+    return undefined;
+  }
 
-	export function pushState(state: AnimalState)
-	{
-		let animalState = animalStates.find(s => s.animalProps.id == state.animalProps.id);
-		if (!animalState)
-		{
-			animalState = {
-				animalProps: state.animalProps,
-				stateStack: [state],
-				animationInterval: undefined
-			};
-			animalStates.push(animalState);
-		}
-		else
-		{
-			const previousState = animalState.stateStack[animalState.stateStack.length - 1];
-			if (previousState)
-			{
-				previousState.stop();
-			}
-			animalState.stateStack.push(state);
-		}
+  export function pushState(state: AnimalState)
+  {
+    let animalState = animalStates.find(s => s.animalProps.id == state.animalProps.id);
+    if (!animalState)
+    {
+      animalState = {
+        animalProps: state.animalProps,
+        stateStack: [state],
+        animationInterval: undefined
+      };
+      animalStates.push(animalState);
+    }
+    else
+    {
+      const previousState = animalState.stateStack[animalState.stateStack.length - 1];
+      if (previousState)
+      {
+        previousState.stop();
+      }
+      animalState.stateStack.push(state);
+    }
 
-		animalState.stateStack[animalState.stateStack.length - 1].start();
-	}
+    animalState.stateStack[animalState.stateStack.length - 1].start();
+  }
 
-	export function pushStates(states: AnimalState[])
-	{
-		let animalState = animalStates.find(s => s.animalProps.id == states[0].animalProps.id);
-		if (!animalState)
-		{
-			animalState = {
-				animalProps: states[0].animalProps,
-				stateStack: states,
-				animationInterval: undefined
-			};
-			animalStates.push(animalState);
-		}
-		else
-		{
-			const previousState = animalState.stateStack[animalState.stateStack.length - 1];
-			if (previousState)
-			{
-				previousState.stop();
-			}
-			for (const state of states)
-			{
-				animalState.stateStack.push(state);
-			}
-		}
+  export function pushStates(states: AnimalState[])
+  {
+    let animalState = animalStates.find(s => s.animalProps.id == states[0].animalProps.id);
+    if (!animalState)
+    {
+      animalState = {
+        animalProps: states[0].animalProps,
+        stateStack: states,
+        animationInterval: undefined
+      };
+      animalStates.push(animalState);
+    }
+    else
+    {
+      const previousState = animalState.stateStack[animalState.stateStack.length - 1];
+      if (previousState)
+      {
+        previousState.stop();
+      }
+      for (const state of states)
+      {
+        animalState.stateStack.push(state);
+      }
+    }
 
-		animalState.stateStack[animalState.stateStack.length - 1].start();
-	}
+    animalState.stateStack[animalState.stateStack.length - 1].start();
+  }
 
-	export function popState(id: string)
-	{
-		const animalState = animalStates.find(s => s.animalProps.id == id);
-		if (!animalState)
-		{
-			throw new Error("Animal not found");
-		}
-		if (animalState.stateStack.length <= 1)
-		{
-			throw new Error("You're popping everything!");
-		}
+  export function popState(id: string)
+  {
+    const animalState = animalStates.find(s => s.animalProps.id == id);
+    if (!animalState)
+    {
+      throw new Error("Animal not found");
+    }
+    if (animalState.stateStack.length <= 1)
+    {
+      throw new Error("You're popping everything!");
+    }
 
-		const previousState = animalState.stateStack.pop();
-		if (previousState)
-		{
-			previousState.stop();
-		}
-		animalState.stateStack[animalState.stateStack.length - 1].start();
-	}
+    const previousState = animalState.stateStack.pop();
+    if (previousState)
+    {
+      previousState.stop();
+    }
+    animalState.stateStack[animalState.stateStack.length - 1].start();
+  }
 
-	export function sendMessage(objectId: string, message: string)
-	{
-		const animalState = animalStates.find(s => s.animalProps.id == objectId);
-		if (!animalState)
-		{
-			throw new Error("Animal not found");
-		}
-		while (!animalState.stateStack[animalState.stateStack.length - 1].processMessage(message))
-		{
-			const previousState = animalState.stateStack.pop();
-			if(previousState)
-			{
-				previousState.stop();
-			}
-		}
-		animalState.stateStack[animalState.stateStack.length - 1].start();
-	}
+  export function sendMessage(objectId: string, message: string)
+  {
+    const animalState = animalStates.find(s => s.animalProps.id == objectId);
+    if (!animalState)
+    {
+      throw new Error("Animal not found");
+    }
+    while (!animalState.stateStack[animalState.stateStack.length - 1].processMessage(message))
+    {
+      const previousState = animalState.stateStack.pop();
+      if(previousState)
+      {
+        previousState.stop();
+      }
+    }
+    animalState.stateStack[animalState.stateStack.length - 1].start();
+  }
 
-	export function terminate(objectId: string)
-	{
-		const index = animalStates.findIndex(s => s.animalProps.id == objectId);
-		if (index < 0)
-		{
-			throw new Error("Animal not found");
-		}
-		const animalState = animalStates[index];
-		animalState.stateStack[animalState.stateStack.length - 1].stop();
-		if (animalState.animationInterval)
-		{
-			clearInterval(animalState.animationInterval);
-		}
+  export function terminate(objectId: string)
+  {
+    const index = animalStates.findIndex(s => s.animalProps.id == objectId);
+    if (index < 0)
+    {
+      throw new Error("Animal not found");
+    }
+    const animalState = animalStates[index];
+    animalState.stateStack[animalState.stateStack.length - 1].stop();
+    if (animalState.animationInterval)
+    {
+      clearInterval(animalState.animationInterval);
+    }
 
-		animalStates[index] = animalStates[animalStates.length - 1];
-		animalStates.length--;
-	}
+    animalStates[index] = animalStates[animalStates.length - 1];
+    animalStates.length--;
+  }
 
-	export function changeAnimation(id: string, animation: AnimationType)
-	{
-		const animalState = animalStates.find(s => s.animalProps.id == id);
-		if (!animalState)
-		{
-			throw new Error("Animal not found");
-		}
-		if (animalState.animationInterval)
-		{
-			clearInterval(animalState.animationInterval);
-		}
-		const animationDeltaPerFrame = .25 / (1000 / 60);
-		animalState.animationInterval = setInterval(() =>
-		{
-			let isDone = true;
-			for (let animationWeight of animalState.animalProps.animationWeights)
-			{
-				if (animationWeight.animation == animation)
-				{
-					animationWeight.weight += animationDeltaPerFrame;
-					if (animationWeight.weight >= 1)
-					{
-						animationWeight.weight = 1;
-					}
-					else
-					{
-						isDone = false;
-					}
-				}
-				else
-				{
-					animationWeight.weight -= animationDeltaPerFrame;
-					if (animationWeight.weight <= 0)
-					{
-						animationWeight.weight = 0;
-					}
-					else
-					{
-						isDone = false;
-					}
-				}
-			}
-			EventManager.emit("renderAnimals");
+  export function changeAnimation(id: string, animation: AnimationType)
+  {
+    const animalState = animalStates.find(s => s.animalProps.id == id);
+    if (!animalState)
+    {
+      throw new Error("Animal not found");
+    }
+    if (animalState.animationInterval)
+    {
+      clearInterval(animalState.animationInterval);
+    }
+    const animationDeltaPerFrame = .25 / (1000 / 60);
+    animalState.animationInterval = setInterval(() =>
+    {
+      let isDone = true;
+      for (let animationWeight of animalState.animalProps.animationWeights)
+      {
+        if (animationWeight.animation == animation)
+        {
+          animationWeight.weight += animationDeltaPerFrame;
+          if (animationWeight.weight >= 1)
+          {
+            animationWeight.weight = 1;
+          }
+          else
+          {
+            isDone = false;
+          }
+        }
+        else
+        {
+          animationWeight.weight -= animationDeltaPerFrame;
+          if (animationWeight.weight <= 0)
+          {
+            animationWeight.weight = 0;
+          }
+          else
+          {
+            isDone = false;
+          }
+        }
+      }
+      EventManager.emit("renderAnimals");
 
-			if (isDone)
-			{
-				if (animalState.animationInterval)
-				{
-					clearInterval(animalState.animationInterval);
-				}
-			}
-		}, 1000 / 60);
-	}
+      if (isDone)
+      {
+        if (animalState.animationInterval)
+        {
+          clearInterval(animalState.animationInterval);
+        }
+      }
+    }, 1000 / 60);
+  }
 }
 ```
 
@@ -831,53 +836,53 @@ import { AnimationType, IAnimalProps } from "ts/SharedProperties";
 
 export interface IStateIdleConfig
 {
-	minLength: number;
-	maxLength: number;
-	oddsOfSitting: number;
+  minLength: number;
+  maxLength: number;
+  oddsOfSitting: number;
 }
 
 export class StateIdle extends AnimalState
 {
-	config: IStateIdleConfig;
+  config: IStateIdleConfig;
 
-	constructor(animal: IAnimalProps, config: IStateIdleConfig)
-	{
-		if (!config)
-		{
-			throw new Error("Missing config");
-		}
-		super(animal);
-		this.config = config;
-	}
+  constructor(animal: IAnimalProps, config: IStateIdleConfig)
+  {
+    if (!config)
+    {
+      throw new Error("Missing config");
+    }
+    super(animal);
+    this.config = config;
+  }
 
-	start()
-	{
-		const howLong = Math.random() * (this.config.maxLength - this.config.minLength) + this.config.minLength;
-		let steps;
-		if (Math.random() < this.config.oddsOfSitting)
-		{
-			steps = [
-				{ animation: AnimationType.Idle, for: 500 },
-				{ animation: AnimationType.Sit, for: Math.max(500, howLong - 1000) },
-				{ animation: AnimationType.Idle, for: 500 },
-			];
-		}
-		else
-		{
-			steps = [
-				{ animation: AnimationType.Idle, for: howLong },
-			];
-		}
-		this.animate(steps, () =>
-		{
-			AnimalStateMachine.popState(this.animalProps.id);
-		});
-	}
+  start()
+  {
+    const howLong = Math.random() * (this.config.maxLength - this.config.minLength) + this.config.minLength;
+    let steps;
+    if (Math.random() < this.config.oddsOfSitting)
+    {
+      steps = [
+        { animation: AnimationType.Idle, for: 500 },
+        { animation: AnimationType.Sit, for: Math.max(500, howLong - 1000) },
+        { animation: AnimationType.Idle, for: 500 },
+      ];
+    }
+    else
+    {
+      steps = [
+        { animation: AnimationType.Idle, for: howLong },
+      ];
+    }
+    this.animate(steps, () =>
+    {
+      AnimalStateMachine.popState(this.animalProps.id);
+    });
+  }
 
-	stop()
-	{
-		super.stop();
-	}
+  stop()
+  {
+    super.stop();
+  }
 }
 ```
 
@@ -888,10 +893,10 @@ export class StateIdle extends AnimalState
 onEntranceClick()
 {
   const animalProps = this.spawnAnimal(
-			config.prey.animalType,
-			SceneHelper.entranceProps.position,
-			add(SceneHelper.entranceProps.position, { x: 1, y: 0, z: 0 }),
-			config.prey.sneakSpeed);
+      config.prey.animalType,
+      SceneHelper.entranceProps.position,
+      add(SceneHelper.entranceProps.position, { x: 1, y: 0, z: 0 }),
+      config.prey.sneakSpeed);
   if (animalProps)
   {
     AnimalStateMachine.pushState(
@@ -946,7 +951,7 @@ export namespace Grid
       {
         return JSON.stringify(x);
       },
-      timeout: 5
+      timeout: 10
     });
     if (results.status == "success")
     {
@@ -974,138 +979,138 @@ import { IStateIdleConfig, StateIdle } from "ts/StateMachine/StateIdle";
 
 export interface IStateGoToConfig
 {
-	moveSpeed: number;
-	panicSpeed?: number;
+  moveSpeed: number;
+  panicSpeed?: number;
 }
 
 export class StateGoTo extends AnimalState
 {
-	target: {
-		position: Vector3Component,
-		isDead?: boolean
-	};
-	config: IStateGoToConfig;
-	blockedConfig?: IStateIdleConfig;
-	interval?: NodeJS.Timer = undefined;
-	inPanic: boolean = false;
+  target: {
+    position: Vector3Component,
+    isDead?: boolean
+  };
+  config: IStateGoToConfig;
+  blockedConfig?: IStateIdleConfig;
+  interval?: NodeJS.Timer = undefined;
+  inPanic: boolean = false;
 
-	constructor(animal: IAnimalProps, target: { position: Vector3Component, isDead?: boolean }, config: IStateGoToConfig, blockedConfig?: IStateIdleConfig)
-	{
-		super(animal);
+  constructor(animal: IAnimalProps, target: { position: Vector3Component, isDead?: boolean }, config: IStateGoToConfig, blockedConfig?: IStateIdleConfig)
+  {
+    super(animal);
 
-		this.target = target;
-		this.config = config;
-		this.blockedConfig = blockedConfig;
-	}
+    this.target = target;
+    this.config = config;
+    this.blockedConfig = blockedConfig;
+  }
 
-	start()
-	{
-		const speed = this.inPanic ? (this.config.panicSpeed || this.config.moveSpeed) : this.config.moveSpeed;
-		this.animalProps.moveDuration = speed;
-		const targetPosition = this.target.position;
-		const path = Grid.calcPath(this.animalProps.position, targetPosition);
-		if (this.target.isDead || path.length <= 0)
-		{
-			if (this.blockedConfig && !this.target.isDead)
-			{
-				return AnimalStateMachine.pushState(new StateIdle(this.animalProps, this.blockedConfig));
-			}
-			else
-			{
-				return AnimalStateMachine.popState(this.animalProps.id);
-			}
-		}
+  start()
+  {
+    const speed = this.inPanic ? (this.config.panicSpeed || this.config.moveSpeed) : this.config.moveSpeed;
+    this.animalProps.moveDuration = speed;
+    const targetPosition = this.target.position;
+    const path = Grid.calcPath(this.animalProps.position, targetPosition);
+    if (this.target.isDead || path.length <= 0)
+    {
+      if (this.blockedConfig && !this.target.isDead)
+      {
+        return AnimalStateMachine.pushState(new StateIdle(this.animalProps, this.blockedConfig));
+      }
+      else
+      {
+        return AnimalStateMachine.popState(this.animalProps.id);
+      }
+    }
 
-		if (path.length == 1)
-		{
-			return AnimalStateMachine.popState(this.animalProps.id);
-		}
+    if (path.length == 1)
+    {
+      return AnimalStateMachine.popState(this.animalProps.id);
+    }
 
-		let pathIndex = 1;
-		if (this.interval)
-		{
-			clearInterval(this.interval);
-		}
-		this.interval = setInterval(() =>
-		{
-			let target = path[pathIndex];
-			if (pathIndex < path.length - 1)
-			{ // Smooth diag movement
-				target = add(target, path[pathIndex + 1]);
-				target = div(target, 2);
-			}
-			try
-			{
-				this.walkTowards(target);
-			}
-			catch (e)
-			{
-				return this.repath();
-			}
-			pathIndex++;
-			if (pathIndex >= path.length
-				|| this.target.isDead)
-			{
-				return AnimalStateMachine.popState(this.animalProps.id);
-			}
+    let pathIndex = 1;
+    if (this.interval)
+    {
+      clearInterval(this.interval);
+    }
+    this.interval = setInterval(() =>
+    {
+      let target = path[pathIndex];
+      if (pathIndex < path.length - 1)
+      { // Smooth diag movement
+        target = add(target, path[pathIndex + 1]);
+        target = div(target, 2);
+      }
+      try
+      {
+        this.walkTowards(target);
+      }
+      catch (e)
+      {
+        return this.repath();
+      }
+      pathIndex++;
+      if (pathIndex >= path.length
+        || this.target.isDead)
+      {
+        return AnimalStateMachine.popState(this.animalProps.id);
+      }
 
-			if (!equals(this.target.position, targetPosition))
-			{
-				return this.repath();
-			}
-		}, speed);
-	}
+      if (!equals(this.target.position, targetPosition))
+      {
+        return this.repath();
+      }
+    }, speed);
+  }
 
-	repath()
-	{
-		this.stop();
-		this.start();
-	}
+  repath()
+  {
+    this.stop();
+    this.start();
+  }
 
-	stop()
-	{
-		if (this.interval)
-		{
-			clearInterval(this.interval);
-		}
-	}
+  stop()
+  {
+    if (this.interval)
+    {
+      clearInterval(this.interval);
+    }
+  }
 
-	walkTowards(targetPosition: Vector3Component)
-	{
-		const toTarget = subtract(targetPosition, this.animalProps.position);
-		if (isZero(toTarget))
-		{ // Already there
-			AnimalStateMachine.changeAnimation(this.animalProps.id, AnimationType.Idle);
-			return;
-		}
+  walkTowards(targetPosition: Vector3Component)
+  {
+    const toTarget = subtract(targetPosition, this.animalProps.position);
+    if (isZero(toTarget))
+    { // Already there
+      AnimalStateMachine.changeAnimation(this.animalProps.id, AnimationType.Idle);
+      return;
+    }
 
-		Grid.clear(this.animalProps.position);
-		if (!Grid.isAvailable(targetPosition))
-		{
-			Grid.set(this.animalProps.position);
-			throw new Error("Space occupied, can't walk there.");
-		}
-		this.animalProps.position = targetPosition;
-		Grid.set(this.animalProps.position);
-		if (lengthSquared(toTarget) > .1)
-		{
-			// Look past the target
-			this.animalProps.lookAtPosition = add(targetPosition, mul(toTarget, 10));
-		}
-		AnimalStateMachine.changeAnimation(this.animalProps.id, this.inPanic ? AnimationType.Run : AnimationType.Walk);
-	}
+    Grid.clear(this.animalProps.position);
+    if (!Grid.isAvailable(targetPosition))
+    {
+      Grid.set(this.animalProps.position);
+      throw new Error("Space occupied, can't walk there.");
+    }
+    this.animalProps.position = targetPosition;
+    Grid.set(this.animalProps.position);
+    if (lengthSquared(toTarget) > .1)
+    {
+      // Look past the target
+      this.animalProps.lookAtPosition = add(targetPosition, mul(toTarget, 10));
+    }
+    AnimalStateMachine.changeAnimation(this.animalProps.id, this.inPanic ? AnimationType.Run : AnimationType.Walk);
+  }
 
-	processMessage(message: string): boolean
-	{
-		if (message == "panic")
-		{
-			this.inPanic = true;
-			this.repath();
-			return true;
-		}
+  processMessage(message: string): boolean
+  {
+    if (message == "panic")
+    {
+      this.inPanic = true;
+      this.repath();
+      return true;
+    }
 
-		return super.processMessage(message);
-	}
+    return super.processMessage(message);
+  }
 }
 ```
 
@@ -1142,15 +1147,15 @@ And an event handler:
 ```typescript
 async onDespawn(animalId: string, delay: number)
 {
-	const animal = this.state.animals.find(a => a.id == animalId);
-	if (animal)
-	{
-		AnimalStateMachine.terminate(animalId);
-		animal.isDead = true;
-		await sleep(delay);
-		Grid.clear(animal.position);
-		this.setState({ animals: this.state.animals.filter((a) => a.id != animal.id) });
-	}
+  const animal = this.state.animals.find(a => a.id == animalId);
+  if (animal)
+  {
+    AnimalStateMachine.terminate(animalId);
+    animal.isDead = true;
+    await sleep(delay);
+    Grid.clear(animal.position);
+    this.setState({ animals: this.state.animals.filter((a) => a.id != animal.id) });
+  }
 }
 ```
 
@@ -1180,34 +1185,34 @@ import { EventManager } from "ts/EventManager";
 
 export interface IStateDespawnConfig
 {
-	delay?: number;
+  delay?: number;
 }
 
 export class StateDespawn extends AnimalState
 {
-	config: IStateDespawnConfig;
-	timeout?: NodeJS.Timer = undefined;
+  config: IStateDespawnConfig;
+  timeout?: NodeJS.Timer = undefined;
 
-	constructor(animal: IAnimalProps, config: IStateDespawnConfig)
-	{
-		super(animal);
-		this.config = config;
-	}
+  constructor(animal: IAnimalProps, config: IStateDespawnConfig)
+  {
+    super(animal);
+    this.config = config;
+  }
 
-	start()
-	{
-		this.animate([{ animation: AnimationType.Dead, for: this.config.delay || 0 }], () => this.despawn());
-	}
+  start()
+  {
+    this.animate([{ animation: AnimationType.Dead, for: this.config.delay || 0 }], () => this.despawn());
+  }
 
-	despawn()
-	{
-		EventManager.emit("despawn", this.animalProps.id);
-	}
+  despawn()
+  {
+    EventManager.emit("despawn", this.animalProps.id);
+  }
 
-	processMessage(message: string): boolean
-	{
-		return true;
-	}
+  processMessage(message: string): boolean
+  {
+    return true;
+  }
 }
 ```
 
@@ -1216,10 +1221,10 @@ And update the prey to fallback to despawn once goto completes:
 ```typescript
 if (animalProps)
 {
-	AnimalStateMachine.pushStates([
-		new StateDespawn(animalProps, {delay: 1000}),
-		new StateGoTo(animalProps, SceneHelper.exitProps, config.prey.exitConfig, config.prey.blockedConfig),
-	]);
+  AnimalStateMachine.pushStates([
+    new StateDespawn(animalProps, {delay: 1000}),
+    new StateGoTo(animalProps, SceneHelper.exitProps, config.prey.exitConfig, config.prey.blockedConfig),
+  ]);
 }
 ```
 
@@ -1243,77 +1248,77 @@ import { StateDespawn } from "ts/StateMachine/StateDespawn";
 
 export interface IStateEatConfig
 {
-	eatRange: number;
-	huntConfig: IStateGoToConfig;
+  eatRange: number;
+  huntConfig: IStateGoToConfig;
 }
 
 interface IPrey
 {
-	id: string,
-	position: Vector3Component,
-	isDead?: boolean
+  id: string,
+  position: Vector3Component,
+  isDead?: boolean
 }
 
 export class StateEat extends AnimalState
 {
-	prey: IPrey;
-	config: IStateEatConfig;
-	blockedConfig?: IStateIdleConfig;
+  prey: IPrey;
+  config: IStateEatConfig;
+  blockedConfig?: IStateIdleConfig;
 
-	constructor(animal: IAnimalProps, prey: IPrey, config: IStateEatConfig, blockedConfig?: IStateIdleConfig)
-	{
-		super(animal);
-		this.prey = prey;
-		this.config = config;
-		this.blockedConfig = blockedConfig;
+  constructor(animal: IAnimalProps, prey: IPrey, config: IStateEatConfig, blockedConfig?: IStateIdleConfig)
+  {
+    super(animal);
+    this.prey = prey;
+    this.config = config;
+    this.blockedConfig = blockedConfig;
 
-		if (!this.config.huntConfig)
-		{
-			throw new Error("Missing huntConfig");
-		}
-	}
+    if (!this.config.huntConfig)
+    {
+      throw new Error("Missing huntConfig");
+    }
+  }
 
-	start()
-	{
-		if (this.prey.isDead)
-		{
-			AnimalStateMachine.popState(this.animalProps.id);
-		}
-		else if (lengthSquared(subtract(this.prey.position, this.animalProps.position)) <= this.config.eatRange * this.config.eatRange)
-		{
-			if (this.prey.isDead !== undefined)
-			{
-				let animal = AnimalStateMachine.getAnimalProps(this.prey.id);
-				if (animal)
-				{
-					AnimalStateMachine.pushState(new StateDespawn(animal, { delay: 1000 }))
-				}
-			}
-			else
-			{
-				EventManager.emit("captureBait", this.prey.id, 1000);
-			}
-			this.animalProps.lookAtPosition = this.prey.position;
-			EventManager.emit("renderAnimals");
-			this.animate([
-				{ animation: AnimationType.Drink, for: 1500 },
-				{ animation: AnimationType.Idle, for: 500 },
-				{ animation: AnimationType.Sit, for: 2000 },
-				{ animation: AnimationType.Idle, for: 500 },
-			], () =>
-				{
-					AnimalStateMachine.popState(this.animalProps.id);
-				});
-		}
-		else
-		{
-			if (this.prey.isDead !== undefined)
-			{
-				AnimalStateMachine.sendMessage(this.prey.id, "panic");
-			}
-			AnimalStateMachine.pushState(new StateGoTo(this.animalProps, this.prey, this.config.huntConfig, this.blockedConfig));
-		}
-	}
+  start()
+  {
+    if (this.prey.isDead)
+    {
+      AnimalStateMachine.popState(this.animalProps.id);
+    }
+    else if (lengthSquared(subtract(this.prey.position, this.animalProps.position)) <= this.config.eatRange * this.config.eatRange)
+    {
+      if (this.prey.isDead !== undefined)
+      {
+        let animal = AnimalStateMachine.getAnimalProps(this.prey.id);
+        if (animal)
+        {
+          AnimalStateMachine.pushState(new StateDespawn(animal, { delay: 1000 }))
+        }
+      }
+      else
+      {
+        EventManager.emit("captureBait", this.prey.id, 1000);
+      }
+      this.animalProps.lookAtPosition = this.prey.position;
+      EventManager.emit("renderAnimals");
+      this.animate([
+        { animation: AnimationType.Drink, for: 1500 },
+        { animation: AnimationType.Idle, for: 500 },
+        { animation: AnimationType.Sit, for: 2000 },
+        { animation: AnimationType.Idle, for: 500 },
+      ], () =>
+        {
+          AnimalStateMachine.popState(this.animalProps.id);
+        });
+    }
+    else
+    {
+      if (this.prey.isDead !== undefined)
+      {
+        AnimalStateMachine.sendMessage(this.prey.id, "panic");
+      }
+      AnimalStateMachine.pushState(new StateGoTo(this.animalProps, this.prey, this.config.huntConfig, this.blockedConfig));
+    }
+  }
 }
 ```
 
@@ -1321,9 +1326,9 @@ Update the prey's initial state machine to eat the cheese before exiting, in `sc
 
 ```typescript
 AnimalStateMachine.pushStates([
-	new StateDespawn(animalProps, {delay: 1000}),
-	new StateGoTo(animalProps, SceneHelper.exitProps, config.prey.exitConfig, config.prey.blockedConfig),
-	new StateEat(animalProps, this.state.baitProps, config.prey.eatConfig, config.prey.blockedConfig),
+  new StateDespawn(animalProps, {delay: 1000}),
+  new StateGoTo(animalProps, SceneHelper.exitProps, config.prey.exitConfig, config.prey.blockedConfig),
+  new StateEat(animalProps, this.state.baitProps, config.prey.eatConfig, config.prey.blockedConfig),
 ]);
 ```
 
@@ -1346,77 +1351,77 @@ import { Grid } from "ts/Grid";
 
 interface IStatePatrolConfig
 {
-	eatConfig: IStateEatConfig,
-	idleConfig: IStateIdleConfig,
-	wanderConfig: IStateGoToConfig,
+  eatConfig: IStateEatConfig,
+  idleConfig: IStateIdleConfig,
+  wanderConfig: IStateGoToConfig,
 
-	minRadius: number,
-	maxRadius: number,
-	chanceOfMoving: number,
+  minRadius: number,
+  maxRadius: number,
+  chanceOfMoving: number,
 
-	preyType: AnimalType,
-	scanRadius: number,
+  preyType: AnimalType,
+  scanRadius: number,
 }
 
 export class StatePatrol extends AnimalState
 {
-	config: IStatePatrolConfig;
-	patrolAround: { position: Vector3Component };
+  config: IStatePatrolConfig;
+  patrolAround: { position: Vector3Component };
 
-	constructor(animal: IAnimalProps, patrolAround: { position: Vector3Component }, config: IStatePatrolConfig)
-	{
-		super(animal);
-		this.config = config;
-		this.patrolAround = patrolAround;
+  constructor(animal: IAnimalProps, patrolAround: { position: Vector3Component }, config: IStatePatrolConfig)
+  {
+    super(animal);
+    this.config = config;
+    this.patrolAround = patrolAround;
 
-		if (!this.config.eatConfig)
-		{
-			throw new Error("Missing eatConfig")
-		}
-	}
+    if (!this.config.eatConfig)
+    {
+      throw new Error("Missing eatConfig")
+    }
+  }
 
-	start()
-	{
-		let prey = this.lookForPrey()
-		if (prey)
-		{ // Hunt
-			AnimalStateMachine.pushState(new StateEat(this.animalProps, prey, this.config.eatConfig));
-		}
-		else if (Math.random() < this.config.chanceOfMoving)
-		{ // Move
-			let targetPosition;
-			do
-			{
-				targetPosition = Grid.randomPosition();
-			} while (!inSphere(targetPosition, this.patrolAround.position, this.config.maxRadius)
-				|| inSphere(targetPosition, this.patrolAround.position, this.config.minRadius));
+  start()
+  {
+    let prey = this.lookForPrey()
+    if (prey)
+    { // Hunt
+      AnimalStateMachine.pushState(new StateEat(this.animalProps, prey, this.config.eatConfig));
+    }
+    else if (Math.random() < this.config.chanceOfMoving)
+    { // Move
+      let targetPosition;
+      do
+      {
+        targetPosition = Grid.randomPosition();
+      } while (!inSphere(targetPosition, this.patrolAround.position, this.config.maxRadius)
+        || inSphere(targetPosition, this.patrolAround.position, this.config.minRadius));
 
-			AnimalStateMachine.pushState(new StateGoTo(this.animalProps, { position: targetPosition }, this.config.wanderConfig));
-		}
-		else
-		{ // Idle
-			AnimalStateMachine.pushState(new StateIdle(this.animalProps, this.config.idleConfig))
-		}
-	}
+      AnimalStateMachine.pushState(new StateGoTo(this.animalProps, { position: targetPosition }, this.config.wanderConfig));
+    }
+    else
+    { // Idle
+      AnimalStateMachine.pushState(new StateIdle(this.animalProps, this.config.idleConfig))
+    }
+  }
 
-	lookForPrey(): IAnimalProps | null
-	{
-		for (const prey of AnimalStateMachine.getAnimals((a) => a.animalProps.animalType == this.config.preyType && !a.animalProps.isDead))
-		{
-			const distanceSquared = lengthSquared(subtract(prey.animalProps.position, this.animalProps.position));
-			if (distanceSquared <= this.config.scanRadius * this.config.scanRadius)
-			{
-				return prey.animalProps;
-			}
-		}
+  lookForPrey(): IAnimalProps | null
+  {
+    for (const prey of AnimalStateMachine.getAnimals((a) => a.animalProps.animalType == this.config.preyType && !a.animalProps.isDead))
+    {
+      const distanceSquared = lengthSquared(subtract(prey.animalProps.position, this.animalProps.position));
+      if (distanceSquared <= this.config.scanRadius * this.config.scanRadius)
+      {
+        return prey.animalProps;
+      }
+    }
 
-		return null;
-	}
+    return null;
+  }
 
-	processMessage(message: string): boolean
-	{ 
-		return true;
-	}
+  processMessage(message: string): boolean
+  { 
+    return true;
+  }
 }
 ```
 
@@ -1425,19 +1430,19 @@ Update `onHouseClick` in `scene.tsx` to spawn in predators with `StatePatrol`:
 ```typescript
 onHouseClick()
 { 
-	const animalProps = this.spawnAnimal(
-		config.predator.animalType,
-		SceneHelper.houseProps.position,
-		add(SceneHelper.houseProps.position, { x: 0, y: 0, z: -1 }),
-		config.predator.patrolSpeed);
-	if (animalProps)
-	{
-		AnimalStateMachine.pushState(new StatePatrol(
-			animalProps,
-			SceneHelper.houseProps,
-			config.predator.patrolConfig
-		));
-	}
+  const animalProps = this.spawnAnimal(
+    config.predator.animalType,
+    SceneHelper.houseProps.position,
+    add(SceneHelper.houseProps.position, { x: 0, y: 0, z: -1 }),
+    config.predator.patrolSpeed);
+  if (animalProps)
+  {
+    AnimalStateMachine.pushState(new StatePatrol(
+      animalProps,
+      SceneHelper.houseProps,
+      config.predator.patrolConfig
+    ));
+  }
 }
 ```
 
@@ -1465,12 +1470,12 @@ Then add a method to handle the event:
 ```typescript
 async onCaptureBait()
 {
-	await sleep(750);
-	this.state.baitProps.isVisible = false;
-	this.setState({ baitProps: this.state.baitProps });
-	await sleep(2000);
-	this.state.baitProps.isVisible = true;
-	this.setState({ baitProps: this.state.baitProps });
+  await sleep(750);
+  this.state.baitProps.isVisible = false;
+  this.setState({ baitProps: this.state.baitProps });
+  await sleep(2000);
+  this.state.baitProps.isVisible = true;
+  this.setState({ baitProps: this.state.baitProps });
 }
 ```
 
@@ -1488,8 +1493,8 @@ First let's emit an event from the Grid class allowing our program to react to g
 ```typescript
 export function set(position: Vector3Component, canBeOccupiedAlready: boolean = false)
 {
-	...
-	EventManager.emit("gridCellSet", position);
+  ...
+  EventManager.emit("gridCellSet", position);
 }
 ```
 Then register to the event in `sceneDidMount` of `scene.tsx`:
@@ -1503,30 +1508,30 @@ And add a method to handle the event:
 ```typescript
 async onGridCellSet(position: Vector3Component)
 {
-	let index = -1;
-	for (let i = 0; i < SceneHelper.fenceSpinnerProps.length; i++)
-	{
-		if (approxEquals(position, SceneHelper.fenceSpinnerProps[i].position))
-		{
-			index = i;
-			break;
-		}
-	}
-	if (index >= 0)
-	{
-		let fenceSpinState = this.state.fenceSpinState.slice();
-		if (fenceSpinState[index] != SpinState.None)
-		{ // One at a time to keep the animation timing
-			return;
-		}
-		// Note this is not always correct..
-		fenceSpinState[index] = index == 0 ? SpinState.Enter : SpinState.Exit; 
-		this.setState({ fenceSpinState });
-		await sleep(75 * 1000 / 25);
-		fenceSpinState = this.state.fenceSpinState.slice();
-		fenceSpinState[index] = SpinState.None;
-		this.setState({ fenceSpinState });
-	}
+  let index = -1;
+  for (let i = 0; i < SceneHelper.fenceSpinnerProps.length; i++)
+  {
+    if (approxEquals(position, SceneHelper.fenceSpinnerProps[i].position))
+    {
+      index = i;
+      break;
+    }
+  }
+  if (index >= 0)
+  {
+    let fenceSpinState = this.state.fenceSpinState.slice();
+    if (fenceSpinState[index] != SpinState.None)
+    { // One at a time to keep the animation timing
+      return;
+    }
+    // Note this is not always correct..
+    fenceSpinState[index] = index == 0 ? SpinState.Enter : SpinState.Exit; 
+    this.setState({ fenceSpinState });
+    await sleep(75 * 1000 / 25);
+    fenceSpinState = this.state.fenceSpinState.slice();
+    fenceSpinState[index] = SpinState.None;
+    this.setState({ fenceSpinState });
+  }
 }
 ```
 
