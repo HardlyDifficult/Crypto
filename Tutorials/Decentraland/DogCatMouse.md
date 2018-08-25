@@ -62,7 +62,7 @@ For simplicity, when an object moves, it jumps from cell to cell.  In the render
 
 To check for collisions, we simply check if the target grid cell is already occupied.
 
-The grid will also make integrating a-star pathfinding easy.
+The grid will also make integrating a-star pathfinding (later in this tutorial) easy.
 
 ### Create a Grid
 
@@ -206,44 +206,50 @@ This would make each grid cell .5m x .5m (twice as precise).
 Add the following to `sceneDidMount` in the `scene.tsx` file to initialize the grid:
 
 ```typescript
-sceneDidMount()
-{
-  Grid.init(30, 30);
+  sceneDidMount()
+  {
+    Grid.init(30, 30);
 ```
 
 This will initialize the grid's arrays to the correct size for our world.
+
+Note that you will also need to import the `Grid` for this to compile.  IDEs (such as VS Code) will present a hint, allowing you to auto-complete the missing reference.  This will come up several times throughout this tutorial (and we will not be mentioning it explicitly each time).  The import for `Grid` will look like:
+
+```typescript
+import { Grid } from 'ts/Grid';
+```
 
 ### Spawn Trees in Random Locations
 
 Update `spawnTrees` in the `scene.tsx` file to create a number of trees in random locations:
 
 ```typescript
-spawnTrees()
-{
-  let trees: ISceneryProps[] = [];
-  const range = config.trees.max - config.trees.min;
-  let counter = 0;
-  for (let i = 0; i < Math.random() * range + config.trees.min; i++)
+  spawnTrees()
   {
-    let position;
-    do
+    let trees: ISceneryProps[] = [];
+    const range = config.trees.max - config.trees.min;
+    let counter = 0;
+    for (let i = 0; i < Math.random() * range + config.trees.min; i++)
     {
-      position = Grid.randomPosition(2, true);
-      if (counter++ > 500)
-      { // Don't get stuck working too hard
-        break;
-      }
-    } while (!Grid.hasClearance(position, 4));
-    Grid.set(position);
+      let position;
+      do
+      {
+        position = Grid.randomPosition(2, true);
+        if (counter++ > 500)
+        { // Don't get stuck working too hard
+          break;
+        }
+      } while (!Grid.hasClearance(position, 4));
+      Grid.set(position);
 
-    trees.push({
-      position,
-      rotation: { x: 0, y: Math.random() * 360, z: 0 },
-      scale: { x: 1, y: Math.random() * .4 + 1, z: 1 }
-    });
+      trees.push({
+        position,
+        rotation: { x: 0, y: Math.random() * 360, z: 0 },
+        scale: { x: 1, y: Math.random() * .4 + 1, z: 1 }
+      });
+    }
+    this.setState({ trees });
   }
-  this.setState({ trees });
-}
 ```
 
 **Test**: Each time you refresh the browser, there should be a new random layout of trees.  Note that trees may overlap scenery at the moment.
@@ -264,111 +270,116 @@ To make testing easier, we'll add a click event which will restart the world.
 In `scene.tsx` add:
 
 ```typescript
-onExitClick()
-{ 
-  for (const tree of this.state.trees)
-  {
-    Grid.clear(tree.position);
+  onExitClick()
+  { 
+    for (const tree of this.state.trees)
+    {
+      Grid.clear(tree.position);
+    }
+    this.spawnTrees();
   }
-  this.spawnTrees();
-}
 ```
 
 Then update `sceneDidMount` to add:
 
 ```typescript
-this.eventSubscriber.on("Exit_click", e => this.onExitClick());
+  sceneDidMount()
+	{
+		...
+		this.eventSubscriber.on("Exit_click", e => this.onExitClick());
+	}
 ```
 
-**Test**: Click on the exit mound. The trees should re-spawn with new random positions.
+**Test**: Click on the exit mound (which is the dirt pile closer to the dog house). The trees should re-spawn with new random positions.
 
 ### Add Static Scenery to the Grid
 
 The `spawnTrees` algorithm above includes a loop to select a position with clearance / free space around it.  For this to work, we'll need to register the position of each of our static scenery objects with the grid.
 
-Update `ts/SceneHelper` by adding the following method:
+Update `ts/SceneHelper.ts` by adding the following method:
 
 ```typescript
-export function updateGridWithStaticScenery()
-{
-  for (const fence of fenceProps)
+  export function updateGridWithStaticScenery()
   {
-    Grid.set(fence.position, true);
-    if (fence.rotation.y == 0 || fence.rotation.y == 180)
+    for (const fence of fenceProps)
     {
-      Grid.set(add(fence.position, { x: 1, y: 0, z: 0 }), true);
-      Grid.set(add(fence.position, { x: -1, y: 0, z: 0 }), true);
-    }
-    else
-    {
-      Grid.set(add(fence.position, { x: 0, y: 0, z: 1 }), true);
-      Grid.set(add(fence.position, { x: 0, y: 0, z: -1 }), true);
-    }
-  }
-  for (const corner of fenceCornerProps)
-  {
-    Grid.set(corner.position, true);
-    if (corner.rotation.y == 0 || corner.rotation.y == 180)
-    {
-      Grid.set(add(corner.position, { x: 1, y: 0, z: 0 }), true);
-      Grid.set(add(corner.position, { x: -1, y: 0, z: 0 }), true);
-    }
-    else
-    {
-      Grid.set(add(corner.position, { x: 0, y: 0, z: 1 }), true);
-      Grid.set(add(corner.position, { x: 0, y: 0, z: -1 }), true);
-    }
-  }
-  for (const spinner of fenceSpinnerProps)
-  {
-    Grid.clear(spinner.position, true);
-  }
-  for (let x = -1; x <= 1; x++)
-  {
-    for (let z = -1; z <= 1; z++)
-    {
-      if (x == 0 && z == 0 || z == -1 && x == 0)
+      Grid.set(fence.position, true);
+      if (fence.rotation.y == 0 || fence.rotation.y == 180)
       {
-        continue;
+        Grid.set(add(fence.position, { x: 1, y: 0, z: 0 }), true);
+        Grid.set(add(fence.position, { x: -1, y: 0, z: 0 }), true);
       }
-      Grid.set(add(houseProps.position, { x, y: 0, z }), true);
-    }
-  }
-  for (let x = 0; x < 2; x++)
-  {
-    for (let z = -2; z <= 2; z++)
-    {
-      if (x == 0 && z == 0)
+      else
       {
-        continue;
+        Grid.set(add(fence.position, { x: 0, y: 0, z: 1 }), true);
+        Grid.set(add(fence.position, { x: 0, y: 0, z: -1 }), true);
       }
-      Grid.set(add(exitProps.position, { x, y: 0, z }), true);
     }
-  }
-  for (let x = -1; x <= 0; x++)
-  {
-    for (let z = -1; z <= 1; z++)
+    for (const corner of fenceCornerProps)
     {
-      if (x == 0 && z == 0)
+      Grid.set(corner.position, true);
+      if (corner.rotation.y == 0 || corner.rotation.y == 180)
       {
-        continue;
+        Grid.set(add(corner.position, { x: 1, y: 0, z: 0 }), true);
+        Grid.set(add(corner.position, { x: -1, y: 0, z: 0 }), true);
       }
-      Grid.set(add(entranceProps.position, { x, y: 0, z }), true);
+      else
+      {
+        Grid.set(add(corner.position, { x: 0, y: 0, z: 1 }), true);
+        Grid.set(add(corner.position, { x: 0, y: 0, z: -1 }), true);
+      }
+    }
+    for (const spinner of fenceSpinnerProps)
+    {
+      Grid.clear(spinner.position, true);
+    }
+    for (let x = -1; x <= 1; x++)
+    {
+      for (let z = -1; z <= 1; z++)
+      {
+        if (x == 0 && z == 0 || z == -1 && x == 0)
+        {
+          continue;
+        }
+        Grid.set(add(houseProps.position, { x, y: 0, z }), true);
+      }
+    }
+    for (let x = 0; x < 2; x++)
+    {
+      for (let z = -2; z <= 2; z++)
+      {
+        if (x == 0 && z == 0)
+        {
+          continue;
+        }
+        Grid.set(add(exitProps.position, { x, y: 0, z }), true);
+      }
+    }
+    for (let x = -1; x <= 0; x++)
+    {
+      for (let z = -1; z <= 1; z++)
+      {
+        if (x == 0 && z == 0)
+        {
+          continue;
+        }
+        Grid.set(add(entranceProps.position, { x, y: 0, z }), true);
+      }
     }
   }
-}
 ```
 
-Then in `scene.tsx`, update `sceneDidMount` to update the grid:
+Then in `scene.tsx`, update `sceneDidMount` to update the grid (note there are two new lines here):
 
 ```typescript
-sceneDidMount()
-{
-  Grid.init(30, 30);
-  SceneHelper.updateGridWithStaticScenery();
-  Grid.set(this.state.baitProps.position);
-  this.spawnTrees();
-}
+  sceneDidMount()
+	{
+		Grid.init(30, 30);
+		SceneHelper.updateGridWithStaticScenery();
+    Grid.set(this.state.baitProps.position);
+		this.spawnTrees();
+		this.eventSubscriber.on("Exit_click", e => this.onExitClick());
+	}
 ```
 
 **Test**: Click the exit mound several times and confirm the trees are never overlapping scenery.
@@ -378,40 +389,40 @@ sceneDidMount()
 As we add more experiences, we'll need a better way to confirm that the grid is configured correctly.  Let's add a `renderGrid` method to `scene.tsx`:
 
 ```typescript
-renderGrid()
-{
-  let trees: ISceneryProps[] = [];
-  for (let x = 0; x < 30; x++)
+  renderGrid()
   {
-    for (let z = 0; z < 30; z++)
+    let trees: ISceneryProps[] = [];
+    for (let x = 0; x < 30; x++)
     {
-      let position = { x, y: 0, z };
-      if (Grid.isAvailable(position))
+      for (let z = 0; z < 30; z++)
       {
-        continue;
-      }
+        let position = { x, y: 0, z };
+        if (Grid.isAvailable(position))
+        {
+          continue;
+        }
 
-      trees.push({
-        position,
-        rotation: { x: 0, y: Math.random() * 360, z: 0 },
-        scale: { x: 1, y: Math.random() * .4 + 1, z: 1 }
-      });
+        trees.push({
+          position,
+          rotation: { x: 0, y: Math.random() * 360, z: 0 },
+          scale: { x: 1, y: Math.random() * .4 + 1, z: 1 }
+        });
+      }
     }
+    this.setState({ trees });
   }
-  this.setState({ trees });
-}
 ```
 
 Call it from `sceneDidMount`, after `spawnTrees`:
 
 ```typescript
-sceneDidMount()
-{
-  ...
-  //this.spawnTrees();
-  this.renderGrid(); // For debugging
-  this.eventSubscriber.on("Exit_click", e => this.onExitClick());
-}
+  sceneDidMount()
+  {
+    ...
+    //this.spawnTrees();
+    this.renderGrid(); // For debugging
+    this.eventSubscriber.on("Exit_click", e => this.onExitClick());
+  }
 ```
 
 Note: commenting out `spawnTrees` is optional.
@@ -423,18 +434,17 @@ Animals will only be able to walk where there is no tree (i.e., the grid cell is
 Turn off `renderGrid`, but remember this for debugging when you need it:
 
 ```typescript
-sceneDidMount()
-{
-  ...
-  this.spawnTrees();
-  //this.renderGrid(); // For debugging
-  this.eventSubscriber.on("Exit_click", e => this.onExitClick());
-}
+  sceneDidMount()
+  {
+    ...
+    this.spawnTrees();
+    //this.renderGrid(); // For debugging
+    ...
 ```
 
 ## Animals
 
-TODO
+There will be two types of animals in the scene, and we have 3 models to choose from.  Model selection is driven from our `config.json` file.  It's intended to allow you to change the scene from a cat chasing a mouse to a dog chasing a cat.  It also shows how separating components from logic allow more flexibility - the cat here can either play the role of a predator, or a prey.
 
 ### Spawn a Predator (Dog or Cat)
 
