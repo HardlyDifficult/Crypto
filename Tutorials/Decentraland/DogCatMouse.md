@@ -936,11 +936,9 @@ Update `onEntranceClick` in `scene.tsx` to add `StateIdle` to prey that spawns i
 
 ## Path Finding
 
-We are going to use an open-sounce implementation of a-star, which is an effecient way of finding the best path between points.
+We are going to use an open-sounce implementation of a-star, which is an effecient way of finding the best path between points. You could, of course, implement your own as well.
 
 ### Install A-Star
-
-We are going to use a package for the a-star implementation.  You could, of course, implement your own as well.
 
 In the command prompt, navigate to the project's directory and run:
 
@@ -1485,8 +1483,6 @@ Update `onHouseClick` in `scene.tsx` to spawn in predators with `StatePatrol`:
  - Clicking on the dog house will spawn a cat (which you can change to a `Dog` in the config).
  - The cat will wander around patroling the dog house.
  - If a mouse comes near a cat, it may be spotted.
- - Clicking on the exit to despawn / respawn the scene works again.
-
 
 ## Polish
 
@@ -1583,4 +1579,4 @@ Some possible next steps:
 
  - Modify various values in the config to tweak the experience.
  - Maybe add cat food and update the state machine so that the cat occasionally takes a break from patrol in order to go eat it.
- - Add more animal types.  Try reusing states across different animals, but in a way that gives each animal a unique set of behaviors.
+ - Add more animal types and/or new states.  Try reusing states across different animals, but in a way that gives each animal a unique set of behaviors.
