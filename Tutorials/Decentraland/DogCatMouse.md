@@ -56,7 +56,7 @@ This will open a new browser tab with the scene.
 
 Due to the size of the scene we are creating, we are kicking off the tutorial with a static scene and some basic logic.  Once you have completed a Decentraland tutorial or two, I hope most of the code included here will make sense.
 
- - All art will be rendered by a component (in the components directory). [Decentraland's docs on components](https://docs.decentraland.org/sdk-reference/scene-state/#reference-the-state-from-a-child-object).
+ - All art will be rendered by a component (in the components directory). See [Decentraland's docs](https://docs.decentraland.org/sdk-reference/scene-state/#reference-the-state-from-a-child-object) to learn about components.
  - `scene.tsx` includes some default state and calls to render each of the components.
  - `ts/SharedProperties.ts`: includes common types.
  - `ts/MathHelper.ts`: includes basic Vector3 math to make writing logic a bit easier.
@@ -271,36 +271,6 @@ We are using a JSON config file to make adjusting certain settings easy.  You ca
 },
 ```
 
-### Click the Exit to Start Over
-
-To make testing easier, we'll add a click event which will restart the world.
-
-Update `sceneDidMount` in `scene.tsx` to subscribe to the event:
-
-```typescript
-  sceneDidMount()
-  {
-    ...
-    this.eventSubscriber.on("Exit_click", e => this.onExitClick());
-  }
-```
-
-Then add an event handler:
-
-```typescript
-  onExitClick()
-  { 
-    for (const tree of this.state.trees)
-    {
-      Grid.clear(tree.position);
-    }
-    this.spawnTrees();
-  }
-```
-
-
-**Test**: Click on the exit mound (which is the dirt pile closer to the dog house). The trees should re-spawn with new random positions.
-
 ### Add Static Scenery to the Grid
 
 The `spawnTrees` algorithm above includes a loop to select a position with clearance / free space around it.  For this to work, we'll need to register the position of each of our static scenery objects with the grid.
@@ -387,11 +357,10 @@ Then in `scene.tsx`, update `sceneDidMount` to update the grid (note there are t
     SceneHelper.updateGridWithStaticScenery();
     Grid.set(this.state.baitProps.position);
     this.spawnTrees();
-    this.eventSubscriber.on("Exit_click", e => this.onExitClick());
   }
 ```
 
-**Test**: Click the exit mound several times and confirm the trees are never overlapping scenery.
+**Test**: Restart the scene several times and confirm the trees are never overlapping scenery.
 
 ### Render Grid for Debugging
 
@@ -430,7 +399,6 @@ Call it from `sceneDidMount`, after `spawnTrees`:
     ...
     //this.spawnTrees();
     this.renderGrid(); // For debugging
-    this.eventSubscriber.on("Exit_click", e => this.onExitClick());
   }
 ```
 
@@ -554,8 +522,6 @@ Add the following method to respond to the click event by spawning prey:
 ```
 
 Switch back to `Mouse` when your done testing.
-
-Note that clicking on the exit mound no longer fully resets the scene.
 
 ## Event Manager
 
@@ -1229,23 +1195,6 @@ And an event handler:
     }
   }
 ```
-
-### Despawn Animals When Scene Restarts
-
-Update the `onExitClick` handler to despawn any existing animals when resetting the scene:
-
-```typescript
-  onExitClick()
-  { 
-    for (const animal of this.state.animals.slice())
-    {
-      EventManager.emit("despawn", animal.id);
-    }
-    ...
-  }
-```
-
-**Test**: Spawn one or more prey in, click the exit, and confirm they despawn.  Note that **this does not yet work for predators**.
 
 ### Add a State to Despawn an Animal
 
