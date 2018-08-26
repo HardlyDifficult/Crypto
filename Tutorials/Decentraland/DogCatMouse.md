@@ -1544,7 +1544,7 @@ Now we'll add a couple of visual effects to improve our scene.
 
 ### Capture Bait
 
-Let's animate the cheese a bit when an animal eats some.  For this, we'll simply hide crumbs which then reappear a second later.
+Let's animate the cheese a bit when an animal eats some.  For this, we'll simply hide crumbs, which then reappear a second later.
 
 Add a new event to `sceneDidMount` in `scene.tsx`:
 
@@ -1632,5 +1632,5 @@ That's it, and we covered a lot!  Thanks for taking the time.
 Some possible next steps:
 
  - Modify various values in the config to tweak the experience.
- - Maybe add cat food and update the state machine so that the cat occasionally takes a break from patrol in order to go it.
+ - Maybe add cat food and update the state machine so that the cat occasionally takes a break from patrol in order to go eat it.
  - Add more animal types.  Try reusing states across different animals, but in a way that gives each animal a unique set of behaviors.
