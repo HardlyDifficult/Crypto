@@ -364,7 +364,7 @@ Then in `scene.tsx`, update `sceneDidMount` to update the grid (note there are t
 
 ### Render Grid for Debugging
 
-As we add more experiences, we'll need a better way to confirm that the grid is configured correctly.  Let's add a `renderGrid` method to `scene.tsx`:
+As we add more experiences, we'll need a way to confirm that the grid is configured correctly.  Let's add a `renderGrid` method to `scene.tsx`:
 
 ```typescript
   renderGrid()
@@ -411,12 +411,8 @@ Animals will only be able to walk where there is no tree (i.e., the grid cell is
 Turn off `renderGrid`, but remember this for debugging when you need it:
 
 ```typescript
-  sceneDidMount()
-  {
-    ...
     this.spawnTrees();
     //this.renderGrid(); // For debugging
-    ...
 ```
 
 ## Animals
@@ -487,7 +483,12 @@ Add a helper method for spawning animals, which we will use again for the prey:
   }
 ```
 
-**Test**: Click on the dog house to see a cat spawn.  Modify the `config.json` to see a `Dog` spawn instead.
+**Test**: Click on the dog house to see a cat spawn.  Modify the `config.json` to see a `Dog` spawn instead:
+
+```json
+	"predator": {
+		"animalType": "Dog",
+```
 
 ### Spawn the Prey (Cat or Mouse)
 
@@ -583,7 +584,7 @@ Add a method to respond to the event:
 
 ## State Machine
 
-We'll be creating a stack-based finite state machine to handle the AI for the animals.  This means that for each animal, there is a single state which currently defines its behavior.  That state may add another state to the stack in order to achieve an interm goal, or pop itself once it achieves its own goal.
+We'll be creating a stack-based finite state machine to handle the AI for the animals.  This means that for each animal, there is a single state which currently defines its behavior.  That state may add another state to the stack in order to achieve an interm goal, or pop itself off the stack once it achieves its own goal, allowing the previous state to resume.
 
 For the prey, we will be working towards the following scenario:
 
