@@ -588,15 +588,15 @@ We'll be creating a stack-based finite state machine to handle the AI for the an
 
 For the prey, we will be working towards the following scenario:
 
- - The prey spawns with a stack of Despawn, GoTo (exit), and Eat.
- - Eat is at the top of the stack, so that executes first.
- - In order to eat, the animal must be near the food.  If the food is out of reach, it adds a GoTo state.
- - GoTo paths to the cheese and animates the walk there.
- - Once there, GoTo pops itself off.
- - Eat kicks in again, this time the food is within range so it plays an eating animation and then pops itself off the stack.
- - GoTo (exit) is next on the stack.  That paths the animal to the exit.
- - Once at the exit, GoTo pops itself off and Despawn begins.
- - Despawn waits a second and then removes the animal from the scene.
+ - The prey spawns with a stack of `StateDespawn`, `StateGoTo` (exit), and `StateEat`.
+ - `StateEat` is at the top of the stack, so that executes first.
+ - In order to eat, the animal must be near the food.  If the food is out of reach, it adds `StateGoTo` (food).
+ - `StateGoTo` paths to the cheese and animates the walk there.
+ - Once there, `StateGoTo` pops itself off.
+ - `StateEat` kicks in again, this time the food is within range so it plays an eating animation and then pops itself off the stack.
+ - `StateGoTo` (exit) is next on the stack.  That paths and animates the animal to the exit.
+ - Once at the exit, `StateGoTo` pops itself off.
+ - `StateDespawn` waits a second and then removes the animal from the scene.
 
 ### Create a Shared, Abstract State
 
