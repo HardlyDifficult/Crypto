@@ -54,9 +54,9 @@ This will open a new browser tab with the scene.
 
 ### About the Starting Scene
 
-Due to the size of the scene we are creating, we are kicking off the tutorial with a static scene and some basic logic.  Once you have completed a basic Decentraland tutorial or two, I hope most of the code included here will make sense.
+Due to the size of the scene we are creating, we are kicking off the tutorial with a static scene and some basic logic.  Once you have completed a Decentraland tutorial or two, I hope most of the code included here will make sense.
 
- - All art will be rendered by a component (in the components directory). 
+ - All art will be rendered by a component (in the components directory). [Decentraland's docs on components](https://docs.decentraland.org/sdk-reference/scene-state/#reference-the-state-from-a-child-object).
  - `scene.tsx` includes some default state and calls to render each of the components.
  - `ts/SharedProperties.ts`: includes common types.
  - `ts/MathHelper.ts`: includes basic Vector3 math to make writing logic a bit easier.
