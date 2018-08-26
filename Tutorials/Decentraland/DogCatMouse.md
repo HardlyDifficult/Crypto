@@ -19,13 +19,13 @@ In this example, we will create a stack-based finite state machine (FSM) to mana
 
 We are starting with a scene and a collection of components already created.  For more information about components and how to get started with Decentraland, see one of our previous tutorials: 
 
- - [Music Jukebox](https://steemit.com/tutorial/@hardlydifficult/decentraland-tutorial-creating-a-music-jukebox)
-    Beginners, start here.
+ - [Music Jukebox](https://steemit.com/tutorial/@hardlydifficult/decentraland-tutorial-creating-a-music-jukebox):
+    A good introduction for beginners.
 
- - [Block Dog](https://steemit.com/tutorial/@hardlydifficult/decentraland-tutorial-basic-ai-with-block-dog)
+ - [Block Dog](https://steemit.com/tutorial/@hardlydifficult/decentraland-tutorial-basic-ai-with-block-dog):
     The Block Dog tutorial shows a way of controlling motion in your scene that's very different from this tutorial.  You may want to consider both before deciding which approach may be best for your project.
 
- - [Tower Defense](https://steemit.com/tutorial/@hardlydifficult/decentraland-tutorial-a-simple-tower-defense-game)
+ - [Tower Defense](https://steemit.com/tutorial/@hardlydifficult/decentraland-tutorial-a-simple-tower-defense-game):
     Here we create a basic game, introducing components and how you might start to scale up more complex scenes and interactions.
 
 Decentraland also has a page showing a [collection of example scenes](https://docs.decentraland.org/examples/sample-scenes/) you could learn from.
